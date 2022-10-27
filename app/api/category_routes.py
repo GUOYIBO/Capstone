@@ -1,11 +1,21 @@
 from flask import Blueprint, request
 from app.models import Category, Item, User, db, user
 from flask_login import login_required, current_user
-from .auth_routes import validation_errors_to_error_messages
 from app.forms import CategoryForm
 
 
 category_routes = Blueprint('categories', __name__)
+
+def validation_errors_to_error_messages(validation_errors):
+    """
+    Simple function that turns the WTForms validation errors into a simple list
+    """
+    errorMessages = {}
+    for field in validation_errors:
+        for error in validation_errors[field]:
+            errorMessages[field] = error
+    return errorMessages
+
 
 @category_routes.route('/')
 @login_required
@@ -13,7 +23,7 @@ def get_categories():
 
     user_id = current_user.id
     categories = Category.query.filter(Category.user_id == user_id).all()
-    return {"result": [category.to_dict() for category in categories]}
+    return { "result": [category.to_dict() for category in categories]}
 
 # create/edit a category
 @category_routes.route('/', methods=['POST'])
@@ -26,9 +36,9 @@ def create_category():
         form.populate_obj(category)
         db.session.add(category)
         db.session.commit()
-        return {"result": category.to_dict()}, 201
+        return { "result": category.to_dict()}, 201
     else:
-        return {"errors": validation_errors_to_error_messages(form.errors)}, 400
+        return { "errors": validation_errors_to_error_messages(form.errors)}, 400
 
 
 # delete a category
