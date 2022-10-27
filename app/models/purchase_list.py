@@ -19,4 +19,4 @@ class PurchaseList(db.Model):
 
 
     def __repr__(self):
-        return f'<PurchaseList, id={self.id}, name={self.name}, "user_id"={self.user_id}>'
+        return f'<PurchaseList, id={self.id}, name={self.name}, user_id={self.user_id}>'

@@ -15,13 +15,13 @@ class FavoriteDish(db.Model):
             "id": self.id,
             "name": self.name,
             "image_url": self.image_url,
-            "des": self.des,
+            "description": self.des,
             "user_id": self.user_id
         }
 
 
     def __repr__(self):
-        return f'<FavoriteDish, id={self.id}, name={self.name}>, image_url={self.image_url}, des={self.des}'
+        return f'<FavoriteDish, id={self.id}, name={self.name}>, image_url={self.image_url}, description={self.des}>'
 
 
 

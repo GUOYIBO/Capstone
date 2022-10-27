@@ -24,5 +24,5 @@ class Item(db.Model):
 
 
     def __repr__(self):
-        return f'<Item, id={self.id}, name={self.name}>'
+        return f'<Item, id={self.id}, name={self.name}, category_id={self.category_id}>'
 
