@@ -16,7 +16,7 @@ def get_categories():
     return {"result": [category.to_dict() for category in categories]}
 
 # create/edit a category
-@category_routes.route('/', method=['POST'])
+@category_routes.route('/', methods=['POST'])
 @login_required
 def create_category():
     form = CategoryForm()
