@@ -1,0 +1,50 @@
+from flask import Blueprint, request
+from app.models import Category, Item, User, db, user
+from flask_login import login_required, current_user
+from .auth_routes import validation_errors_to_error_messages
+from app.forms import CategoryForm
+
+
+category_routes = Blueprint('categories', __name__)
+
+@category_routes.route('/')
+@login_required
+def get_categories():
+
+    user_id = current_user.id
+    categories = Category.query.filter(Category.user_id == user_id).all()
+    return {"result": [category.to_dict() for category in categories]}
+
+# create/edit a category
+@category_routes.route('/', method=['POST'])
+@login_required
+def create_category():
+    form = CategoryForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if (form.validate_on_submit()):
+        category = Category()
+        form.populate_obj(category)
+        db.session.add(category)
+        db.session.commit()
+        return {"result": category.to_dict()}, 201
+    else:
+        return {"errors": validation_errors_to_error_messages(form.errors)}, 400
+
+
+# delete a category
+@category_routes.route('/<int:category_id>', methods=['DELETE'])
+@login_required
+def delete_category(category_id):
+    category = Category.query.filter(Category.id == category_id).first()
+    if category is not None:
+        db.session.delete(category)
+        db.session.commit()
+        return { "message": "category successfully deletes"}, 200
+    else:
+        return { "errors": "category not found"}, 404
+
+
+
+
+
+
