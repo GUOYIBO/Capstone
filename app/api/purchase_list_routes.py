@@ -1,7 +1,7 @@
 from app.forms import login_form
 from flask import Blueprint, request
-from app.models import PurchaseList
-from app.forms import PurchaseListForm,db
+from app.models import PurchaseList, db
+from app.forms import PurchaseListForm
 from flask_login import login_required, current_user
 
 purchase_list_routes = Blueprint('purchase_lists', __name__)

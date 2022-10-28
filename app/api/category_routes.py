@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from app.models import Category, Item, User, db, user
+from app.models import Category, Item, User, db
 from flask_login import login_required, current_user
 from app.forms import CategoryForm
 
@@ -49,7 +49,7 @@ def delete_category(category_id):
     if category is not None:
         db.session.delete(category)
         db.session.commit()
-        return { "message": "category successfully deletes"}, 200
+        return { "message": "category successfully deleted"}, 200
     else:
         return { "errors": "category not found"}, 404
 
