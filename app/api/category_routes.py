@@ -18,11 +18,13 @@ def validation_errors_to_error_messages(validation_errors):
 
 
 @category_routes.route('/')
-@login_required
+#@login_required
 def get_categories():
-
-    user_id = current_user.id
-    categories = Category.query.filter(Category.user_id == user_id).all()
+    print("-///////////////")
+    #user_id = current_user.id
+    #### TODO
+    categories = Category.query.filter(Category.user_id == 1).all()
+    print("---------------")
     return { "result": [category.to_dict() for category in categories]}
 
 # create/edit a category

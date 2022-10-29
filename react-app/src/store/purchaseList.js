@@ -82,12 +82,18 @@ const purchaseListReducer = (state=initialState, action) =>{
     let newState = {...state};
     switch (action.type){
         case ADD_PURCHASE_LIST:
+            newState[action.payload.id] = action.payload
             return newState;
         case DELETE_PURCHASE_LIST:
+            delete newState[action.categoryId]
             return newState;
         case UPDATE_PURCHASE_LIST:
+            newState[action.payload.id] = action.payload
             return newState;
         case GET_ALL_PURCHASE_LISTS:
+            action.payload.forEach(element => {
+                newState[element.id] = element
+            });
             return newState;
         default:
             return state;
