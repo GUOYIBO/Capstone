@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from app.models import Item, User, db, EmployeeProject, Employee, Project
+from app.models import Item, User, db
 from flask_login import login_required, current_user
 from app.forms import ItemForm
 from datetime import datetime
@@ -29,15 +29,15 @@ def get_all_items():
 @item_routes.route('/index')
 def test():
    
-    project = Project(name='capstone')
-    employee = Employee(name='54321')
-    project.project_employees.extend([
-    EmployeeProject(employee=employee, role_name="tech lead", created_at=datetime.now())])
-    db.session.add(employee)
-    db.session.add(project)
-    db.session.commit()
+    # project = Project(name='capstone')
+    # employee = Employee(name='54321')
+    # project.project_employees.extend([
+    # EmployeeProject(employee=employee, role_name="tech lead", created_at=datetime.now())])
+    # db.session.add(employee)
+    # db.session.add(project)
+    # db.session.commit()
 
-    relationships = EmployeeProject.query.all()
+    relationships = Item.query.all()
     result = []
     for re in relationships:
         #print("----------------" ,re.to_dict())

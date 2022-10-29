@@ -1,4 +1,4 @@
-from app.models import Category, Item, db, Employee, Project, EmployeeProject
+from app.models import Category, Item, db
 from datetime import datetime
 
 categories = [
@@ -62,31 +62,31 @@ def seed_categories():
 
 
 
-def seed_proj():
-    proj1= Project(name="Proj A")
-    proj2= Project(name="Proj B")
-    proj3= Project(name="Proj C")
+# def seed_proj():
+#     proj1= Project(name="Proj A")
+#     proj2= Project(name="Proj B")
+#     proj3= Project(name="Proj C")
 
-    emp1 = Employee(name="emp1")
-    emp2 = Employee(name="emp2")
+#     emp1 = Employee(name="emp1")
+#     emp2 = Employee(name="emp2")
 
-    proj1.project_employees.extend([
-    EmployeeProject(employee=emp1, role_name="tech lead", created_at=datetime.now()),
-    EmployeeProject(employee=emp2, role_name="account executive",  created_at=datetime.now())])
-    proj2.project_employees.extend([
-    EmployeeProject(employee=emp1, role_name="TA lead", created_at=datetime.now())])
-    proj3.project_employees.extend([
-    EmployeeProject(employee=emp1, role_name="Archi", created_at=datetime.now())])
+#     proj1.project_employees.extend([
+#     EmployeeProject(employee=emp1, role_name="tech lead", created_at=datetime.now()),
+#     EmployeeProject(employee=emp2, role_name="account executive",  created_at=datetime.now())])
+#     proj2.project_employees.extend([
+#     EmployeeProject(employee=emp1, role_name="TA lead", created_at=datetime.now())])
+#     proj3.project_employees.extend([
+#     EmployeeProject(employee=emp1, role_name="Archi", created_at=datetime.now())])
 
 
     
-    db.session.add(proj1)
-    db.session.add(proj2)
-    db.session.add(proj3)
-    db.session.add(emp1)
-    db.session.add(emp2)
+#     db.session.add(proj1)
+#     db.session.add(proj2)
+#     db.session.add(proj3)
+#     db.session.add(emp1)
+#     db.session.add(emp2)
     
-    db.session.commit()
+#     db.session.commit()
 
 
 

@@ -38,62 +38,62 @@ class UserItem(db.Model):
 
 
 
-class Employee(db.Model):
-    __tablename__ = 'employee'
+# class Employee(db.Model):
+#     __tablename__ = 'employee'
 
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(30))
-
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "name": self.name
-        }
+#     id = db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.String(30))
 
 
-    def __repr__(self):
-        return f'<Employee, id={self.id}, name={self.name}>'
+#     def to_dict(self):
+#         return {
+#             "id": self.id,
+#             "name": self.name
+#         }
 
 
-class Project(db.Model):
-    __tablename__ = 'project'
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(30))
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "name": self.name
-        }
-
-    def __repr__(self):
-        return f'<Project, id={self.id}, name={self.name}>'
+#     def __repr__(self):
+#         return f'<Employee, id={self.id}, name={self.name}>'
 
 
-class EmployeeProject(db.Model):
-    __tablename__ = 'employee_project'
+# class Project(db.Model):
+#     __tablename__ = 'project'
 
-    id = db.Column(db.Integer, primary_key=True)
-    employee_id = db.Column(db.Integer, db.ForeignKey('employee.id'))
-    project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
-    role_name = db.Column(db.String(30))
-    created_at = db.Column(db.DateTime)
+#     id = db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.String(30))
 
-    project = db.relationship("Project", backref="project_employees")
-    employee = db.relationship("Employee", backref="employee_projects")
+#     def to_dict(self):
+#         return {
+#             "id": self.id,
+#             "name": self.name
+#         }
 
-    def to_dict(self):
-        print ('---', self.employee)
-        print ('===', self.project)
+#     def __repr__(self):
+#         return f'<Project, id={self.id}, name={self.name}>'
 
-        return {
-            "id": self.id,
-            "employee_id" : self.employee_id,
-            "project_id" : self.project_id,
-            "role_name" : self.role_name,
-            "created_at" : self.created_at,
-            "projects"  : self.project.to_dict(),
-            "employees" : self.employee.to_dict()
-        }
+
+# class EmployeeProject(db.Model):
+#     __tablename__ = 'employee_project'
+
+#     id = db.Column(db.Integer, primary_key=True)
+#     employee_id = db.Column(db.Integer, db.ForeignKey('employee.id'))
+#     project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
+#     role_name = db.Column(db.String(30))
+#     created_at = db.Column(db.DateTime)
+
+#     project = db.relationship("Project", backref="project_employees")
+#     employee = db.relationship("Employee", backref="employee_projects")
+
+#     def to_dict(self):
+#         print ('---', self.employee)
+#         print ('===', self.project)
+
+#         return {
+#             "id": self.id,
+#             "employee_id" : self.employee_id,
+#             "project_id" : self.project_id,
+#             "role_name" : self.role_name,
+#             "created_at" : self.created_at,
+#             "projects"  : self.project.to_dict(),
+#             "employees" : self.employee.to_dict()
+#         }

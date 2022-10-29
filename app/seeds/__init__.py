@@ -1,6 +1,6 @@
 from flask.cli import AppGroup
 from .users import seed_users, undo_users
-from .category import seed_categories, seed_proj
+from .category import seed_categories
 from .purchase_list import seed_purchase_list
 
 # Creates a seed group to hold our commands
@@ -15,7 +15,6 @@ def seed():
     print('users seeded')
     seed_categories()
     print('categories seeded')
-    seed_proj()
     seed_purchase_list()
     print('purchase-list seeded')
 
