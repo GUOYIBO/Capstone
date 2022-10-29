@@ -6,19 +6,20 @@ class Category(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(40), nullable=False)
-    image_url = db.Column(db.String(255), nullable=True)
+    image_url = db.Column(db.String(400), nullable=True)
     # created_at = db.Column(db.DateTime, nullable=False)
     # updated_at = db.Column(db.DateTime, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))   # Foreign Key
 
 
-    # items = db.relationship('Item', back_populates='category', cascade='all, delete')
+    items = db.relationship('Item', back_populates='category', cascade='all, delete')
 
     def to_dict(self):
         return {
             "id": self.id,
             "name": self.name,
             "image_url": self.image_url,     
+            "items" :[item.to_dict() for item in self.items]
      }
 
 

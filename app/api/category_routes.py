@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from app.models import Category, Item, User, db, user
+from app.models import Category, Item, User, db
 from flask_login import login_required, current_user
 from app.forms import CategoryForm
 
@@ -18,11 +18,13 @@ def validation_errors_to_error_messages(validation_errors):
 
 
 @category_routes.route('/')
-@login_required
+#@login_required
 def get_categories():
-
-    user_id = current_user.id
-    categories = Category.query.filter(Category.user_id == user_id).all()
+    print("-///////////////")
+    #user_id = current_user.id
+    #### TODO
+    categories = Category.query.filter(Category.user_id == 1).all()
+    print("---------------")
     return { "result": [category.to_dict() for category in categories]}
 
 # create/edit a category
@@ -49,7 +51,7 @@ def delete_category(category_id):
     if category is not None:
         db.session.delete(category)
         db.session.commit()
-        return { "message": "category successfully deletes"}, 200
+        return { "message": "category successfully deleted"}, 200
     else:
         return { "errors": "category not found"}, 404
 

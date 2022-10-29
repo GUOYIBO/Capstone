@@ -1,7 +1,7 @@
 from app.forms import login_form
 from flask import Blueprint, request
-from app.models import PurchaseList
-from app.forms import PurchaseListForm,db
+from app.models import PurchaseList, db
+from app.forms import PurchaseListForm
 from flask_login import login_required, current_user
 
 purchase_list_routes = Blueprint('purchase_lists', __name__)
@@ -20,23 +20,38 @@ def validation_errors_to_error_messages(validation_errors):
 
 
 @purchase_list_routes.route('/' , methods=['GET'])
-@login_required
+# @login_required
 def get_all():
-    user_id = current_user.id
+    print('!~~~~~~~~~')
+    #user_id = current_user.id
+    user_id =1  ############ TODO  remove after testing
     purchase_lists = PurchaseList.query.filter(PurchaseList.user_id == user_id).all()
     return { "result" : [list.to_dict() for list in purchase_lists] }
 
 
 # edit a purchase list
 @purchase_list_routes.route('/<int:list_id>', methods=['POST'])
-@login_required
-def edit_purchase_list():
-    pass
+#@login_required
+def edit_purchase_list(list_id):
+    pur_list = PurchaseList.query.filter(PurchaseList.id == list_id).first()
+    print('going to edit this purList' , pur_list)
+
+    if pur_list:
+        form = PurchaseListForm() 
+        print ('get form data ', form.data)
+        if form.validate_on_submit:
+            print ("get here")
+            form['csrf_token'].data = request.cookies['csrf_token']
+            form.populate_obj(pur_list)
+            db.session.commit()
+        return {"result" : pur_list.to_dict()}, 200
+    else:
+        return {'errors': "purchase list not found"}, 404 
 
 
 
 @purchase_list_routes.route('/', methods=['POST'])
-@login_required
+#@login_required
 def create_purchase_list():
     form = PurchaseListForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -44,13 +59,24 @@ def create_purchase_list():
     if form.validate_on_submit():
         list = PurchaseList()
         form.populate_obj(list)
-        list.user_id = current_user.id
+        # list.user_id = current_user.id
+        list.user_id = 2   ########## TODO remove this
         db.session.add(list)
-        db.commit()
+        db.session.commit()
         return { "result": list.to_dict()}, 201
 
     else:
         return { "errors": validation_errors_to_error_messages(form.errors)}, 400
 
 
+@purchase_list_routes.route('/<int:purchase_list_id>', methods=['DELETE'])
+def delete_purchase_list(purchase_list_id):
+    purchase_list = PurchaseList.query.filter(PurchaseList.id == purchase_list_id).first()
+    print ('get purchase list to delete ', purchase_list)
+    if purchase_list is not None:
+        db.session.delete(purchase_list)
+        db.session.commit()
+        return { "message": "purchase list successfully deleted"}, 200
+    else:
+        return { "errors": "purchase list not found"}, 404 
 
