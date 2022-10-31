@@ -9,6 +9,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import Main from './components/Main'
+import Splash from './components/Splash'
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -21,9 +22,12 @@ function App() {
     })();
   }, [dispatch]);
 
+  console.log('test ------')
   if (!loaded) {
+    console.log('not loaded, return null')
     return null;
   }
+  
 
   return (
     <BrowserRouter>
@@ -35,6 +39,9 @@ function App() {
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
         </Route>
+        <Route path='/' exact={true} >
+          <Splash />
+        </Route>
 
         <ProtectedRoute path='/users' exact={true} >
           <UsersList/>
@@ -42,31 +49,29 @@ function App() {
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
         </ProtectedRoute>
-        <ProtectedRoute path='/' exact={true} >
-          <h1>My Home Page</h1>
-        </ProtectedRoute>
-
-        <ProtectedRoute path='/mypage' exact={true} >
-          <h1>My Page</h1>
-        </ProtectedRoute>
 
         <ProtectedRoute path='/main' exact={true} >
           <Main />
         </ProtectedRoute>
 
-        <ProtectedRoute path='/items/add' exact={true} >
-          <h1> add items</h1>
+        <ProtectedRoute path='/mycategory' exact={true} >
+          <h1>My Page</h1>
         </ProtectedRoute>
+
 
         <ProtectedRoute path='/items/add' exact={true} >
           <h1> add items</h1>
         </ProtectedRoute>
 
-        <ProtectedRoute path='/purchaselist/' exact={true} >
+        <ProtectedRoute path='/items/add' exact={true} >
+          <h1> add items</h1>
+        </ProtectedRoute>
+
+        <ProtectedRoute path='/mypurchaselist/' exact={true} >
           <h1> my list</h1>
         </ProtectedRoute>
 
-        <ProtectedRoute path='/purchaselist/' exact={true} >
+        <ProtectedRoute path='/myfavoritedish/' exact={true} >
           <h1> my list  (today's recommandation)</h1>
         </ProtectedRoute>
 

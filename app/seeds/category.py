@@ -53,7 +53,7 @@ def seed_categories():
 
     for idx in range(0, len(items)):
         for i in items[idx]:
-            item=Item(name=i, image_url='xx.jpg', category_id=idx+1)
+            item=Item(name=i, image_url='../../img/profileimage.png', category_id=idx+1)
             db.session.add(item)
     db.session.commit()
 

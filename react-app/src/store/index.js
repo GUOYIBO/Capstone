@@ -4,13 +4,14 @@ import session from './session'
 import categoryReducer from './category';
 import favoriteDishReducer from './favoriteDish';
 import purchaseListReducer from './purchaseList';
-
+import itemReducer from './item';
 
 const rootReducer = combineReducers({
   session,
   categoryReducer,
   favoriteDishReducer,
-  purchaseListReducer
+  purchaseListReducer,
+  itemReducer,
 });
 
 
