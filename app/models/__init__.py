@@ -12,6 +12,7 @@ class UserItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     item_id = db.Column(db.Integer, db.ForeignKey('items.id'))
+    quantity = db.Column(db.Integer)
     purchase_date = db.Column(db.DateTime)
     expiration_date = db.Column(db.DateTime)
 
@@ -26,6 +27,7 @@ class UserItem(db.Model):
             "id": self.id,
             "user_id" : self.user_id,
             "item_id" : self.item_id,
+            "quantity": self.quantity,
             "purchase_date"  : str(self.purchase_date),
             "expiration_date" : str(self.expiration_date),
             "user"  : self.user.to_dict(),

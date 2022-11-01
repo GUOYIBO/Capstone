@@ -32,12 +32,12 @@ const LoginForm = () => {
 
   console.log('--------- login')
   if (user) {
-    (async()=> {
-      await dispatch(getAllFavoriteDishesThunk());
-      await dispatch(getAllCategoryThunk());
-      await dispatch(getAllItemsThunk());
-      await dispatch(getAllPurchaseListsThunk());
-    })();
+    // (async()=> {
+    //   await dispatch(getAllFavoriteDishesThunk());
+    //   await dispatch(getAllCategoryThunk());
+    //   await dispatch(getAllItemsThunk());
+    //   await dispatch(getAllPurchaseListsThunk());
+    // })();
 
     return <Redirect to='/main' />;
   }

@@ -4,13 +4,41 @@ const UPDATE_PURCHASE_LIST = 'purchase/UPDATE_PURCHASE_LIST'
 const GET_ALL_PURCHASE_LISTS = 'purchase/GET_ALL_PURCHASE_LISTS'
 
 
+const loadAllPurchaseList = (payload) => {
+    return {
+        type: GET_ALL_PURCHASE_LISTS,
+        payload
+    }
+}
 
+const addPurchaseList = (payload) =>{
+    return {
+        type: ADD_PURCHASE_LIST,
+        payload
+    }
+}
 
-export const getAllPurchaseListsThunk = (pListData) => async () =>{
+const deletePurchaseList = (purchaseListId) =>{
+    return {
+        type: DELETE_PURCHASE_LIST,
+        purchaseListId
+    }
+}
+
+const updatePurchaseList = ( payload ) =>{
+    return {
+        type: UPDATE_PURCHASE_LIST,
+        payload
+    }
+}
+
+export const getAllPurchaseListsThunk = () => async (dispatch) =>{
     try{
         const response = await fetch('/api/purchaselists')
         if (response.ok){
-            //TODO dispatch
+            const data = await response.json();
+            
+            dispatch(loadAllPurchaseList(data.result))
         }
     }catch (err){
         console.log("getting all purchase lists error", err)
@@ -29,7 +57,8 @@ export const createPurchaseListThunk = (pListData) => async (dispatch) =>{
             body: JSON.stringify(pListData)
         })
         if (response.ok){
-            //TODO dispatch
+            const data = await response.json()
+            dispatch(addPurchaseList(data.result))
         }
     }catch (err){
         console.log("creating purchase list error", err);
@@ -40,12 +69,15 @@ export const createPurchaseListThunk = (pListData) => async (dispatch) =>{
 
 
 export const deletePurchaseListThunk = (pListId) => async (dispatch) =>{
+    console.log('delete plist id', pListId )
     try{
-        const response = await fetch(`/api/categories/${pListId}`, {
+        const response = await fetch(`/api/purchaselists/${pListId}`, {
             method: 'DELETE'
         })
         if (response.ok){
-            //TODO dispatch
+            const data = await response.json()
+            console.log("get response data ",data)
+            dispatch(deletePurchaseList(pListId))
         }
 
     }catch (err){
@@ -58,7 +90,7 @@ export const deletePurchaseListThunk = (pListId) => async (dispatch) =>{
 
 export const updatePurchaseListThunk = (pListData, pListId) => async (dispatch) =>{
     try{
-        const response = await fetch(`/api/categories/${pListId}`, {
+        const response = await fetch(`/api/purchaselists/${pListId}`, {
             method: 'POST',
             headers: {
                 "Content-Type" : "application/json"
@@ -66,7 +98,8 @@ export const updatePurchaseListThunk = (pListData, pListId) => async (dispatch) 
             body: JSON.stringify(pListData)
         })
         if (response.ok){
-            //TODO dispatch
+            const data = await response.json()
+            dispatch(updatePurchaseList(data.result))
         }
     }catch (err){
         console.log("updating purchase list error ", err);
@@ -79,13 +112,14 @@ export const updatePurchaseListThunk = (pListData, pListId) => async (dispatch) 
 
 const initialState = {};
 const purchaseListReducer = (state=initialState, action) =>{
+    console.log("******************** Action purchaseListReducer ******************", action)
     let newState = {...state};
     switch (action.type){
         case ADD_PURCHASE_LIST:
             newState[action.payload.id] = action.payload
             return newState;
         case DELETE_PURCHASE_LIST:
-            delete newState[action.categoryId]
+            delete newState[action.purchaseListId]
             return newState;
         case UPDATE_PURCHASE_LIST:
             newState[action.payload.id] = action.payload

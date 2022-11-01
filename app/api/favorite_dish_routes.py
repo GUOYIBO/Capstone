@@ -22,7 +22,7 @@ def validation_errors_to_error_messages(validation_errors):
 def get_favorite_dishes():
     user_id = current_user.id
     fav_dishes = FavoriteDish.query.filter(FavoriteDish.user_id == user_id).all()
-    return { "result" : fav_dishes} ,200
+    return { "result" : [dish.to_dict() for dish in fav_dishes] } ,200
 
 
 # edit dish

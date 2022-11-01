@@ -9,6 +9,25 @@ const getAllFavoriteDishes =(payload) =>{
         payload
     }
 }
+const deleteDish = (dishId) =>{
+    return {
+        type: DELETE_A_DISH,
+        dishId
+    }
+}
+const addDish = (payload) =>{
+    return {
+        type: ADD_A_DISH,
+        payload
+    }
+}
+
+const updateDish = (payload) =>{
+    return {
+        type: UPDATE_A_DISH,
+        payload
+    }
+}
 
 //Load all dishes 
 export const getAllFavoriteDishesThunk = () => async (dispatch) =>{
@@ -17,14 +36,12 @@ export const getAllFavoriteDishesThunk = () => async (dispatch) =>{
         const response = await fetch('/api/favoritedishes/current')
         if (response.ok){
             const data = await response.json();
-            console.log(' ++++++++++++++', data);
             dispatch(getAllFavoriteDishes(data.result));
         }
 
     }catch (err){
         console.log("Loading all favorite dishes error", err)
         throw err;
-
     }
 }
 
@@ -38,9 +55,7 @@ export const deleteADishThunk =(dishId) => async (dispatch) => {
             method: "DELETE",
         })
         if (response.ok){
-            //TODO
-            const data = await response.json();
-
+            dispatch(deleteDish(dishId))
         }
     }catch (err){
         console.log("error occured when deleting a dish ", err)
@@ -67,7 +82,7 @@ export const addADishThunk = (dishData) => async (dispatch) => {
         })
         if (response.ok){
             const data = await response.json();
-            // TODO
+            dispatch(addDish(data.result))
 
         }
     }catch (err){
@@ -81,7 +96,7 @@ export const addADishThunk = (dishData) => async (dispatch) => {
  * 
  * update a dish thunk
  */
-export const updateADishThunk = (dishData, dishID) => async (dispatch) =>{
+export const updateADishThunk = (dishID, dishData) => async (dispatch) =>{
     try {
         const response = await fetch(`/api/favoritedishes/${dishID}`, {
             method: 'POST',
@@ -92,8 +107,9 @@ export const updateADishThunk = (dishData, dishID) => async (dispatch) =>{
         })
         if (response.ok){
             const data = await response.json()
+            dispatch(updateDish(data.result));
         }
-        
+
     }catch (err){
         console.log ("error occured when adding a dish", err);
         throw err
@@ -106,20 +122,20 @@ const initialState = {}
 const favoriteDishReducer = (state=initialState, action) =>{
     console.log("***************** Action favoriteDish reducer ***************", action)
     let newState = {...state};
-    switch (action.tpye){
+    switch (action.type){
         case ADD_A_DISH:
+            newState[action.payload.id] = action.payload
             return newState;
         case DELETE_A_DISH:
+            delete newState[action.dishID]
             return newState;
         case UPDATE_A_DISH:
+            newState[action.payload.id] = action.payload
             return newState;
         case LOAD_ALL_FAVORITE_DISHES:
-            console.log ('action.payload----', action.payload)
             action.payload.forEach(element => {
                 newState[element.id] = element
             });
-            console.log('=========', newState)
-            return newState;
             return newState;
         default :
             return state;

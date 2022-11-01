@@ -37,10 +37,15 @@ def test():
     # db.session.add(project)
     # db.session.commit()
 
-    relationships = Item.query.all()
-    result = []
-    for re in relationships:
-        #print("----------------" ,re.to_dict())
-        result.append(re.to_dict())
 
-    return {"result ": result} ,200
+
+
+    # relationships = Item.query.all()
+    # result = []
+    # for re in relationships:
+    #     #print("----------------" ,re.to_dict())
+    #     result.append(re.to_dict())
+    user_id = current_user.id
+    user = User.query.filter(User.id == user_id).first()
+
+    return {"result ": user.to_dict()} ,200
