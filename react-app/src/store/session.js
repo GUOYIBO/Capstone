@@ -21,7 +21,9 @@ export const authenticate = () => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
+    console.log("get auth data ", data)
     if (data.errors) {
+      console.log('error, returned')
       return;
     }
   
@@ -100,6 +102,7 @@ export const signUp = (username, email, password) => async (dispatch) => {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
+      console.log('set user, action', action)
       return { user: action.payload }
     case REMOVE_USER:
       return { user: null }

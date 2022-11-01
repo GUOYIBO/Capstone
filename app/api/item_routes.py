@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from app.models import Item, User, db
+from app.models import Item, User, db, UserItem
 from flask_login import login_required, current_user
 from app.forms import ItemForm
 from datetime import datetime
@@ -21,9 +21,9 @@ def validation_errors_to_error_messages(validation_errors):
 @login_required
 def get_all_items():
     user_id = current_user.id
-    user = User.query.filter(User.id == user_id).first()
-    items = user.items
-
+    items = UserItem.query.filter(UserItem.user_id == user_id).all()
+    print ('user item#########  ', items)
+    return { "result" : [item.to_dict() for item in items]}, 200
 
 
 @item_routes.route('/index')
@@ -37,10 +37,15 @@ def test():
     # db.session.add(project)
     # db.session.commit()
 
-    relationships = Item.query.all()
-    result = []
-    for re in relationships:
-        #print("----------------" ,re.to_dict())
-        result.append(re.to_dict())
 
-    return {"result ": result} ,200
+
+
+    # relationships = Item.query.all()
+    # result = []
+    # for re in relationships:
+    #     #print("----------------" ,re.to_dict())
+    #     result.append(re.to_dict())
+    user_id = current_user.id
+    user = User.query.filter(User.id == user_id).first()
+
+    return {"result ": user.to_dict()} ,200

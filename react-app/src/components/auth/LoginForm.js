@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
+import { getAllFavoriteDishesThunk} from '../../store/favoriteDish'
+import { getAllCategoryThunk} from '../../store/category'
+import { getAllPurchaseListsThunk} from '../../store/purchaseList'
+import { getAllItemsThunk } from '../../store/item'
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -26,8 +30,16 @@ const LoginForm = () => {
     setPassword(e.target.value);
   };
 
+  console.log('--------- login')
   if (user) {
-    return <Redirect to='/' />;
+    // (async()=> {
+    //   await dispatch(getAllFavoriteDishesThunk());
+    //   await dispatch(getAllCategoryThunk());
+    //   await dispatch(getAllItemsThunk());
+    //   await dispatch(getAllPurchaseListsThunk());
+    // })();
+
+    return <Redirect to='/main' />;
   }
 
   return (

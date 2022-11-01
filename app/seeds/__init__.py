@@ -13,7 +13,7 @@ seed_commands = AppGroup('seed')
 def seed():
     seed_users()
     print('users seeded')
-    seed_categories()
+    #seed_categories()
     print('categories seeded')
     seed_purchase_list()
     print('purchase-list seeded')

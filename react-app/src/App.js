@@ -9,6 +9,12 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import Main from './components/Main'
+import Splash from './components/Splash'
+import MyItems from './components/MyItem';
+import MyPurchaseList from './components/MyPurchaseList';
+import MyCategory from './components/MyCategory';
+import MyFavoriteDish from './components/MyFavoriteDish';
+import AddItems from './components/AddItems'
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -21,9 +27,12 @@ function App() {
     })();
   }, [dispatch]);
 
+  console.log('test ------')
   if (!loaded) {
+    console.log('not loaded, return null')
     return null;
   }
+  
 
   return (
     <BrowserRouter>
@@ -35,42 +44,40 @@ function App() {
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
         </Route>
+        <Route path='/' exact={true} >
+          <Splash />
+        </Route>
 
-        <ProtectedRoute path='/users' exact={true} >
+        {/* <ProtectedRoute path='/users' exact={true} >
           <UsersList/>
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
-        </ProtectedRoute>
-        <ProtectedRoute path='/' exact={true} >
-          <h1>My Home Page</h1>
-        </ProtectedRoute>
-
-        <ProtectedRoute path='/mypage' exact={true} >
-          <h1>My Page</h1>
-        </ProtectedRoute>
+        </ProtectedRoute> */}
 
         <ProtectedRoute path='/main' exact={true} >
           <Main />
         </ProtectedRoute>
 
-        <ProtectedRoute path='/items/add' exact={true} >
-          <h1> add items</h1>
+        <ProtectedRoute path='/mycategories' exact={true} >
+          <MyCategory />
+        </ProtectedRoute>
+        
+        <ProtectedRoute path='/myitems' exact={true} >
+          <MyItems />
         </ProtectedRoute>
 
-        <ProtectedRoute path='/items/add' exact={true} >
-          <h1> add items</h1>
+        <ProtectedRoute path='/myfavoritedishes' exact={true} >
+          <MyFavoriteDish />
         </ProtectedRoute>
 
-        <ProtectedRoute path='/purchaselist/' exact={true} >
-          <h1> my list</h1>
+        <ProtectedRoute path='/mypurchaselists' exact={true} >
+           <MyPurchaseList />
         </ProtectedRoute>
-
-        <ProtectedRoute path='/purchaselist/' exact={true} >
-          <h1> my list  (today's recommandation)</h1>
+        <ProtectedRoute path='/additems' exact={true} >
+           <AddItems />
         </ProtectedRoute>
-
-
+        
 
       </Switch>
     </BrowserRouter>

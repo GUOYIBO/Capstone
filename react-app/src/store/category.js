@@ -119,6 +119,7 @@ export const getAllCategoryThunk = () => async (dispatch) =>{
         const response = await fetch('/api/categories');
         if (response.ok){
             const data = await response.json()
+            console.log('data---', data)
             dispatch(getAllCategories(data.result))
         }
     }catch (err){
@@ -132,20 +133,27 @@ const initialState={}
 // category reducer
 const categoryReducer = (state=initialState, action) =>{
     let newState = {...state}
-    switch(action.tpye){
+    console.log("***************** Action category reducer ***************", action)
+    switch(action.type){
+        
         case ADD_A_CATEGORY:
             newState[action.payload.id] = action.payload
             return newState;
+
         case DELETE_A_CATEGORY:
             delete newState[action.categoryId]
             return newState;
+
         case UPDATE_A_CATEGORY:
             newState[action.payload.id] = action.payload
             return newState;
+
         case GET_ALL_CATEGORIES:
+            console.log ('action.payload----', action.payload)
             action.payload.forEach(element => {
                 newState[element.id] = element
             });
+            console.log('=========', newState)
             return newState;
         default:
             return state;
