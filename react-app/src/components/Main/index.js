@@ -7,6 +7,8 @@ import { getAllFavoriteDishesThunk} from '../../store/favoriteDish'
 import { getAllCategoryThunk} from '../../store/category'
 import { getAllPurchaseListsThunk} from '../../store/purchaseList'
 import { getAllItemsThunk } from '../../store/item'
+import { Modal } from "../../context/Modal"
+import { EditItemForm } from '../../'
 
 const Main = () => {
 
@@ -15,8 +17,8 @@ const Main = () => {
     const categories = useSelector(state => state.categoryReducer)
     const favoriteDishes = useSelector(state => state.categoryReducer);
     const purchaseList = useSelector(state => state.purchaseList)
-    const [isLoaded, setLoaded] = useState(false)
     const dispatch = useDispatch();
+    const [showModal, setShowModal] = useState(false);
 
     console.log("category ####", categories)
     console.log("items ####", items)
@@ -55,8 +57,10 @@ const Main = () => {
                 <img src={img1}></img>
                     {/* <img src={entry.item.image_url}></img> */}
                 </div>
-                <div > {entry.item.name} </div>
-                <div > QTY {entry.quantity} </div>
+                <div className="name-qty-container">
+                    <div className="item-name"> {entry.item.name} </div>
+                    <div className="item-quantity"> QTY {entry.quantity} </div>
+                </div>
             </div>
         )
     })

@@ -10,9 +10,13 @@ const AddItems = () =>{
     const categories = useSelector(state => state.categoryReducer)
     const dispatch = useDispatch()
    
-    const [allSelected, setAllSelected] = useState([])
-    const [currentCategotyIdx, setCurrentCategoty]= useState(0)
+    const [allSelected, setAllSelected] = useState({})
+    const [currentCategotyIdx, setCurrentCategotyIdx]= useState(0)
     const [currentSelected, setCurrentSelected] = useState({})
+    const [quantity, setQuantity] = useState(1)
+    const [purchaseDate, setPurchaseDate] = useState('')
+    const [expDate, setExpDate] = useState('');
+    const [checked, setChecked] = useState(false)
 
     useEffect(() =>{
         (async()=> {
@@ -29,15 +33,33 @@ const AddItems = () =>{
 
 
     const nextImage = () =>{
-        setCurrentCategoty(currentCategotyIdx === length -1 ? 0 : currentCategotyIdx+1)
+        setCurrentCategotyIdx(currentCategotyIdx === length -1 ? 0 : currentCategotyIdx+1)
+        if (allSelected[currentCategotyIdx]){
+
+        }
+
     }
 
     const prevImage = () =>{
-        setCurrentCategoty(currentCategotyIdx === 0? length-1 : currentCategotyIdx-1);
+        setCurrentCategotyIdx(currentCategotyIdx === 0? length-1 : currentCategotyIdx-1);
+    }
+
+
+    const handleOnChange = () =>{
+
+
     }
     
     const handleSubmit = () =>{
 
+    }
+
+
+    const setDefault =(id) =>{
+        if (allSelected[id]){
+            return true;
+        }
+        return false;
     }
 
     return (
@@ -48,7 +70,7 @@ const AddItems = () =>{
                 {Object.values(categories).map((category, index) =>{
                     return (
                         <div key={category.id} className="image-div-container">
-                            <div className={index === currentCategotyIdx ? 'slide active' : 'slide'}>
+                            <div className={index === currentCategotyIdx ? 'slide-active' : 'slide'}>
                                 {index === currentCategotyIdx  &&  <img className='image' src={img1} alt='img1' />}
                             </div>
                         </div>
@@ -59,25 +81,21 @@ const AddItems = () =>{
 
             </div>
             <div className="left-item-selection-container">
+                <div className="single-item-container">
+                    <span className='item-type-name-title'>Name</span>
+                    <span className="input-quantity-title">Qty</span>
+                    <span className="input-date-title">Purchase Date</span>
+                    <span className="input-date-title">Expiration Date</span>
+                </div>
                 {currentCategory &&  Object.values(currentCategory.items).sort((a,b) =>a.name-b.name).map(entry =>{
                     return (
-                        <div key={entry.id}>
+                        <div key={entry.id} className="single-item-container">
                             <div className='item-type-name'>
-                            <label>{entry.name}</label>
-                                <input type='checkbox'/>
-                            </div>
-                            <div className="input-purchase-date">
-                                <label>Purchase date </label>
-                                <input type="date" id="purchase" name="purchase-date" value="2022-11-05"
-                                        min="2022-01-01" max="2022-12-31"/>
-                            </div>
-                            <div className="input-expiration-date">
-                                <label>Expiration date </label>
-                                <input type="date" id="purchase" name="expiration-date" value="2022-11-11"
-                                        min="2022-01-01" max="2022-12-31" /> 
+                                <input className="item-checkbox" type='checkbox'  id={entry.id} name= {entry.name} defaultChecked={()=>setDefault(entry.id)}value={entry.name} onChange={()=>handleOnChange(entry.id)}/>
+                                <span>{entry.name}</span>
                             </div>
                             <div className="input-quantity">
-                                <select className="minimal" >
+                                <select className="minimal"  onChange={(e) => setQuantity(e.target.value)}>
                                     <option key="1" value="1">1</option>
                                     <option key="2" value="2">2</option>
                                     <option key="3" value="3">3</option>
@@ -85,15 +103,25 @@ const AddItems = () =>{
                                     <option key="5" value="5">5</option>
                                 </select>
                             </div>
+                            <div className="input-purchase-date">
+                                {/* <span>Purchase date </span> */}
+                                <input type="date" id="purchase" name="purchase-date" value="2022-11-05"
+                                        min="2022-01-01" max="2022-12-31"/>
+                            </div>
+                            <div className="input-expiration-date">
+                                {/* <span>Expiration date </span> */}
+                                <input type="date" id="expiration" name="expiration-date" value="2022-11-11"
+                                        min="2022-01-01" max="2022-12-31" /> 
+                            </div>
+                           
                         </div>
                     )
                 })}
-
             </div>
             <div className="3-button-container">
                 <button>Select All</button>
                 <button>Reset</button>
-                <button onClick={handleSubmit}>Add</button>
+                <button onClick={handleSubmit}>Submit</button>
             </div>
 
         </div>

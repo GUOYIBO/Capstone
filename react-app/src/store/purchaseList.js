@@ -34,7 +34,7 @@ const updatePurchaseList = ( payload ) =>{
 
 export const getAllPurchaseListsThunk = () => async (dispatch) =>{
     try{
-        const response = await fetch('/api/purchaselists')
+        const response = await fetch('/api/purchaselists/current')
         if (response.ok){
             const data = await response.json();
             

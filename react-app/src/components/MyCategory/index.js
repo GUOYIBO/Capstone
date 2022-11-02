@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { deleteACategoryThunk, getAllCategoryThunk } from '../../store/category'
 import AddCategoryFormModal from '../AddCategoryModal'
 import EditCategoryFormModal from '../EditCategoryFormMoal'
-
+import './MyCategory.css'
 
 
 const MyCategory = () =>{
@@ -45,21 +45,23 @@ const MyCategory = () =>{
                 <AddCategoryFormModal />
 
             </div>
-            <div className="category-img-container">
+            <div className="categories-list-container">
                { !!Object.values(categories).length && Object.values(categories).map(category =>{
                     return (
-                        <>
-                            <div key={category.id}>
-                                <div className="category-name">{category.name}</div>
-                                <div className="category-img-div">
-                                    <img src={category.image_url} />
+                        
+                            <div key={category.id} className="my-category-container">
+                                <div className="my-category-img">
+                                    {/* <img src={category.image_url} /> */}
+                                    <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"/>
                                 </div>
-                                <div className="edit-delete-category-container">
+                                <div className="my-category-name">{category.name}</div>
+                                
+                                {/* <div className="edit-delete-category-container">
                                     <EditCategoryFormModal category={category}/>
-                                    <button onClick={()=>handleDelete(category.id)}>Delete</button>
-                                </div>
+                                    <button className="delete-button" onClick={()=>handleDelete(category.id)}>Delete</button>
+                                </div> */}
                             </div>
-                        </>
+                        
                     )
                })}
             </div>

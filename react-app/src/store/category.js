@@ -116,7 +116,7 @@ export const updateACategoryThunk = (categoryData, categoryId) => async (dispatc
  */
 export const getAllCategoryThunk = () => async (dispatch) =>{
     try {
-        const response = await fetch('/api/categories');
+        const response = await fetch('/api/categories/current');
         if (response.ok){
             const data = await response.json()
             console.log('data---', data)

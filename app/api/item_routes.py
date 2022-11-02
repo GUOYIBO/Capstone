@@ -21,6 +21,7 @@ def validation_errors_to_error_messages(validation_errors):
 @login_required
 def get_all_items():
     user_id = current_user.id
+    print("user___id", user_id)
     items = UserItem.query.filter(UserItem.user_id == user_id).all()
     print ('user item#########  ', items)
     return { "result" : [item.to_dict() for item in items]}, 200

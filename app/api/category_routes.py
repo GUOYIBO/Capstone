@@ -17,14 +17,15 @@ def validation_errors_to_error_messages(validation_errors):
     return errorMessages
 
 
-@category_routes.route('/')
-#@login_required
+@category_routes.route('/current')
+@login_required
 def get_categories():
     print("-///////////////")
-    #user_id = current_user.id
+    user_id = current_user.id
+    print("----------", user_id)
     #### TODO
-    categories = Category.query.filter(Category.user_id == 1).all()
-    print("---------------")
+    categories = Category.query.filter(Category.user_id == user_id).all()
+    print ('user category #########  ', categories)
     return { "result": [category.to_dict() for category in categories]}
 
 # create/edit a category

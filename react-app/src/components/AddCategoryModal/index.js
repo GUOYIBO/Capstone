@@ -7,7 +7,7 @@ function AddCategoryFormModal({category}) {
 
   return (
     <>
-      <button className="edit-category-button"  onClick={() => setShowModal(true)}>Add Category</button>
+      <button onClick={() => setShowModal(true)}>Add Category</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <AddCategoryForm category={category} setShowModal={setShowModal}/>

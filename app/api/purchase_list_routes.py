@@ -19,12 +19,12 @@ def validation_errors_to_error_messages(validation_errors):
     return errorMessages
 
 
-@purchase_list_routes.route('/' , methods=['GET'])
-# @login_required
+@purchase_list_routes.route('/current')
+@login_required
 def get_all():
-    print('!~~~~~~~~~')
-    #user_id = current_user.id
-    user_id =1  ############ TODO  remove after testing
+    user_id = current_user.id
+    print("user_id", user_id)
+    # user_id =1  ############ TODO  remove after testing
     purchase_lists = PurchaseList.query.filter(PurchaseList.user_id == user_id).all()
     return { "result" : [list.to_dict() for list in purchase_lists] }
 
@@ -51,7 +51,7 @@ def edit_purchase_list(list_id):
 
 
 @purchase_list_routes.route('/', methods=['POST'])
-#@login_required
+@login_required
 def create_purchase_list():
     form = PurchaseListForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -59,8 +59,8 @@ def create_purchase_list():
     if form.validate_on_submit():
         list = PurchaseList()
         form.populate_obj(list)
-        # list.user_id = current_user.id
-        list.user_id = 2   ########## TODO remove this
+        list.user_id = current_user.id
+        # list.user_id = 2   ########## TODO remove this
         db.session.add(list)
         db.session.commit()
         return { "result": list.to_dict()}, 201
@@ -70,6 +70,7 @@ def create_purchase_list():
 
 
 @purchase_list_routes.route('/<int:purchase_list_id>', methods=['DELETE'])
+@login_required
 def delete_purchase_list(purchase_list_id):
     purchase_list = PurchaseList.query.filter(PurchaseList.id == purchase_list_id).first()
     print ('get purchase list to delete ', purchase_list)
