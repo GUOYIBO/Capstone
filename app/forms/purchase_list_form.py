@@ -4,6 +4,6 @@ from wtforms.validators import DataRequired, ValidationError
 
 
 class PurchaseListForm(FlaskForm):
-    name = StringField('name', validators=[DataRequired()])
-    content = StringField('content', validators=[DataRequired()])
+    name = StringField('name')
+    content = StringField('content')
     submit = SubmitField('Submit')

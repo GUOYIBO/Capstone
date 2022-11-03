@@ -30,7 +30,7 @@ const MyPurchaseList = () =>{
         return <>Loading...</>;
     }
     const handleDelete = async (purchaseId) =>{
-        if (window.confirm('Are you sure you want to delete this category?')){
+        if (window.confirm('Are you sure you want to delete this purchase list?')){
             await dispatch(deletePurchaseListThunk(+purchaseId)).then(() => history.push('/mypurchaselists'))
         }
 

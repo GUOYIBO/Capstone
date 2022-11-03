@@ -32,16 +32,40 @@ def get_categories():
 @category_routes.route('/', methods=['POST'])
 @login_required
 def create_category():
+    print("from here-------") 
+    user_id = current_user.id
     form = CategoryForm()
+    print('get form data for creating a category', form.data)
     form['csrf_token'].data = request.cookies['csrf_token']
     if (form.validate_on_submit()):
         category = Category()
         form.populate_obj(category)
+        category.user_id = user_id
         db.session.add(category)
         db.session.commit()
         return { "result": category.to_dict()}, 201
     else:
         return { "errors": validation_errors_to_error_messages(form.errors)}, 400
+
+
+@category_routes.route('/<int:category_id>', methods=['POST'])
+@login_required
+def update_category(category_id):
+   
+    user_id = current_user.id
+    category = Category.query.filter(Category.id==category_id).first()
+    print('modify category ', category)
+    if category:
+        form = CategoryForm()
+        print('modify category  data form', form)
+        form['csrf_token'].data = request.cookies['csrf_token']
+        if (form.validate_on_submit()):
+            form.populate_obj(category)
+            db.session.commit()
+            return { "result": category.to_dict()}, 200
+        else:
+            return { "errors": validation_errors_to_error_messages(form.errors)}, 400
+    return  {'errors': "category not found"}, 404 
 
 
 # delete a category

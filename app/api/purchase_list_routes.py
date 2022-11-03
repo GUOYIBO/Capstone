@@ -31,7 +31,7 @@ def get_all():
 
 # edit a purchase list
 @purchase_list_routes.route('/<int:list_id>', methods=['POST'])
-#@login_required
+@login_required
 def edit_purchase_list(list_id):
     pur_list = PurchaseList.query.filter(PurchaseList.id == list_id).first()
     print('going to edit this purList' , pur_list)
@@ -53,14 +53,17 @@ def edit_purchase_list(list_id):
 @purchase_list_routes.route('/', methods=['POST'])
 @login_required
 def create_purchase_list():
+    print("from here-------") 
+    user_id = current_user.id
     form = PurchaseListForm()
+    
+    print('get form data for creating a category', form)
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
         list = PurchaseList()
         form.populate_obj(list)
-        list.user_id = current_user.id
-        # list.user_id = 2   ########## TODO remove this
+        list.user_id = user_id
         db.session.add(list)
         db.session.commit()
         return { "result": list.to_dict()}, 201

@@ -4,6 +4,6 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, ValidationError
 
 class CategoryForm(FlaskForm):
-    name = StringField('Name', validator=[DataRequired()])
-    image_url = StringField('Image')
+    name = StringField('name')
+    image_url = StringField('image')
     submit = SubmitField("Submit")

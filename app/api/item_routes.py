@@ -3,6 +3,7 @@ from app.models import Item, User, db, UserItem
 from flask_login import login_required, current_user
 from app.forms import ItemForm
 from datetime import datetime
+import json
 
 item_routes = Blueprint('items', __name__)
 
@@ -46,7 +47,43 @@ def test():
     # for re in relationships:
     #     #print("----------------" ,re.to_dict())
     #     result.append(re.to_dict())
-    user_id = current_user.id
+    user_id = 1
     user = User.query.filter(User.id == user_id).first()
 
     return {"result ": user.to_dict()} ,200
+
+
+
+@item_routes.route('/user_items', methods=['POST'])
+@login_required
+def add_user_items():
+    user = User.query.filter(User.id == current_user.id).first()
+    print('get request', request)
+    data = json.loads(request.data)
+    print ('600 request data', data)
+    item_ids = data['item_ids']
+    quantities = data['quantities']
+    purchase_dates = data['purchase_date']
+    expiration_dates = data['expiration_date']
+    for key in item_ids:
+        if (item_ids[key]):
+            id = key
+            item = Item.query.filter(Item.id ==id).first()
+            if (item):
+                qty = quantities[key]
+                if qty is None:
+                    qty = 1
+                # p_date = purchase_dates[key]
+                # if p_date is None:
+                #     p_date = datetime.now()
+                # exp_date = expiration_dates[key]
+                # if exp_date is None:
+                #     exp_date = datetime.now()
+                p_date = datetime.now()
+                exp_date = datetime.now()
+                
+                user.user_items.extend([
+                UserItem(item=item, purchase_date=p_date, quantity=qty, expiration_date=exp_date)
+            ])
+    db.session.commit()
+    return { 'result': user.to_dict()}, 201
