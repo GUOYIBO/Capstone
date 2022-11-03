@@ -40,8 +40,9 @@ const getAllCategories = (payload) =>{
  * 
  */
 export const createACategoryThunk = (categoryData) => async (dispatch) =>{
+    console.log("get data from req ", categoryData)
     try{
-        const response = await fetch('/api/categories', {
+        const response = await fetch('/api/categories/', {
             method : 'POST',
             headers: {
                 "Content-Type" : "application/json"
@@ -52,6 +53,7 @@ export const createACategoryThunk = (categoryData) => async (dispatch) =>{
         if (response.ok){
             const data = await response.json()
             dispatch(addCategory(data.result))
+            return data.result;
         }
 
     }catch (err){
@@ -137,7 +139,9 @@ const categoryReducer = (state=initialState, action) =>{
     switch(action.type){
         
         case ADD_A_CATEGORY:
+            console.log(" new statte 1", newState,   action.payload)
             newState[action.payload.id] = action.payload
+            console.log(" new statte 2", newState)
             return newState;
 
         case DELETE_A_CATEGORY:

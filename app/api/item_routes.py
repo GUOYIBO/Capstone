@@ -46,7 +46,7 @@ def test():
     # for re in relationships:
     #     #print("----------------" ,re.to_dict())
     #     result.append(re.to_dict())
-    user_id = current_user.id
+    user_id = 1
     user = User.query.filter(User.id == user_id).first()
 
     return {"result ": user.to_dict()} ,200

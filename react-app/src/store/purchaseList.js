@@ -48,8 +48,9 @@ export const getAllPurchaseListsThunk = () => async (dispatch) =>{
 }
 
 export const createPurchaseListThunk = (pListData) => async (dispatch) =>{
+    console.log('HEHEHEHEHEHEHre :', pListData)
     try{
-        const response = await fetch('/api/purchaselists', {
+        const response = await fetch('/api/purchaselists/', {
             method: 'POST',
             headers: {
                 "Content-Type" : "application/json"
@@ -59,6 +60,7 @@ export const createPurchaseListThunk = (pListData) => async (dispatch) =>{
         if (response.ok){
             const data = await response.json()
             dispatch(addPurchaseList(data.result))
+            return data.result
         }
     }catch (err){
         console.log("creating purchase list error", err);

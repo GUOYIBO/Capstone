@@ -32,11 +32,15 @@ def get_categories():
 @category_routes.route('/', methods=['POST'])
 @login_required
 def create_category():
+    print("from here-------") 
+    user_id = current_user.id
     form = CategoryForm()
+    print('get form data for creating a category', form)
     form['csrf_token'].data = request.cookies['csrf_token']
     if (form.validate_on_submit()):
         category = Category()
         form.populate_obj(category)
+        category.user_id = user_id
         db.session.add(category)
         db.session.commit()
         return { "result": category.to_dict()}, 201
