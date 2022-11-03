@@ -26,15 +26,16 @@
     
 }
 .my-category-img {
-    height: 188px;
+    height: 128px;
+    width:250px;
     padding-right: 0;
-    justify-content: center;
+    justify-content: left;
 }
 
 .my-category-img img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit:scale-down;
 }
 
 .my-category-name {

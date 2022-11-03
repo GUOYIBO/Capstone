@@ -101,7 +101,9 @@ export const updateACategoryThunk = (categoryData, categoryId) => async (dispatc
         })
         if (response.ok){
             const data = await response.json();
+            console.log("update category response data  ",data)
             dispatch(updateCategory(data.result))
+            return data.result
         }
 
     }catch (err){

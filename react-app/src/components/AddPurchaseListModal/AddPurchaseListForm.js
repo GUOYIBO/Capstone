@@ -55,14 +55,14 @@ const AddPurchaseListForm =({ setShowModal }) =>{
                     </div>
                 </label>
                 <label className='add-category-img'>
-                    <span className='create-label-text'>Image Url</span>
+                    <span className='create-label-text'>Description</span>
                 
                     <div id='category-url-input' className=''>
-                    <input
+                    <textarea
                         id='1'
                         className='dgdg'
-                        placeholder='please type a valid url'
-                        type='TextArea'
+                        placeholder='description...'
+                        type='textarea'
                         value={newPurchaseListContent}
                         onChange={e=> setNewPurchaseListContent(e.target.value)}
                     />

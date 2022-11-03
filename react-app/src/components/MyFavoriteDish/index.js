@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import EditFavDishModal from '../EditFavDishModal'
 import {getAllFavoriteDishesThunk, deleteADishThunk} from '../../store/favoriteDish'
 import { useHistory } from 'react-router-dom';
+import AddFavDishesModal from '../AddFavDishesModal';
 
 const MyFavoriteDish = () =>{
 
@@ -30,17 +31,18 @@ const MyFavoriteDish = () =>{
         }
       }
 
+
     return (
         <div className="my-fav-dish-container">
             <div className='my-fave-dish-add-btn'>
-                <button className="add-fav-dish-btn">Add</button>
+                <AddFavDishesModal />
             </div>
             {/* <div className="my-fav-dish-slide-show">
 
             </div> */}
              { !!Object.values(favoritedishes).length && Object.values(favoritedishes).map(dish =>{
                     return (
-                        <>
+                        <div key={dish.id} className="my-fav-dish-container">
                             <div key={dish.id}>
                                 <div className="fav-dish-name">{dish.name}</div>
                                 <div className="fav-dish-img-div">
@@ -51,7 +53,7 @@ const MyFavoriteDish = () =>{
                                     <button className="my-fav-dish-remove-btn" onClick={()=>handleDelete(dish.id)}>Remove</button>
                                 </div>
                             </div>
-                        </>
+                        </div>
                     )
                })}
 

@@ -12,7 +12,7 @@ function AddCategoryFormModal() {
   }
   return (
     <div className='create category'>
-      <button className ="create-category-btn" onClick={() => setShowModal(true)}>Add w Category</button>
+      <button className ="create-category-btn" onClick={() => setShowModal(true)}>Add Category</button>
       {console.log('testetetststs', showModal)}
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>

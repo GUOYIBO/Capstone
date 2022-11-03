@@ -41,38 +41,52 @@ const Main = () => {
 
     const categoryArr = Object.values(categories).map((cat, index) =>{
         return (
+            <div className="single-category">
             <div key={index} className="category-detail">
                 <div className="category-img">
-                    <img  src={img}></img>
+                    <img  src={cat.image_url}></img>
                 </div>
+                <div className="category-image-divider"></div>
                 <div  className="category-name">{cat.name}</div>
             </div>   
+            <div className="category-divider"></div>
+            </div>
         )
     })
     const itemsArr = Object.values(items).map((entry) =>{
         console.log('////item////', entry)
         return (
             <div className="item-detail" key={entry.id} >
-                <div className="item-img">
-                <img src={img1}></img>
+                <div className="item-img-container">
+                    <div className="item-img">
+                      <img src="https://cdn.pixabay.com/photo/2016/03/27/21/59/bread-1284438_1280.jpg"></img>
                     {/* <img src={entry.item.image_url}></img> */}
+                    </div>
+                   
+                    <div className="quantiy-inline">
+                       <div className="quantiy"> {entry.quantity } Remaining</div>
+                    </div>
                 </div>
                 <div className="name-qty-container">
                     <div className="item-name"> {entry.item.name} </div>
-                    <div className="item-quantity"> QTY {entry.quantity} </div>
+                    {/* <div className="item-quantity"> QTY {entry.quantity} </div> */}
                 </div>
             </div>
         )
     })
     return (
+        <div className="main">
+            <div className="header"></div>
         <div className="main-container">
-            <div className="nav-category-container">
-            <div className="current-item-title">Category</div>
-                {categoryArr}
+            <div className="category-container">
+                <div className="current-item-title">Category</div>
+                <div className="category-list-container">
+                   {categoryArr}
+                </div>
             </div>
             <div className="content-container">
                 <div className="filter">
-                 <div className="filter-title">Filter</div>
+                 <div className="filter-title">All items</div>
                     <div className="expires-container"> 
                         <div className="subtitle">Expires in days</div>
                         <div className="button-list">
@@ -98,6 +112,7 @@ const Main = () => {
                 <div className="current-item-title">Current Items</div>
                 
                 <div className="items-list">{itemsArr}</div>
+            </div>
             </div>
             </div>
         </div>

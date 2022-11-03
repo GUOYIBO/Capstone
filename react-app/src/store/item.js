@@ -51,12 +51,20 @@ export const getAllItemsThunk = () => async (dispatch) =>{
 }
 
 
-export const addItemThunk = (itemData) => async (dispatch) =>{
+export const addUserItemsThunk = (itemData) => async (dispatch) =>{
+    console.log("itemdata-----", itemData);
     try{
-        const response = await fetch('');
+        const response = await fetch('/api/items/user_items', {
+            method : 'POST',
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify(itemData)
+        });
         if (response.ok){
             const data = await response.json();
-            dispatch(addItem(data.result))
+            console.log("return data from response", data )
+            //dispatch(addItem(data.result))
         }
     }catch (err){
         console.log ("adding item error ", err)
