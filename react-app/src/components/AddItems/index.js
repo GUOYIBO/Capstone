@@ -99,7 +99,10 @@ const AddItems = () =>{
 
     const handleSelectAll = () =>{
 
+    }
 
+    const handleRest = () =>{
+        
     }
 
     const handleSubmit = async (e) =>{

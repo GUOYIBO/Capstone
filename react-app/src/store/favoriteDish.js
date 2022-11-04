@@ -36,6 +36,7 @@ export const getAllFavoriteDishesThunk = () => async (dispatch) =>{
         const response = await fetch('/api/favoritedishes/current')
         if (response.ok){
             const data = await response.json();
+            console.log("get all data from thunk", data)
             dispatch(getAllFavoriteDishes(data.result));
         }
 

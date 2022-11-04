@@ -32,7 +32,8 @@ class FavoriteDish(db.Model):
             "name": self.name,
             "image_url": self.image_url,
             "description": self.des,
-            "user_id": self.user_id
+            "user_id": self.user_id,
+            "items": [item.to_dict() for item in self.dish_items]
         }
 
 
