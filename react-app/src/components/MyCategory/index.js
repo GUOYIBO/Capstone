@@ -10,6 +10,7 @@ import {urlDisplay, importAll} from "../../utils/helper"
 
 const MyCategory = () =>{
 
+    console.log("show my category")
     const sessionUser = useSelector(state => state.session.user)
     const categories = useSelector(state => state.categoryReducer)
     const dispatch = useDispatch();

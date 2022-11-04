@@ -123,7 +123,6 @@ const Main = () => {
             <div className="header"></div>
         <div className="main-container">
             <div className="category-container">
-                <div className="current-item-title">Category</div>
                 <div className="category-list-container">
                    {categoryArr}
                 </div>

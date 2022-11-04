@@ -15,6 +15,7 @@ import MyPurchaseList from './components/MyPurchaseList';
 import MyCategory from './components/MyCategory';
 import MyFavoriteDish from './components/MyFavoriteDish';
 import AddItems from './components/AddItems'
+import Header from './components/Header';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -37,44 +38,45 @@ function App() {
   return (
     <BrowserRouter>
       {/* <NavBar /> */}
+      <Header/>
       <Switch>
-        <Route path='/login' exact={true}>
+        <Route path='/login' exact>
           <LoginForm />
         </Route>
-        <Route path='/sign-up' exact={true}>
+        <Route path='/signup' exact>
           <SignUpForm />
         </Route>
-        <Route path='/' exact={true} >
+        <Route path='/' exact>
           <Splash />
         </Route>
 
-        {/* <ProtectedRoute path='/users' exact={true} >
+      {/* <ProtectedRoute path='/users' exact={true} >
           <UsersList/>
-        </ProtectedRoute>
+        </ProtectedRoute> 
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
-        </ProtectedRoute> */}
+        </ProtectedRoute>  */}
 
-        <ProtectedRoute path='/main' exact={true} >
+        <Route path='/main' exact>
           <Main />
-        </ProtectedRoute>
+        </Route>
 
-        <ProtectedRoute path='/mycategories' exact={true} >
+        <ProtectedRoute path='/mycategories' exact>
           <MyCategory />
         </ProtectedRoute>
         
-        <ProtectedRoute path='/myitems' exact={true} >
+        <Route path='/myitems' exact>
           <MyItems />
-        </ProtectedRoute>
+        </Route>
 
-        <ProtectedRoute path='/myfavoritedishes' exact={true} >
+        <ProtectedRoute path='/myfavoritedishes' exact >
           <MyFavoriteDish />
         </ProtectedRoute>
 
-        <ProtectedRoute path='/mypurchaselists' exact={true} >
+        <ProtectedRoute path='/mypurchaselists' exact>
            <MyPurchaseList />
         </ProtectedRoute>
-        <ProtectedRoute path='/additems' exact={true} >
+        <ProtectedRoute path='/additems' exact >
            <AddItems />
         </ProtectedRoute>
         
