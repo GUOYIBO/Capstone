@@ -10,8 +10,12 @@ import { getAllItemsThunk } from '../../store/item'
 import { Modal } from "../../context/Modal"
 import { EditItemForm } from '../../'
 import ItemDetailModal from "../../components/ItemDetailModal"
+import { FaImages } from "react-icons/fa"
+import {urlDisplay} from "../../utils/helper"
 
 const Main = () => {
+
+   
 
     const sessionUser = useSelector(state => state.session.user)
     const items = useSelector(state => state.itemReducer)
@@ -57,7 +61,7 @@ const Main = () => {
             <div key={index} className="single-category">
                 <div  className="category-detail">
                     <div className="category-img">
-                        <img  src={process.env.PUBLIC_URL + "/image/" + cat.image_url} onClick={()=>handleFilter(cat.id)}></img>
+                        <img  src={urlDisplay(cat.image_url)} onClick={()=>handleFilter(cat.id)}></img>
                     </div>
                     <div className="category-image-divider"></div>
                     <div  className="category-name">{cat.name}</div>

@@ -5,6 +5,7 @@ import {getAllFavoriteDishesThunk, deleteADishThunk} from '../../store/favoriteD
 import { useHistory } from 'react-router-dom';
 import AddFavDishesModal from '../AddFavDishesModal';
 import './MyFavoriteDish.css'
+import {urlDisplay} from "../../utils/helper"
 
 const MyFavoriteDish = () =>{
 
@@ -49,7 +50,7 @@ const MyFavoriteDish = () =>{
                         <div key={dish.id} className="item-detail">
                                  <div className="my-item-img-container">
                                    <div className="item-img">
-                                    <img src={process.env.PUBLIC_URL + "/image/" + dish.image_url} />
+                                    <img src={urlDisplay(dish.image_url)} />
                                  </div>
                                  <div className="quantiy-inline">
                                     <div className="quantiy"> 
