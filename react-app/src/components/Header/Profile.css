@@ -1,0 +1,91 @@
+.drop-down{
+    position: relative;
+    display: inline-block;
+    padding-left: 10px;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.div-dropdown-container {
+    /* display: none; */
+    position: absolute;
+    overflow: auto;
+    left:0px;
+    padding: 0;
+    background-color: white;
+    border-radius: 21px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    font-weight: 300;
+    overflow: hidden;
+}
+
+.profile-dropdown {
+    padding-left: 20px;
+    padding-right: 40px;
+    padding: 0;
+}
+.drop-down-item {
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 40px;
+}
+
+.drop-down-link-item {
+    text-decoration: none;
+    list-style: none;
+    font-weight: 400;
+    border-style: none;
+    width: 100%;
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-right: 40px;
+    padding-bottom: 8px;
+    vertical-align: middle;
+}
+.drop-down-link-item:hover {
+    background-color: rgba(121, 116, 116, 0.1);
+}
+
+
+
+
+.profile {
+    border-radius: 21px;
+    height: 42px;
+    width: 77px;
+    background-color: transparent;
+    border: 1px;
+    border-style: ridge;
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    padding: 5px 5px 5px 12px;
+    vertical-align: middle;
+    align-items: center;
+    justify-self: left;
+    /* margin: 0px; */
+}
+.profile-icon {
+    width: 30px;
+    height: 30px;
+    margin-left: 12px;
+    align-items: center;
+    margin-top: 15px;
+}
+#spots-current{
+    text-decoration:none;
+    color: black;
+}
+#review-current{
+    text-decoration:none;
+    color: black;
+}
+
+.logout-button button{
+    border-style: none;
+    background-color: transparent;
+    font-weight: 400;
+    padding:0px 0px 0px 0px;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
