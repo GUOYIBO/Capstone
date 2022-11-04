@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getAllItemsThunk } from "../../store/item";
 import ItemDetailModal from "../ItemDetailModal";
+import './MyItem.css'
 const MyItems = () =>{
 
 
@@ -26,11 +27,9 @@ const MyItems = () =>{
         console.log('------item----- from myitems', entry)
         return (
             <div className="item-detail" key={entry.id} >
-                <div className="item-img-container">
+                <div className="my-item-img-container">
                     <div className="item-img">
                         <ItemDetailModal entry={entry}/>
-                      {/* <img src="https://cdn.pixabay.com/photo/2016/03/27/21/59/bread-1284438_1280.jpg"></img> */}
-                    {/* <img src={entry.item.image_url}></img> */}
                     </div>
                    
                     <div className="quantiy-inline">
@@ -47,9 +46,9 @@ const MyItems = () =>{
 
     return (
         <div className="items-container"> 
-                <div className="current-item-title">Current Items</div>
+                <div className="current-item-title">Manage Items</div>
                 
-                <div className="items-list">{itemsArr}</div>
+                <div className="my-items-list">{itemsArr}</div>
             </div>
     )
 }

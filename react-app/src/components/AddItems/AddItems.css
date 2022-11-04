@@ -60,7 +60,9 @@ height: 100%;
 .single-item-container{
     display: flex;
     column-gap: 40px;
-    margin-left: 40px;
+    justify-content: center;
+    margin-top: 5px;
+    /* margin-left: 40px; */
     /* flex: 1 1 2 */
 }
 
@@ -136,4 +138,7 @@ height: 100%;
 
 .left-item-selection-container{
     margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }

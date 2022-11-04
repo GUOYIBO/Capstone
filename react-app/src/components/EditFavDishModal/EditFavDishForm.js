@@ -3,9 +3,10 @@ import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import {getAllCategoryThunk} from '../../store/category'
 import { useState } from "react"
+import './EditFavDishForm.css'
 
 
-const EditFavDishFom = ({dish}) =>{
+const EditFavDishFom = ({dish, setShowModal}) =>{
 
     console.log("get favorite dish from parent", dish)
 
@@ -39,8 +40,6 @@ const EditFavDishFom = ({dish}) =>{
         )
     }
 
-
-
     const setDefault =(id) =>{
         if (allSelected[id]){
             //console.log('set to true', id)
@@ -70,9 +69,20 @@ const EditFavDishFom = ({dish}) =>{
     }
 
     return (
-        <div>
-            <label className='create-fav-dish-label'>
-                <span id='create-server-req-star' className='red-text'>*</span><span className='create-server-label-text'>Dish Name</span>
+        <div className="form-container">
+            <div className='close-button-container'>
+                <button aria-label='Close' id="closeButton" className="closebutton" onClick={()=>setShowModal(false)}>
+                   <div className="close-icon">
+                    <svg width="24px" height="24px" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="m19.5831 6.24931-1.8333-1.83329-5.75 5.83328-5.75-5.83328-1.8333 1.83329 5.8333 5.74999-5.8333 5.75 1.8333 1.8333 5.75-5.8333 5.75 5.8333 1.8333-1.8333-5.8333-5.75z" fill="#000000"></path></svg></div>
+                </button>
+            </div>
+            <div className="form-content-container">
+            <div className='form-title'>Edit Dish</div>
+            <div className='create-fav-dish-label'>
+                <div className="form-subtitle">
+                 <span id='create-dish-star' className='red-text'>* </span><span className='create-dish-label-text'>Dish Name</span>
+                </div>
+                <div className='form-input'>
                     <input
                         id='create-fav-dish-name-input'
                         className='create-fav-dish-input'
@@ -81,10 +91,14 @@ const EditFavDishFom = ({dish}) =>{
                         value={dishName}
                         onChange={e => setDishName(e.target.value)}
                     />
-                    {/* <span className={`server-icon-err-msg red-text`}>{serverIconErrMsg} &nbsp;</span> */}
-                </label>
-                <label className='create-fav-dish-img-label'>
+                    </div>
+                    
+                </div>
+                <div className='create-fav-dish-img-label'>
+                <div className="form-subtitle">
                     <span className='create-fav-dish-img-text'>Image URL</span>
+                    </div>
+                    <div className='form-input'>
                     <input
                         id='create-fav-dish-url-input'
                         className='create-fav-dish-input'
@@ -93,19 +107,20 @@ const EditFavDishFom = ({dish}) =>{
                         value={dishImagUrl}
                         onChange={e => setDishImageUrl(e.target.value)}
                     />
-                    {/* <span className={`server-name-length ${serverNameLengthErr}`}>{newServerName.length}</span> */}
-                </label>
+                   </div>
+                    
+                </div>  
 
                 <div className="items-selection-container">
                     {!! Object.values(categories).length && Object.values(categories).map(category =>{
                         return (
                            <div key={category.id} className="category-title">
                                 <h3> {category.name}</h3>
-                                <div className="item-selection-chbx">
+                                <div className="item-selection-list">
                                     {category.items.map(item =>{
                                         return (
                                             <div key={item.id} className="item-selection-chbx">
-                                                <input className="item-checkbox" type='checkbox' id={item.id} name= {item.name} defaultChecked={()=>setDefault(item.id)} value={setDefault(item.id)} onChange={()=>handleOnCheckBoxChange(item.id)}/>
+                                                <input className="item-checkbox" type='checkbox' id={item.id} name= {item.name} defaultChecked={setDefault(item.id)} value={setDefault(item.id)} onChange={()=>handleOnCheckBoxChange(item.id)}/>
                                                 <span>{item.name}</span>
                                             </div>
                                         )
@@ -115,10 +130,11 @@ const EditFavDishFom = ({dish}) =>{
                         )
                     })}
                 </div>
-                <div id='create-server-bottom' className='flx-row'>
-                    <button id='create-server-btn' onClick={handleSubmit}>
-                        Create
+                <div id='create-botton' className='form-button'>
+                    <button id='create-dish-btn' onClick={handleSubmit}>
+                        Done
                     </button>
+                </div>
                 </div>
         </div>
     )

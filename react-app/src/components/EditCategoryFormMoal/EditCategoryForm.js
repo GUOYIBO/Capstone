@@ -37,16 +37,23 @@ const EditCategoryForm =({ category, setShowModal }) =>{
 
 
     return (
-        <div  className='gggg' >
-            <div className='dfgdg'>Edit Category</div>
+        <div  className='form-container' >
+            <div className='close-button-container'>
+                <button aria-label='Close' id="closeButton" className="closebutton" onClick={()=>setShowModal(false)}>
+                   <div className="close-icon">
+                    <svg width="24px" height="24px" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="m19.5831 6.24931-1.8333-1.83329-5.75 5.83328-5.75-5.83328-1.8333 1.83329 5.8333 5.74999-5.8333 5.75 1.8333 1.8333 5.75-5.8333 5.75 5.8333 1.8333-1.8333-5.8333-5.75z" fill="#000000"></path></svg></div>
+                </button>
+            </div>
+            <div className="form-content-container">
+            <div className='form-title'>Edit Category</div>
             <form id='create-category-form' onSubmit={handleUpdate}>
                 <label className=''>
-                    <span className='create-label-text'>Category Name</span>
-    
-                    <div id='category-name-input' className=''>
+                    <div className='form-subtitle'>
+                    <span >Category Name</span>
+                    </div>
+                    <div id='category-name-input' className='form-input'>
                     <input
                         id='1'
-                        className='dgdg'
                         placeholder='new-category'
                         type='text'
                         value={editedCatgoryName}
@@ -55,12 +62,12 @@ const EditCategoryForm =({ category, setShowModal }) =>{
                     </div>
                 </label>
                 <label className='add-category-img'>
-                    <span className='create-label-text'>Image Url</span>
-                
-                    <div id='category-url-input' className=''>
+                    <div className='form-subtitle'>
+                    <span >Image Url</span>
+                    </div>
+                    <div id='category-url-input' className='form-input'>
                     <input
                         id='1'
-                        className='dgdg'
                         placeholder=''
                         type='text'
                         value={editedCatgoryUrl}
@@ -70,12 +77,12 @@ const EditCategoryForm =({ category, setShowModal }) =>{
                 </label>
             </form>
 
-            <div id='dfg' className='flx-row'>
+            <div id='dfg' className='form-button'>
                 <button id='create-category-btn' onClick={handleUpdate}>
-                    Edit 
+                    Done 
                 </button>
             </div>
-
+            </div>
         </div>
 
     )

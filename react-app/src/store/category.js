@@ -74,7 +74,7 @@ export const deleteACategoryThunk = (categoryId) => async (dispatch) =>{
             method: "DELETE"
         });
         if (response.ok){
-            const data = await response.json();
+            //const data = await response.json();
             dispatch(deleteCategory(categoryId))
         }
 

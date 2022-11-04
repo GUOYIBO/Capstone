@@ -57,7 +57,7 @@ const Main = () => {
             <div key={index} className="single-category">
                 <div  className="category-detail">
                     <div className="category-img">
-                        <img  src={cat.image_url} onClick={()=>handleFilter(cat.id)}></img>
+                        <img  src={process.env.PUBLIC_URL + "/image/" + cat.image_url} onClick={()=>handleFilter(cat.id)}></img>
                     </div>
                     <div className="category-image-divider"></div>
                     <div  className="category-name">{cat.name}</div>
@@ -99,7 +99,6 @@ const Main = () => {
             <div className="item-detail" key={entry.id} >
                 <div className="item-img-container">
                     <div className="item-img">
-                      {/* <img src="https://cdn.pixabay.com/photo/2016/03/27/21/59/bread-1284438_1280.jpg"></img> */}
                      < ItemDetailModal entry={entry} />
                     {/* <img src={entry.item.image_url}></img> */}
                     </div>
@@ -152,7 +151,7 @@ const Main = () => {
                     min="2021-01-01" max="2022-12-31"/>
                 </div>
             </div>
-             <div className="items-container"> 
+             <div> 
                 <div className="current-item-title">Current Items</div>
                 
                 <div className="items-list">{itemsArr}</div>

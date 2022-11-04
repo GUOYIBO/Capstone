@@ -15,7 +15,7 @@ class FavoriteDish(db.Model):
     id= db.Column(db.Integer, primary_key=True)
     name=db.Column(db.String(40), nullable=False)
     image_url = db.Column(db.String(400), nullable=True)
-    des = db.Column(db.String(400), nullable=False)
+    des = db.Column(db.String(400), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
 

@@ -47,7 +47,7 @@ const MyPurchaseList = () =>{
                 <div className="purchase-list-row" key={purchase.id}>
                     <div className="purchase-list-name">{purchase.name}</div>
                     <div className="pruchase-list-content">
-                        <textarea value={purchase.content} disabled="true"/>
+                        <textarea value={purchase.content} disabled/>
                     </div>
                     <EditPurchaseListModal purchase={purchase} />
                     <button onClick={()=>handleDelete(purchase.id)}className="purchase-list-delete">Remove</button>
