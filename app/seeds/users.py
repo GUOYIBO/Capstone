@@ -111,3 +111,18 @@ def undo_users():
 
     db.session.execute('TRUNCATE categories RESTART IDENTITY CASCADE;')
     db.session.commit()
+
+    db.session.execute('TRUNCATE items RESTART IDENTITY CASCADE;')
+    db.session.commit()
+
+    db.session.execute('TRUNCATE dish_items RESTART IDENTITY CASCADE;')
+    db.session.commit()
+
+    db.session.execute('TRUNCATE favorite_dishes RESTART IDENTITY CASCADE;')
+    db.session.commit()
+
+    db.session.execute('TRUNCATE purchaselists RESTART IDENTITY CASCADE;')
+    db.session.commit()
+
+    db.session.execute('TRUNCATE user_item RESTART IDENTITY CASCADE;')
+    db.session.commit()
