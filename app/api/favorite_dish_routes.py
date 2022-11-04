@@ -1,7 +1,8 @@
 from flask import Blueprint, request
-from app.models import FavoriteDish, User, db
+from app.models import FavoriteDish, User, db, Item
 from flask_login import login_required, current_user
 from app.forms import FavoriteDishForm
+import json
 
 favorite_dish_routes = Blueprint('favorite_list', __name__)
 
@@ -33,10 +34,21 @@ def update_fav_dish():
 
 
 # create a favorite dish
-@favorite_dish_routes.route('/', methods=['POST'])
+@favorite_dish_routes.route('/new', methods=['POST'])
 @login_required
 def create_fav_dish():
-    pass
+    # user = User.query.filter(User.id == current_user.id).first()
+    data = json.loads(request.data)
+    print('777 data', data)
+    item_ids = data['item_ids']
+    name= data['name']
+    image_url=data['image_url']
+    fav_dish = FavoriteDish(name=name, image_url=image_url, des="",user_id=current_user.id)
+    for item_id in item_ids:
+        item = Item.query.filter(Item.id==item_id).first()
+        fav_dish.dish_items.append(item)
+    db.session.commit()
+    return {'result': fav_dish.to_dict()}, 201
 
 
 # delete a fav_dish
@@ -46,7 +58,7 @@ def delete_favorite_dish(dish_id):
     dish = FavoriteDish.query.filter(FavoriteDish.id == dish_id).first()
     if dish is not None:
         db.session.delete(dish)
-        db.commit()
+        db.session.commit()
         return { "message": "favorite dish successfully deleted"}, 200
     else:
         return { "errors": "dish not found"}, 404

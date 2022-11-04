@@ -36,6 +36,7 @@ export const getAllFavoriteDishesThunk = () => async (dispatch) =>{
         const response = await fetch('/api/favoritedishes/current')
         if (response.ok){
             const data = await response.json();
+            console.log("get all data from thunk", data)
             dispatch(getAllFavoriteDishes(data.result));
         }
 
@@ -50,11 +51,13 @@ export const getAllFavoriteDishesThunk = () => async (dispatch) =>{
  * delet a dish  thunk 
  */
 export const deleteADishThunk =(dishId) => async (dispatch) => {
+    console.log('being deleted dish ', dishId)
     try{
         const response = await fetch(`/api/favoritedishes/${dishId}`, {
             method: "DELETE",
         })
         if (response.ok){
+            const data = await response.json();
             dispatch(deleteDish(dishId))
         }
     }catch (err){
@@ -73,7 +76,7 @@ export const deleteADishThunk =(dishId) => async (dispatch) => {
 // img + item ids + name
 export const addADishThunk = (dishData) => async (dispatch) => {
     try{
-        const response = await fetch('/api/favoritedishes', {
+        const response = await fetch(`/api/favoritedishes/new`, {
             method : 'POST',
             headers: {
                 "Content-Type" : "application/json"
@@ -82,6 +85,7 @@ export const addADishThunk = (dishData) => async (dispatch) => {
         })
         if (response.ok){
             const data = await response.json();
+            console.log("response from creating new dish ", data )
             dispatch(addDish(data.result))
 
         }
@@ -124,10 +128,14 @@ const favoriteDishReducer = (state=initialState, action) =>{
     let newState = {...state};
     switch (action.type){
         case ADD_A_DISH:
+            console.log("create fav newstate1", newState)
             newState[action.payload.id] = action.payload
+            console.log("create fav newstate2", newState)
             return newState;
         case DELETE_A_DISH:
-            delete newState[action.dishID]
+            console.log("delete fav newstate1", newState)
+            delete newState[action.dishId]
+            console.log("delete fav newstate2", newState)
             return newState;
         case UPDATE_A_DISH:
             newState[action.payload.id] = action.payload

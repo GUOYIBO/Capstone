@@ -1,0 +1,7 @@
+.items-selection-container{
+    overflow:scroll;
+    height: 180px;
+    margin-top: 20px;
+    background-color: rgb(238, 238, 238);
+    border-radius: 8px;
+}

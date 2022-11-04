@@ -73,6 +73,8 @@ def add_user_items():
                 qty = quantities[key]
                 if qty is None:
                     qty = 1
+                else:
+                    qty = int(quantities[key])
                 # p_date = purchase_dates[key]
                 # if p_date is None:
                 #     p_date = datetime.now()

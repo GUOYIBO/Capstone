@@ -15,7 +15,7 @@ class FavoriteDish(db.Model):
     id= db.Column(db.Integer, primary_key=True)
     name=db.Column(db.String(40), nullable=False)
     image_url = db.Column(db.String(400), nullable=True)
-    des = db.Column(db.String(400), nullable=False)
+    des = db.Column(db.String(400), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
 
@@ -32,7 +32,8 @@ class FavoriteDish(db.Model):
             "name": self.name,
             "image_url": self.image_url,
             "description": self.des,
-            "user_id": self.user_id
+            "user_id": self.user_id,
+            "items": [item.to_dict() for item in self.dish_items]
         }
 
 

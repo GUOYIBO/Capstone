@@ -50,7 +50,7 @@ const MyCategory = () =>{
                         
                             <div key={category.id} className="my-category-container">
                                 <div className="my-category-img">
-                                    <img src={category.image_url} />
+                                    <img src={process.env.PUBLIC_URL + "/image/" + category.image_url} />
                                     {/* <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"/> */}
                                 </div>
                                 <div className="my-category-name">{category.name}</div>

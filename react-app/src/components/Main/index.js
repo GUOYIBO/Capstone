@@ -9,16 +9,19 @@ import { getAllPurchaseListsThunk} from '../../store/purchaseList'
 import { getAllItemsThunk } from '../../store/item'
 import { Modal } from "../../context/Modal"
 import { EditItemForm } from '../../'
+import ItemDetailModal from "../../components/ItemDetailModal"
 
 const Main = () => {
 
     const sessionUser = useSelector(state => state.session.user)
     const items = useSelector(state => state.itemReducer)
     const categories = useSelector(state => state.categoryReducer)
-    const favoriteDishes = useSelector(state => state.categoryReducer);
-    const purchaseList = useSelector(state => state.purchaseList)
+    // const favoriteDishes = useSelector(state => state.categoryReducer);
+    // const purchaseList = useSelector(state => state.purchaseList)
     const dispatch = useDispatch();
-    const [showModal, setShowModal] = useState(false);
+    const [categoryFilter, setCategoryFilter] = useState(0)
+    const [purDateFilter, setPurDateFilter] = useState('')
+    const [expInDaysFilter, setExpInDaysFilter] = useState([])
 
     console.log("category ####", categories)
     console.log("items ####", items)
@@ -38,28 +41,65 @@ const Main = () => {
         return <div>Loading...</div>;
     }
 
+    const handleFilter = (categoryId) =>{
+        console.log(categoryId)
+        setCategoryFilter(categoryId)
+    }
+    const handleReset = (e) =>{
+        e.preventDefault();
+        setCategoryFilter(0)
+        setPurDateFilter('')
+        setExpInDaysFilter([])
+    }
 
     const categoryArr = Object.values(categories).map((cat, index) =>{
         return (
-            <div className="single-category">
-            <div key={index} className="category-detail">
-                <div className="category-img">
-                    <img  src={cat.image_url}></img>
-                </div>
-                <div className="category-image-divider"></div>
-                <div  className="category-name">{cat.name}</div>
-            </div>   
-            <div className="category-divider"></div>
+            <div key={index} className="single-category">
+                <div  className="category-detail">
+                    <div className="category-img">
+                        <img  src={process.env.PUBLIC_URL + "/image/" + cat.image_url} onClick={()=>handleFilter(cat.id)}></img>
+                    </div>
+                    <div className="category-image-divider"></div>
+                    <div  className="category-name">{cat.name}</div>
+                </div>   
+                <div className="category-divider"></div>
             </div>
         )
     })
-    const itemsArr = Object.values(items).map((entry) =>{
+    
+    let filteredArray = []
+    console.log('categoryFilter', categoryFilter)
+    let arr = Object.values(items)
+    for (let i=0; i<arr.length; i++){
+        let itemPurchaseDate = arr[i].purchase_date.substring(0,10)
+        if (categoryFilter != 0 ){
+            if (categoryFilter === arr[i].item.category_id) {
+                filteredArray.push(arr[i])
+                continue;
+            }
+        }
+        // else if (){
+        //TODO  exp days
+        // }
+        else if(purDateFilter.length>0){
+            if (itemPurchaseDate === purDateFilter){
+                filteredArray.push(arr[i])
+                continue;
+            }
+        } 
+        else{
+            filteredArray =arr;
+            break;
+        }
+    }
+    console.log('filteredArray', filteredArray)
+    const itemsArr = filteredArray.map((entry) =>{
         console.log('////item////', entry)
         return (
             <div className="item-detail" key={entry.id} >
                 <div className="item-img-container">
                     <div className="item-img">
-                      <img src="https://cdn.pixabay.com/photo/2016/03/27/21/59/bread-1284438_1280.jpg"></img>
+                     < ItemDetailModal entry={entry} />
                     {/* <img src={entry.item.image_url}></img> */}
                     </div>
                    
@@ -86,29 +126,32 @@ const Main = () => {
             </div>
             <div className="content-container">
                 <div className="filter">
-                 <div className="filter-title">All items</div>
-                    <div className="expires-container"> 
-                        <div className="subtitle">Expires in days</div>
-                        <div className="button-list">
+                    <div className="filter-title">All items</div>
                         <div>
-                            <button className="filter-button">3</button>
+                            <button className="filter-reset" onClick={handleReset}>Reset</button>
                         </div>
-                        <div>
-                            <button className="filter-button">5 </button>
-                         </div>
-                         <div>
-                            <button className="filter-button">7</button>
+                        <div className="expires-container"> 
+                            <div className="subtitle">Expires in days</div>
+                            <div className="button-list">
+                                <div>
+                                    <button className="filter-button">3</button>
+                                </div>
+                                <div>
+                                    <button className="filter-button">5 </button>
+                                </div>
+                                <div>
+                                    <button className="filter-button">7</button>
+                                </div>
+                            </div>
+                            
                         </div>
-                        </div>
-                        
-                </div>
-                <div>
+                    <div>
                     <div className="subtitle">Purchase Date</div>
                     <input type="date" id="purchase" name="purchase-date" value="2022-10-31"
                     min="2021-01-01" max="2022-12-31"/>
                 </div>
             </div>
-             <div className="items-container"> 
+             <div> 
                 <div className="current-item-title">Current Items</div>
                 
                 <div className="items-list">{itemsArr}</div>

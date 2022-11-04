@@ -4,6 +4,7 @@ import EditFavDishModal from '../EditFavDishModal'
 import {getAllFavoriteDishesThunk, deleteADishThunk} from '../../store/favoriteDish'
 import { useHistory } from 'react-router-dom';
 import AddFavDishesModal from '../AddFavDishesModal';
+import './MyFavoriteDish.css'
 
 const MyFavoriteDish = () =>{
 
@@ -33,26 +34,35 @@ const MyFavoriteDish = () =>{
 
 
     return (
-        <div className="my-fav-dish-container">
-            <div className='my-fave-dish-add-btn'>
+        <div className="items-container">
+            <div className="current-item-title">Manage Dishes</div>
+            <div className='add-btn'>
                 <AddFavDishesModal />
             </div>
+         <div className="my-items-list">
+            
             {/* <div className="my-fav-dish-slide-show">
 
             </div> */}
              { !!Object.values(favoritedishes).length && Object.values(favoritedishes).map(dish =>{
                     return (
-                        <div key={dish.id} className="my-fav-dish-container">
-                            <div key={dish.id}>
-                                <div className="fav-dish-name">{dish.name}</div>
-                                <div className="fav-dish-img-div">
-                                    <img src={dish.image_url} />
+                        <div key={dish.id} className="item-detail">
+                                 <div className="my-item-img-container">
+                                   <div className="item-img">
+                                    <img src={process.env.PUBLIC_URL + "/image/" + dish.image_url} />
+                                 </div>
+                                 <div className="quantiy-inline">
+                                    <div className="quantiy"> 
+                                    <i className="fa-solid fa-trash-can">ssss</i></div>
+                                 </div>
                                 </div>
+                                <div className="fav-dish-name">{dish.name}</div>
+                                
                                 <div className="edit-delete-category-container">
                                     <EditFavDishModal dish={dish}/>
                                     <button className="my-fav-dish-remove-btn" onClick={()=>handleDelete(dish.id)}>Remove</button>
                                 </div>
-                            </div>
+                         
                         </div>
                     )
                })}
@@ -70,6 +80,7 @@ const MyFavoriteDish = () =>{
                 <button className="my-fav-dish-remove-btn">Remove </button>
          
             </div> */}
+        </div>
         </div>
     )
 }
