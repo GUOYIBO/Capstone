@@ -2,8 +2,13 @@ const ADD_A_CATEGORY = 'category/ADD_A_CATEGORY'
 const DELETE_A_CATEGORY = 'category/DELETE_A_CATEGORY'
 const UPDATE_A_CATEGORY = 'category/UPDATE_A_CATEGORY'
 const GET_ALL_CATEGORIES ='category/GET_ALL_CATEGORIES'
-const CLEAR = 
+const CLEAR = 'category/CLEAR_STORE'
 
+export const clearAllCategories = () =>{
+    return {
+        type: CLEAR
+    }
+}
 
 const addCategory = (payload) => {
     return {
@@ -154,8 +159,6 @@ const categoryReducer = (state=initialState, action) =>{
         case UPDATE_A_CATEGORY:
             newState[action.payload.id] = action.payload
             return newState;
-        case CLEAR:
-            return {}
 
         case GET_ALL_CATEGORIES:
             console.log ('action.payload----', action.payload)
@@ -164,6 +167,9 @@ const categoryReducer = (state=initialState, action) =>{
             });
             console.log('=========', newState)
             return newState;
+
+        case CLEAR:
+                return {}
         default:
             return state;
     }

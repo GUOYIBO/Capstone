@@ -46,7 +46,7 @@ const Main = () => {
     
 
     if (!sessionUser){
-        return <div>Loading...</div>;
+        return <div>Loading...!!!!!!</div>;
     }
 
     const handleFilter = (categoryId) =>{

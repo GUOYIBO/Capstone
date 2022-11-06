@@ -39,7 +39,7 @@ const AddItems = () =>{
     },[dispatch])
 
     if (!categories || Object.values(categories).length === 0){
-        return <>Loading...</>
+        return <>Loading..2.</>
     }
     const length = Object.values(categories).length;
     console.log("=======category", categories)

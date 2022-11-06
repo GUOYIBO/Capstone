@@ -2,8 +2,14 @@ const GET_ALL_ITEMS = '/items/getAll'
 const DELETE_ITEM = 'items/deleteItem'
 const UPDATE_ITEM = 'items/updateItem'
 const ADD_ITEM = 'items/addItem'
+const CLEAR = 'items/CLEAR_STORE'
 
 
+export const clearAllItems = () =>{
+    return {
+        type: CLEAR
+    }
+}
 
 const loadAllItems = (payload) =>{
     return {
@@ -132,8 +138,13 @@ const itemReducer = (state=initialState, action) =>{
             });
             return newState
         case UPDATE_ITEM:
-            newState[action.payload.id] = action.payload
+            if (newState[action.payload.id]){
+                newState[action.payload.id] = action.payload
+            }
             return newState
+
+        case CLEAR:
+                return {};
         default: 
             return state
     }

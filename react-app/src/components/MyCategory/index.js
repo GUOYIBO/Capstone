@@ -29,10 +29,10 @@ const MyCategory = () =>{
 
 
     if (!sessionUser ){
-        return <>Loading...</>;
+        return <>Loading...4</>;
     }
     if (!categories){
-        return <>Loading...</>;
+        return <>Loading..5.</>;
     }
 
    
@@ -45,6 +45,7 @@ const MyCategory = () =>{
 
     return (
         <div className="my-category-container">
+            <div className="-categoty-title">Manage Categories</div>
             <div className="add-category-container">
                 <AddCategoryFormModal />
             </div>

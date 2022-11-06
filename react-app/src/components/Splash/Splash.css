@@ -1,0 +1,36 @@
+.splash-main-container{
+    position: relative;
+    margin: auto;
+}
+
+.splash-background img{
+    width: 100%;
+    height: 100%;
+}
+
+
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+  }
+
+  @keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+  }
+  
+  /* On smaller screens, decrease text size */
+  @media only screen and (max-width: 300px) {
+    .text {font-size: 11px}
+  }
+.splash-welcome{
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+    color: white;
+    text-align: center;
+    position: absolute;
+    font-size: 80px;
+    padding-top: 50vh;
+    padding-left: 40px;
+}

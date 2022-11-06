@@ -22,7 +22,7 @@ const AddFavDishesForm = ({setShowModal}) =>{
     },[dispatch])
 
     if (!categories || Object.values(categories).length === 0){
-        return <>Loading...</>
+        return <>Loading...1</>
     }
 
     console.log('setCheckedState ', allSelected)

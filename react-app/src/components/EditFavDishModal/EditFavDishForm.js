@@ -38,7 +38,7 @@ const EditFavDishFom = ({dish, setShowModal}) =>{
 
     if (!categories || Object.values(categories).length ===0){
         return (
-            <div>Loading...</div>
+            <div>Loading...3</div>
         )
     }
 

@@ -2,6 +2,14 @@ const LOAD_ALL_FAVORITE_DISHES = 'favoriteList/loadAll'
 const DELETE_A_DISH = 'favoriteList/deleteADish'
 const UPDATE_A_DISH = 'favoriteList/updateADish'
 const ADD_A_DISH = 'favoriteList/addADish'
+const CLEAR = 'favoriteList/CLEAR_STORE'
+
+
+export const clearAllFavoriteDishes = () =>{
+    return {
+        type: CLEAR
+    }
+}
 
 const getAllFavoriteDishes =(payload) =>{
     return {
@@ -148,6 +156,8 @@ const favoriteDishReducer = (state=initialState, action) =>{
                 newState[element.id] = element
             });
             return newState;
+        case CLEAR:
+                return {};
         default :
             return state;
     }

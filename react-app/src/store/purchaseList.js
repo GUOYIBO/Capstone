@@ -2,7 +2,14 @@ const ADD_PURCHASE_LIST = 'purchase/ADD_PURCHASE_LIST'
 const DELETE_PURCHASE_LIST = 'purchase/DELETE_PURCHASE_LIST'
 const UPDATE_PURCHASE_LIST = 'purchase/UPDATE_PURCHASE_LIST'
 const GET_ALL_PURCHASE_LISTS = 'purchase/GET_ALL_PURCHASE_LISTS'
+const CLEAR = 'purchase/CLEAR_STORE'
 
+
+export const clearAllPurchaseList = () =>{
+    return {
+        type: CLEAR
+    }
+}
 
 const loadAllPurchaseList = (payload) => {
     return {
@@ -131,6 +138,8 @@ const purchaseListReducer = (state=initialState, action) =>{
                 newState[element.id] = element
             });
             return newState;
+        case CLEAR:
+                return {};
         default:
             return state;
     }

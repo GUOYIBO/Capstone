@@ -99,18 +99,63 @@
     /* margin: 0px; */
 }
 .logotitle-container {
-    width: 134px;
-    height: px;
-    margin-left: 12px;
-    align-items: center;
-    margin-top: 0px;
+    display: flex;
+    text-decoration: none;
+    list-style: none;
+    font-weight: 400;
+    font-size: 14px;
+    border-style: none;
+    width: 200px;
+    /* padding-top: 10px;
+    padding-left: 0px;
+    padding-right: 5px;
+    padding-bottom: 8px; */
+    vertical-align: middle;
+    font-family: sans-serif;
 }
 
-.logotitle-container img {
-    width: 100%;
-    object-fit: scale-down;
-    height: 100%;
+
+.nav-button #logotitle{
+    display: flex;
+    flex-direction: row;
+   padding-bottom: 20px;
 }
+.nav-button .logotitle1{
+    font-size: 20px;
+
+    padding-right: 10px;
+    text-align: top;
+    vertical-align: top;
+}
+.nav-button .logotitle2{
+    font-size: 20px;
+    padding-top: 0px;
+    font-weight: 600;
+    padding-bottom: 0;
+    text-align: top;
+    vertical-align: top;
+}
+.logotitle{
+    display: flex;
+}
+.logtitle1{
+    font-size: 40px;
+
+}
+.logtitle2{
+    font-size: 28px;
+    font-weight: 600;
+}
+/* .logotitle-container button {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    object-fit: scale-down;
+    color: black;
+    height: 100%;
+    text-decoration: none;
+} */
+
 #spots-current{
     text-decoration:none;
     color: black;

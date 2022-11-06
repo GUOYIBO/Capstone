@@ -24,7 +24,7 @@ const MyFavoriteDish = () =>{
 
 
     if (!sessionUser || !favoritedishes){
-        return <>Loading...</>;
+        return <>Loading...6</>;
     }
 
     const handleDelete = async (favDishId) => {

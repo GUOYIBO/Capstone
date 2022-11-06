@@ -37,7 +37,6 @@ function Profile({ user }) {
     await dispatch(logout()).then(() => history.push('/'))
     //clear store
     
-    
   };
 
   return (
@@ -50,7 +49,19 @@ function Profile({ user }) {
       </button>
       <div className="logotitle-container">
         <NavLink to={"/main"}>
-              <img src={urlDisplay("logotitle.png")}/></NavLink>
+          {/* <div className="drop-down-link-item"> */}
+          <button className="nav-button">
+            <div id="logotitle">
+          <div className="logotitle1">My</div>
+          <div className="logotitle2">Pantry</div></div> 
+            {/* <div className="logotitle">
+              <div className="logotitle1">My   </div>
+              <div className="logotitle2">Pantry</div>
+            </div> */}
+          </button>
+          {/* </div> */}
+              {/* <img src={urlDisplay("logotitle.png")}/> */}
+              </NavLink>
         </div>
       {/* </div> */}
       {showMenu && (

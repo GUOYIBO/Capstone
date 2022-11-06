@@ -20,11 +20,9 @@ const MyItems = () =>{
 
     },[dispatch])
     
-    if (!items || Object.values(items).length===0){
+    if (!items){
         return (
-            <div>
-               <h1> Loading...</h1>
-            </div>
+            <div>Loading...7</div>
         )
     }
     const handleDelete = async (id) => {
