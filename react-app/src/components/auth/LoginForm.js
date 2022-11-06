@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect ,Link} from 'react-router-dom';
 import { login } from '../../store/session';
 import { getAllFavoriteDishesThunk} from '../../store/favoriteDish'
 import { getAllCategoryThunk} from '../../store/category'
@@ -30,15 +30,14 @@ const LoginForm = () => {
     setPassword(e.target.value);
   };
 
+  const demoUserLogin = (e) => {
+    e.preventDefault();
+    dispatch(login('demo@aa.io', 'password'))
+  }
+
   console.log('--------- login')
   if (user) {
-    // (async()=> {
-    //   await dispatch(getAllFavoriteDishesThunk());
-    //   await dispatch(getAllCategoryThunk());
-    //   await dispatch(getAllItemsThunk());
-    //   await dispatch(getAllPurchaseListsThunk());
-    // })();
-
+  
     return <Redirect to='/main' />;
   }
 
@@ -69,6 +68,10 @@ const LoginForm = () => {
           onChange={updatePassword}
         />
         <button type='submit'>Login</button>
+        <button type='submit' id="demo-user" onClick={demoUserLogin}>Log In As Demo User</button>
+        <div id="signup-link">
+            <Link to={"/sign-up"} id="linktosignup">Creat an acount</Link>
+         </div>
       </div>
     </form>
   );
