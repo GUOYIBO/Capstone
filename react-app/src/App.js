@@ -43,7 +43,7 @@ function App() {
         <Route path='/login' exact>
           <LoginForm />
         </Route>
-        <Route path='/signup' exact>
+        <Route path='/sign-up' exact>
           <SignUpForm />
         </Route>
         <Route path='/' exact>
@@ -65,9 +65,9 @@ function App() {
           <MyCategory />
         </ProtectedRoute>
         
-        <Route path='/myitems' exact>
+        <ProtectedRoute path='/myitems' exact>
           <MyItems />
-        </Route>
+        </ProtectedRoute>
 
         <ProtectedRoute path='/myfavoritedishes' exact >
           <MyFavoriteDish />
@@ -76,9 +76,9 @@ function App() {
         <ProtectedRoute path='/mypurchaselists' exact>
            <MyPurchaseList />
         </ProtectedRoute>
-        <ProtectedRoute path='/additems' exact >
+        {/* <ProtectedRoute path='/additems' exact >
            <AddItems />
-        </ProtectedRoute>
+        </ProtectedRoute> */}
         
 
       </Switch>

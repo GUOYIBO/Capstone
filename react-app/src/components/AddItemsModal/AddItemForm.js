@@ -5,31 +5,20 @@ import { useSelector } from "react-redux";
 import img1 from '../../image/profileimage.png'
 import {FaArrowAltCircleLeft, FaArrowAltCircleRight} from 'react-icons/fa'
 import { addUserItemsThunk } from '../../store/item'
-import './AddItems.css'
 import { useHistory } from "react-router-dom";
 import {urlDisplay} from "../../utils/helper"
 
-
-
-
-const AddItems = () =>{
+const AddItemForm =({setShowModal}) =>{
     const categories = useSelector(state => state.categoryReducer)
     const dispatch = useDispatch()
     const history = useHistory()
-
     const [currentCategotyIdx, setCurrentCategotyIdx]= useState(0)
 
-    // const itemCheckedObj = {}
-    // const qtyObj = {}
-    // const purchaseDateObj = {}
-    // const expirationDateObj = {}
 
     const [checkedState, setCheckedState] = useState({});
     const [qtyState, setQtyState] = useState({});
     const [purchaseDateState, setPurchaseDateState] = useState({})
     const [expDateState, setExpDateState] = useState({})
-
-
 
 
     useEffect(() =>{
@@ -42,7 +31,6 @@ const AddItems = () =>{
         return <>Loading...</>
     }
     const length = Object.values(categories).length;
-    console.log("=======category", categories)
     const currentCategory = Object.values(categories)[currentCategotyIdx]
     console.log('check itemcheckbox', checkedState)
     console.log('check quantity', qtyState)
@@ -53,9 +41,9 @@ const AddItems = () =>{
     const futureDate = current
     futureDate.setDate(current.getDate()+5)
     const defaultExpDate = futureDate.toISOString().substring(0,10)
-   
 
-   
+
+
     const handleOnCheckBoxChange = (id) =>{
         if (checkedState[id]){
             console.log('handleOnCheckBoxChange', checkedState[id])
@@ -64,30 +52,20 @@ const AddItems = () =>{
             setCheckedState(preState => {
                 console.log('setCheckedState preState', preState)
                 return { 
-                  ...preState, 
-                  [id] : true
+                ...preState, 
+                [id] : true
                 }
-              })
+            })
         }
     }
     const handleOnQuantityChange = (itemId ,value) =>{
-       
         setQtyState(preState => {
             return { 
-              ...preState, 
-              [itemId] : value
+            ...preState, 
+            [itemId] : value
             }
-          });
+        });
         console.log("qtyState...",qtyState)
-    }
-
-    const handleCancel = () =>{
-        clearCurrentSelectd();
-    }
-
-    const clearCurrentSelectd = () =>{
-        // setQtyState(new Array(Object.values(currentCategory.items).length).fill(1))
-        // setCheckedState(new Array(Object.values(currentCategory.items).length).fill(false))
     }
 
 
@@ -99,11 +77,15 @@ const AddItems = () =>{
         setCurrentCategotyIdx(currentCategotyIdx === 0? length-1 : currentCategotyIdx-1);
     }
 
-    const handleSelectAll = () =>{
 
-    }
 
-    const handleRest = () =>{
+    const handleReset = (e) =>{
+        console.log('handle reset')
+        e.preventDefault();
+        setCheckedState({});
+        setQtyState({});
+        setPurchaseDateState({});
+        setExpDateState({});
         
     }
 
@@ -114,52 +96,82 @@ const AddItems = () =>{
             "purchase_date": purchaseDateState,
             "expiration_date": expDateState
         }
-        await dispatch(addUserItemsThunk(userItemData)).then(()=> history.push('/main'));
-
-
+        console.log('before submittion', userItemData)
+        // await dispatch(addUserItemsThunk(userItemData)).then(()=> history.push('/myitems')).then(()=>setShowModal(false));
+        await dispatch(addUserItemsThunk(userItemData)).then(()=>setShowModal(false));  
 
     }
     const changePurchaseDate = (id,value) =>{
-        console.log('id, e', id, value);
         const newDate = new Date(value).toISOString().substring(0,10)
         setPurchaseDateState(preState => {
             return { 
-              ...preState, 
-              [id] : newDate
+            ...preState, 
+            [id] : newDate
             }
-          });
+        });
     }
 
     const changeExpirationDate = (id,value) =>{
-        console.log('id, e', id, value);
         const newDate = new Date(value).toISOString().substring(0,10)
         setExpDateState(preState => {
             return { 
-              ...preState, 
-              [id] : newDate
+            ...preState, 
+            [id] : newDate
             }
-          });
+        });
     }
 
-
-
-    const setDefault =(id) =>{
-       
+    const setCheckedValue =(id) =>{
         if (checkedState[id]){
-            console.log('set to true', id)
             return true;
         }
-        console.log('set to false', id)
         return false;
     }
 
+    const setQtyValue =(id) =>{
+        if (qtyState[id]){
+            return qtyState[id];
+        }
+        return 1;
+    }
+
+    const setPurchaseDatedValue =(id) =>{
+        if (purchaseDateState[id]){
+            return purchaseDateState[id];
+        }
+        return defaultPurchaseDate;
+    }
+
+    const setExpDateValue =(id) =>{
+        if (expDateState[id]){
+            return expDateState[id];
+        }
+        return defaultExpDate;
+    }
+
+    // const shownCategory =[]
+    // if (categories && Object.values(categories).length >0){
+    //     for (let i=0; i<Object.values(categories).length; i++){
+    //         if (Object.values(categories)[i].items.length>0){
+    //             shownCategory.push(Object.values(categories)[i])
+    //         }
+    //     }
+    // }
+
     return (
-        <div className="add-image-container">
+        <div className="form-with-img-container">
+              <div className='close-button-container'>
+                <button aria-label='Close' id="closeButton" className="closebutton" onClick={()=>setShowModal(false)}>
+                   <div className="close-icon">
+                    <svg width="24px" height="24px" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="m19.5831 6.24931-1.8333-1.83329-5.75 5.83328-5.75-5.83328-1.8333 1.83329 5.8333 5.74999-5.8333 5.75 1.8333 1.8333 5.75-5.8333 5.75 5.8333 1.8333-1.8333-5.8333-5.75z" fill="#000000"></path></svg></div>
+                </button>
+              </div>
+            <div className="form-content-container">
+            <div className='form-title'>Add item</div>
             <div className="category-image-carousel">
                 <FaArrowAltCircleLeft className="left-arrow" onClick={prevImage} />
                 <FaArrowAltCircleRight className="right-arrow" onClick={nextImage} />
                 {Object.values(categories).map((category, index) =>{
-                    console.log("category, index", category, index)
                     return (
                         <div key={category.id} className="image-div-container">
                             <div className={index === currentCategotyIdx ? 'slide-active' : 'slide'}>
@@ -169,26 +181,24 @@ const AddItems = () =>{
                     )
                 })}
             </div>
-            <div>
-
-            </div>
-            <div className="item-selection-container">
-                <div className="single-item-container">
+            <div className="single-item-container">
                     <span className='item-type-name-title'>Name</span>
                     <span className="input-quantity-title">Qty</span>
                     <span className="input-date-title">Purchase Date</span>
                     <span className="input-date-title">Expiration Date</span>
-                </div>
+            </div>
+            <div className="items-selection-container">
+                
                 {currentCategory &&  Object.values(currentCategory.items).sort((a,b) =>a.name-b.name).map((entry) =>{
                     
                     return (
                         <div key={entry.id} className="single-item-container">
                             <div className='item-type-name'>
-                                <input className="item-checkbox" type='checkbox' id={entry.id} name= {entry.name} defaultChecked={setDefault(entry.id)} value={setDefault(entry.id)} onChange={()=>handleOnCheckBoxChange(entry.id)}/>
+                                <input className="item-checkbox" type='checkbox' id={entry.id} name= {entry.name} value={setCheckedValue(entry.id)} checked={setCheckedValue(entry.id)} onChange={()=>handleOnCheckBoxChange(entry.id)}/>
                                 <span>{entry.name}</span>
                             </div>
                             <div className="input-quantity">
-                                <select className="minimal"  defaultValue="1" value={qtyState[entry.id]} onChange={(e) => handleOnQuantityChange(entry.id ,e.target.value)}>
+                                <select className="minimal" value={setQtyValue(entry.id)} onChange={(e) => handleOnQuantityChange(entry.id ,e.target.value)}>
                                     <option key="1" value="1">1</option>
                                     <option key="2" value="2">2</option>
                                     <option key="3" value="3">3</option>
@@ -198,30 +208,30 @@ const AddItems = () =>{
                             </div>
                             <div className="input-purchase-date">
                                 {/* <span>Purchase date </span> */}
-                                <input type="date" id="purchase" name="purchase-date" value= {purchaseDateState[entry.id]} defaultValue={defaultPurchaseDate} onChange={(e) =>changePurchaseDate(entry.id, e.target.value)} 
+                                <input type="date" id="purchase" name="purchase-date" value= {setPurchaseDatedValue(entry.id)}  onChange={(e) =>changePurchaseDate(entry.id, e.target.value)} 
                                         min="2022-01-01" max="2022-12-31"/>
                             </div>
                             <div className="input-expiration-date">
                                 {/* <span>Expiration date </span> */}
-                                <input type="date" id="expiration" name="expiration-date" value= {expDateState[entry.id]} defaultValue={defaultExpDate} onChange={(e) =>changeExpirationDate(entry.id, e.target.value)}
+                                <input type="date" id="expiration" name="expiration-date" value= {setExpDateValue(entry.id)}  onChange={(e) =>changeExpirationDate(entry.id, e.target.value)}
                                         min="2022-01-01" max="2022-12-31" />
                             </div>
-
                         </div>
                     )
                 })}
             </div>
-            <div className="3-button-container">
-                <button>Select All</button>
-                <button>Reset</button>
+            <div className="button-container">
+            <div className="form-button">
+                <button onClick={handleReset}>Reset</button>
+            </div>
+            <div className="form-button">
                 <button onClick={handleSubmit}>Submit</button>
             </div>
-
+            </div>
+            </div>
         </div>
     )
 
-
-
 }
 
-export default AddItems
+export default AddItemForm

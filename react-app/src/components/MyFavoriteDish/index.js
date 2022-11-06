@@ -5,7 +5,7 @@ import {getAllFavoriteDishesThunk, deleteADishThunk} from '../../store/favoriteD
 import { useHistory } from 'react-router-dom';
 import AddFavDishesModal from '../AddFavDishesModal';
 import './MyFavoriteDish.css'
-import {urlDisplay} from "../../utils/helper"
+import { FaTrashAlt } from "react-icons/fa";
 
 const MyFavoriteDish = () =>{
 
@@ -49,19 +49,19 @@ const MyFavoriteDish = () =>{
                     return (
                         <div key={dish.id} className="item-detail">
                                  <div className="my-item-img-container">
-                                   <div className="item-img">
-                                    <img src={urlDisplay(dish.image_url)} />
-                                 </div>
-                                 <div className="quantiy-inline">
-                                    <div className="quantiy"> 
-                                    <i className="fa-solid fa-trash-can">ssss</i></div>
+                                   <EditFavDishModal dish={dish}/>
+                                    {/* <img src={urlDisplay(dish.image_url)} /> */}
+                                 {/* </div> */}
+                                 <div className="delete-inline">
+                                    <div className="delete-white-icon"> 
+                                    <FaTrashAlt onClick={()=>handleDelete(dish.id)}/></div>
                                  </div>
                                 </div>
                                 <div className="fav-dish-name">{dish.name}</div>
                                 
                                 <div className="edit-delete-category-container">
-                                    <EditFavDishModal dish={dish}/>
-                                    <button className="my-fav-dish-remove-btn" onClick={()=>handleDelete(dish.id)}>Remove</button>
+                                    {/* <EditFavDishModal dish={dish}/> */}
+                                    {/* <button className="my-fav-dish-remove-btn" onClick={()=>handleDelete(dish.id)}>Remove</button> */}
                                 </div>
                          
                         </div>

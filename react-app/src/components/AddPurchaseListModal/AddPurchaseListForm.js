@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 
 
 const AddPurchaseListForm =({ setShowModal }) =>{
-    const [newPurchaseListyName, setNewPurchaseListName] = useState('new-purchase-list');
+    const [newPurchaseListyName, setNewPurchaseListName] = useState('');
     const [newPurchaseListContent, setNewPurchaseListContent] = useState('');
     const dispatch = useDispatch()
     const history = useHistory()
@@ -37,45 +37,50 @@ const AddPurchaseListForm =({ setShowModal }) =>{
 
 
     return (
-        <div  className='gggg' >
-            <div className='dfgdg'>Create Purchase List</div>
+        <div id='form-container' className='form-container'>
+        <div className='close-button-container'>
+                <button aria-label='Close' id="closeButton" className="closebutton" onClick={()=>setShowModal(false)}>
+                   <div className="close-icon">
+                    <svg width="24px" height="24px" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="m19.5831 6.24931-1.8333-1.83329-5.75 5.83328-5.75-5.83328-1.8333 1.83329 5.8333 5.74999-5.8333 5.75 1.8333 1.8333 5.75-5.8333 5.75 5.8333 1.8333-1.8333-5.8333-5.75z" fill="#000000"></path></svg></div>
+                </button>
+            </div>
+            <div className="form-content-container">
+            <div className='form-title'>Create Purchase List</div>
             <form id='create-purchase-list-form' onSubmit={handleCreate}>
-                <label className=''>
-                    <span className='create-label-text'>Purchase List Name</span>
+                <div className='form-subtitle'>
+                    <span>Purchase List Name</span></div>
     
-                    <div id='purcharse-list-name-input' className=''>
+                    <div id='purcharse-list-name-input' className='form-input'>
                     <input
                         id='1'
-                        className='dgdg'
-                        placeholder='new-purchase-list'
+                        placeholder='name'
                         type='text'
                         value={newPurchaseListyName}
                         onChange={e=> setNewPurchaseListName(e.target.value)}
                     />
                     </div>
-                </label>
-                <label className='add-category-img'>
-                    <span className='create-label-text'>Description</span>
-                
-                    <div id='category-url-input' className=''>
+            
+                <div className='form-subtitle'>
+                <div className='form-subtitle'>
+                    <span>Description</span>
+                </div>
+                    <div id='category-url-input' className='form-input'>
                     <textarea
                         id='1'
-                        className='dgdg'
                         placeholder='description...'
                         type='textarea'
                         value={newPurchaseListContent}
-                        onChange={e=> setNewPurchaseListContent(e.target.value)}
-                    />
+                        onChange={e=> setNewPurchaseListContent(e.target.value)}/>
                     </div>
-                </label>
+                </div>
             </form>
 
-            <div id='dfg' className='flx-row'>
+            <div className='form-button'>
                 <button id='create-category-btn' onClick={handleCreate}>
-                    Create Purchase List
+                    Done
                 </button>
             </div>
-
+            </div>
         </div>
 
     )

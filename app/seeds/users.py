@@ -1,5 +1,5 @@
 from app.models import db, User, Category, Item, UserItem, FavoriteDish
-from datetime import datetime
+from datetime import datetime, timedelta
 import random
 
 
@@ -76,12 +76,12 @@ def seed_users():
     
     for idx in range(0, len(items)):
         for i in items[idx]:
-            item=Item(name=i, image_url='xx.png', category_id=idx+1)
+            item=Item(name=i, image_url='bread.png', category_id=idx+1)
             if i == 'Chicken' or i=='Cucumber' or  i=='Carrot':
                 fav_dish_1.dish_items.append(item)
             # db.session.add(item)
             demo.user_items.extend([
-                UserItem(item=item, purchase_date=datetime.now(), quantity=random.randint(1,10),expiration_date=datetime.now())
+                UserItem(item=item, purchase_date=datetime.now(), quantity=random.randint(1,10),expiration_date=datetime.now()+timedelta(days=5))
             ])
     db.session.commit()
 

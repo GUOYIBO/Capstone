@@ -23,7 +23,6 @@ def get_categories():
     print("-///////////////")
     user_id = current_user.id
     print("----------", user_id)
-    #### TODO
     categories = Category.query.filter(Category.user_id == user_id).all()
     print ('user category #########  ', categories)
     return { "result": [category.to_dict() for category in categories]}
@@ -64,7 +63,7 @@ def update_category(category_id):
             db.session.commit()
             return { "result": category.to_dict()}, 200
         else:
-            return { "errors": validation_errors_to_error_messages(form.errors)}, 400
+            return { "errors": validation_errors_to_error_messages(form.errors)}, 401
     return  {'errors': "category not found"}, 404 
 
 

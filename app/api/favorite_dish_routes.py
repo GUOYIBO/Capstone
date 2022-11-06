@@ -29,17 +29,29 @@ def get_favorite_dishes():
 # edit dish
 @favorite_dish_routes.route('/<int:dish_id>', methods=['POST'])
 @login_required
-def update_fav_dish():
-    pass
+def update_fav_dish(dish_id):
+    fav_dish = FavoriteDish.query.filter(FavoriteDish.id == dish_id).first()
+    data = json.loads(request.data)
+    item_ids = data['item_ids']
+
+    print('********** length before ', len(fav_dish.dish_items))
+    fav_dish.dish_items[:] = []  
+    print('********** length after', len(fav_dish.dish_items))
+    for key in item_ids:
+        print("********** key", key, item_ids[key])
+        if (item_ids[key]):
+            item = Item.query.filter(Item.id==key).first()
+            fav_dish.dish_items.append(item)
+    db.session.commit()
+    return {'result': fav_dish.to_dict()}, 200
+
 
 
 # create a favorite dish
 @favorite_dish_routes.route('/new', methods=['POST'])
 @login_required
 def create_fav_dish():
-    # user = User.query.filter(User.id == current_user.id).first()
     data = json.loads(request.data)
-    print('777 data', data)
     item_ids = data['item_ids']
     name= data['name']
     image_url=data['image_url']

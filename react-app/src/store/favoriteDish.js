@@ -111,6 +111,7 @@ export const updateADishThunk = (dishID, dishData) => async (dispatch) =>{
         })
         if (response.ok){
             const data = await response.json()
+            console.log('response from backend', data)
             dispatch(updateDish(data.result));
         }
 
@@ -138,7 +139,9 @@ const favoriteDishReducer = (state=initialState, action) =>{
             console.log("delete fav newstate2", newState)
             return newState;
         case UPDATE_A_DISH:
-            newState[action.payload.id] = action.payload
+            if (newState[action.payload.id]){
+                newState[action.payload.id] = action.payload
+            }
             return newState;
         case LOAD_ALL_FAVORITE_DISHES:
             action.payload.forEach(element => {

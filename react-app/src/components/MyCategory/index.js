@@ -6,16 +6,18 @@ import AddCategoryFormModal from '../AddCategoryModal'
 import EditCategoryFormModal from '../EditCategoryFormMoal'
 import './MyCategory.css'
 import {urlDisplay, importAll} from "../../utils/helper"
-
-
+import { Modal } from '../../context/Modal';
+import EditCategoryForm from '../EditCategoryFormMoal/EditCategoryForm';
+import '../EditCategoryFormMoal/EditCategoryForm.css'
+import React, { useState } from 'react';
+import { FaTrashAlt } from "react-icons/fa";
 const MyCategory = () =>{
 
-    console.log("show my category")
     const sessionUser = useSelector(state => state.session.user)
     const categories = useSelector(state => state.categoryReducer)
     const dispatch = useDispatch();
     const history = useHistory()
-
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(()=>{
         
@@ -33,7 +35,7 @@ const MyCategory = () =>{
         return <>Loading...</>;
     }
 
-
+   
 
     const handleDelete = async (categoryId) => {
         if (window.confirm('Are you sure you want to delete this category?')){
@@ -50,16 +52,19 @@ const MyCategory = () =>{
                { !!Object.values(categories).length && Object.values(categories).map(category =>{
                     return (
                         
-                            <div key={category.id} className="my-category-container">
+                            <div key={category.id} className="item-detail">
                                 <div className="my-category-img">
-                                    <img src={urlDisplay(category.image_url)} />
-                                    {/* <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"/> */}
+                                     <EditCategoryFormModal category={category}/>
+                                     <div className="delete-inline">
+                                        <div className="delete-black-icon"> 
+                                          <FaTrashAlt onClick={()=>handleDelete(category.id)}/></div>
+                                     </div>
                                 </div>
                                 <div className="my-category-name">{category.name}</div>
                                 
                                 <div className="edit-delete-category-container">
-                                    <EditCategoryFormModal category={category}/>
-                                    <button className="delete-button" onClick={()=>handleDelete(category.id)}>Delete</button>
+                                    {/* <EditCategoryFormModal category={category}/> */}
+                                    {/* <button className="delete-button" onClick={()=>handleDelete(category.id)}>Delete</button> */}
                                 </div>
                             </div>
                         

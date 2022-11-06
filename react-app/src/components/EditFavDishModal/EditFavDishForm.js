@@ -1,7 +1,9 @@
 import { useSelector } from "react-redux"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
-import {getAllCategoryThunk} from '../../store/category'
+import {updateADishThunk} from '../../store/favoriteDish'
+import { getAllCategoryThunk} from '../../store/category'
+
 import { useState } from "react"
 import './EditFavDishForm.css'
 
@@ -51,7 +53,12 @@ const EditFavDishFom = ({dish, setShowModal}) =>{
 
     const handleSubmit = async (e) =>{
         e.preventDefault();
-        //TODO
+        console.log ("ALL SELECTED", allSelected)
+        const dishData = {
+            "item_ids" : allSelected
+        }
+        await dispatch(updateADishThunk(+dish.id, dishData)).then(() => setShowModal(false))
+
     }
     const handleOnCheckBoxChange = (id) =>{
         if (allSelected[id]){
@@ -67,6 +74,14 @@ const EditFavDishFom = ({dish, setShowModal}) =>{
               })
         }
     }
+    const shownCategory =[]
+    if (categories && Object.values(categories).length >0){
+        for (let i=0; i<Object.values(categories).length; i++){
+            if (Object.values(categories)[i].items.length>0){
+                shownCategory.push(Object.values(categories)[i])
+            }
+        }
+    }
 
     return (
         <div className="form-container">
@@ -80,12 +95,11 @@ const EditFavDishFom = ({dish, setShowModal}) =>{
             <div className='form-title'>Edit Dish</div>
             <div className='create-fav-dish-label'>
                 <div className="form-subtitle">
-                 <span id='create-dish-star' className='red-text'>* </span><span className='create-dish-label-text'>Dish Name</span>
+                 <span id='create-dish-star' className='red-text'>* </span><span>Dish Name</span>
                 </div>
                 <div className='form-input'>
                     <input
                         id='create-fav-dish-name-input'
-                        className='create-fav-dish-input'
                         placeholder="Please enter a dish name"
                         type='text'
                         value={dishName}
@@ -96,7 +110,7 @@ const EditFavDishFom = ({dish, setShowModal}) =>{
                 </div>
                 <div className='create-fav-dish-img-label'>
                 <div className="form-subtitle">
-                    <span className='create-fav-dish-img-text'>Image URL</span>
+                    <span className='create-fav-dish-img-text'>Image Url</span>
                     </div>
                     <div className='form-input'>
                     <input
@@ -112,12 +126,13 @@ const EditFavDishFom = ({dish, setShowModal}) =>{
                 </div>  
 
                 <div className="items-selection-container">
-                    {!! Object.values(categories).length && Object.values(categories).map(category =>{
+                    {(shownCategory).map(category =>{
+        
                         return (
                            <div key={category.id} className="category-title">
                                 <h3> {category.name}</h3>
                                 <div className="item-selection-list">
-                                    {category.items.map(item =>{
+                                    {Object.values(category.items).length >0&& category.items.map(item =>{
                                         return (
                                             <div key={item.id} className="item-selection-chbx">
                                                 <input className="item-checkbox" type='checkbox' id={item.id} name= {item.name} defaultChecked={setDefault(item.id)} value={setDefault(item.id)} onChange={()=>handleOnCheckBoxChange(item.id)}/>

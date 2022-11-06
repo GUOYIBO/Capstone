@@ -42,7 +42,6 @@ const AddFavDishesForm = ({setShowModal}) =>{
         }
         await dispatch(addADishThunk(dishData)).then(()=> history.push('/myfavoritedishes')).then(()=>setShowModal(false));
 
-
     }
     //
     const setDefault = (id) =>{
@@ -65,8 +64,17 @@ const AddFavDishesForm = ({setShowModal}) =>{
 
     }
 
+    const shownCategory =[]
+    if (categories && Object.values(categories).length >0){
+        for (let i=0; i<Object.values(categories).length; i++){
+            if (Object.values(categories)[i].items.length>0){
+                shownCategory.push(Object.values(categories)[i])
+            }
+        }
+    }
+
     return (
-        <div id='form-container' className=''>
+        <div id='form-container' className='form-container'>
         <div className='close-button-container'>
                 <button aria-label='Close' id="closeButton" className="closebutton" onClick={()=>setShowModal(false)}>
                    <div className="close-icon">
@@ -76,7 +84,7 @@ const AddFavDishesForm = ({setShowModal}) =>{
             <div className="form-content-container">
             <div className='form-title'>Add a dish</div>
             <form id='create-fav-dish-form' onSubmit={handleSubmit}>
-                <label className='create-fav-dish-label'>
+                
                 <div className="form-subtitle">
                 <span id='create-req-star' className='red-text'>*</span><span className='create-label-text'>Dish Name</span>
                 </div>
@@ -89,10 +97,8 @@ const AddFavDishesForm = ({setShowModal}) =>{
                         value={dishName}
                         onChange={e => setDishName(e.target.value)}
                     />
-                          </div>
+                </div>
             
-                </label>
-                <label className='create-fav-dish-img-label'>
                 <div className="form-subtitle">
                     <span className='create-fav-dish-img-text'>Image Url</span>
                     </div>
@@ -107,10 +113,10 @@ const AddFavDishesForm = ({setShowModal}) =>{
                     />
                     </div>
                 
-                </label>
+
 
                 <div className="items-selection-container">
-                    {!! Object.values(categories).length && Object.values(categories).map(category =>{
+                    {!! Object.values(shownCategory).length && Object.values(shownCategory).map(category =>{
                         return (
                            <div key={category.id} className="category-title">
                                 <h3> {category.name}</h3>

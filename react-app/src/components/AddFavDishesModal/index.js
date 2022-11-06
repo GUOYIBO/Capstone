@@ -8,7 +8,7 @@ function AddFavDishesModal({category}) {
 
   return (
     <>
-      <button className="add-fav-dish-button"  onClick={() => setShowModal(true)}>Add Favorite Dish</button>
+      <button onClick={() => setShowModal(true)}>Add Favorite Dish</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <AddFavDishesForm setShowModal={setShowModal}/>

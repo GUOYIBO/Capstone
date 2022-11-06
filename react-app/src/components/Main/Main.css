@@ -50,7 +50,14 @@ div {
     height: 6px;
 }
 
-
+button.filter-reset{
+    background-color: rgb(238, 238, 238);
+    /* border-color: gray; */
+    border-style: none;
+    color: black;
+    margin-top: 10px;
+    margin-left: 0px;
+}
 .filter-title {
     font-size: var(--title1);
     margin-top: 5px;
@@ -65,12 +72,15 @@ div {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    padding-right: 80px;
+    justify-content: space-between;
     /* justify-content: space-between; */
 }
 
 .filter {
-    min-width: 288px;
-    max-width: 288px;
+    min-width: 160px;
+    padding-left: 20px;
+    flex-basis: 20%;
 }
 .current-item-title{
     font-size: 36px;
@@ -88,18 +98,24 @@ div {
     flex: 1 0 calc(25% - 10px); 
     margin: 5px; */
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    /* grid-template-columns: repeat(3, 1fr); */
+    grid-template-columns: repeat(4, 1fr) ;
     gap: 24px;
+    flex-basis: 80%;
 }
 .item-img-container{
-    width: 369px;
-    /* width: 100%; */
-    /* width: calc(25% + -18px); */
-    height: 128px;
+    /* width: 350px;
+     */
+     /* height: 158px; */
+     /* max-height: px; */
     margin-bottom: 10px;
     position: relative;
+    grid-column: 1;
+    height: 128px;
+    overflow: hidden;
     /* display: flex; */
 }
+    
 .item-img-container img {
     width: 100%;
     height: 100%;
@@ -107,6 +123,10 @@ div {
  .item-img {
     height: 100%;
     width: 100%;
+    cursor: pointer;
+ }
+ .item-img:hover {
+    opacity: 0.7
  }
  .name-qty-container {
     display: flex;
@@ -123,6 +143,7 @@ div {
     top: 0;
     width: 100%;
     position:absolute;
+    justify-content: space-between;
 }
 .quantiy{
     display: inline-block;
@@ -146,6 +167,10 @@ div {
     margin: 8px 2px;
     border-radius: 30px;
     font-weight: 500;
+ }
+
+ .filter-button :focus{
+    background-color: black;
  }
  .button-list{
     display: flex;
@@ -178,17 +203,64 @@ div {
 
 .my-items-list{
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 24px;
 }
 .my-item-img-container{
-    max-width: 369px;
-    height: 128px;
+    /* max-width: 369px;
+    height: 128px; */
     margin-bottom: 10px;
     position: relative;
+    grid-column: 1;
 }
 
 .my-item-img-container img {
     width: 100%;
     height: 100%;
  }
+
+ .delete-inline{
+    display: flex;
+    padding: 12px 0px;
+    top: 0;
+    width: 100%;
+    align-items: flex-end;
+    flex-direction: column;
+    position:absolute;
+    border-radius: 50%;
+}
+
+
+ .delete-white-icon{
+    display: inline-block;
+    padding:  4px 12px;
+    font-weight: 350;
+    font-size: 18px;
+    color: white;
+    border-radius: 24px 24px 24px 24px;
+    background-color: transparent;
+    align-items: flex-end;
+}
+
+.delete-white-icon:hover{
+    background-color: rgb(238, 238, 238);
+    cursor: pointer;
+    color: black;
+}
+
+.delete-black-icon{
+    display: inline-block;
+    padding:  4px 12px;
+    font-weight: 350;
+    font-size: 18px;
+    color: black;
+    border-radius: 24px 24px 24px 24px;
+    background-color: transparent;
+    align-items: flex-end;
+}
+
+.button-container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}

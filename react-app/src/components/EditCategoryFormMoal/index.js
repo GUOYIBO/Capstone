@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
 import EditCategoryForm from './EditCategoryForm';
 import './EditCategoryForm.css'
+import { urlDisplay } from '../../utils/helper';
 
 function EditCategoryFormModal({category}) {
   const [showModal, setShowModal] = useState(false);
@@ -9,7 +10,7 @@ function EditCategoryFormModal({category}) {
 
   return (
     <>
-      <button className="edit-category-button"  onClick={() => setShowModal(true)}>Edit</button>
+      <img src={urlDisplay(category.image_url)} className="edit-category-button"  onClick={() => setShowModal(true)}></img>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <EditCategoryForm category={category} setShowModal={setShowModal}/>

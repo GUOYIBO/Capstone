@@ -1,9 +1,12 @@
 export  const allImages = importAll(require.context('../image', false, /\.(png|jpg|svg)$/));
 export const urlDisplay = (url) =>{
-    if ( url.startsWith('http')){
+
+    if (!allImages[url] || !allImages[url].default){
         return url
     }
-    return allImages[url].default
+    else{
+        return allImages[url].default 
+    }
 
 }
 

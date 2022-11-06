@@ -1,10 +1,12 @@
 .category-image-carousel{
     position: relative;
-    height: 50vh;
+    height: 30vh;
     display: flex;
     justify-content: center;
     align-items: center;
-
+    width: 100%;
+    padding-top: 0px;
+    margin-bottom: 10px;
 }
 
 .image {
@@ -60,8 +62,9 @@ height: 100%;
 .single-item-container{
     display: flex;
     column-gap: 40px;
-    justify-content: center;
+    justify-content: left;
     margin-top: 5px;
+    padding-left: 10px;
     /* margin-left: 40px; */
     /* flex: 1 1 2 */
 }
@@ -69,39 +72,36 @@ height: 100%;
 /* .single-item-container > * {
     /* width: 150px; */
   /* }  */
-.input-quantity{
-    vertical-align: bottom;
-}
 
 .item-type-name{
     vertical-align: bottom;
     margin-bottom: 0;
     padding-bottom: 0;
     margin-top: 15px;
-    flex-basis: 150px;
+    flex-basis: 30%;
     font-size: 16px;
+    display: flex;
+    flex-direction: row;
+    text-align: left;
     /* gap: 10px; */
 }
+
 
 .item-type-name-title{
     vertical-align: bottom;
     margin-bottom: 0;
     padding-bottom: 0;
-    flex-basis: 150px;
     font-size: 16px;
+    flex-basis: 30%;
     font-weight: 600;
     /* gap: 10px; */
 }
 
-.input-date-title{
-    font-weight: 600;
-}
-.input-quantity-title{
-    font-weight: 600;
-}
+
+
 
 .item-type-name span {
-    padding-left: 10px;
+    padding-left: 8px;
 }
 /* .item-type-name span{
     vertical-align: bottom;
@@ -118,6 +118,18 @@ height: 100%;
     margin-right: 12px;
     margin-bottom: 0px;
     padding-bottom: 0px;
+    flex-basis: 30%;
+}
+.input-date-title{
+    vertical-align: bottom;
+    margin-right: 12px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    font-weight: 600;
+    flex-basis: 30%;
+}
+.input-expiration-date{
+    flex-basis: 30%;
 }
 
 /* .input-expiration-date span {
@@ -134,11 +146,17 @@ height: 100%;
     padding-bottom: 0;
     margin-bottom: 0;
     padding-top: 13px;
+    flex-basis: 10%;
 }
-
-.left-item-selection-container{
-    margin-top: 40px;
+.input-quantity-title{
+    font-weight: 600;
+    flex-basis: 10%;
+}
+.item-selection-container{
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    max-height: 200px;
+    overflow: scroll;
 }

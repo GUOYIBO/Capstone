@@ -77,7 +77,7 @@ def create_purchase_list():
 def delete_purchase_list(purchase_list_id):
     purchase_list = PurchaseList.query.filter(PurchaseList.id == purchase_list_id).first()
     print ('get purchase list to delete ', purchase_list)
-    if purchase_list is not None:
+    if purchase_list:
         db.session.delete(purchase_list)
         db.session.commit()
         return { "message": "purchase list successfully deleted"}, 200

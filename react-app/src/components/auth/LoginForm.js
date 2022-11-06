@@ -18,7 +18,13 @@ const LoginForm = () => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
     if (data) {
-      setErrors(data);
+      const formatedErrors=data.map(err=> {
+        // const [_field, message]= err.split(":")
+        // return message.slice(1)
+        const errMsgArr = err.split(":");
+        return  errMsgArr.length >1 ? errMsgArr.slice(1) : errMsgArr
+      })
+      setErrors(formatedErrors);
     }
   };
 
@@ -49,7 +55,7 @@ const LoginForm = () => {
         ))}
       </div>
       <div>
-        <label htmlFor='email'>Email</label>
+        <label htmlFor='email'>EMAIL</label>
         <input
           name='email'
           type='text'
@@ -59,7 +65,7 @@ const LoginForm = () => {
         />
       </div>
       <div>
-        <label htmlFor='password'>Password</label>
+        <label htmlFor='password'>PASSWORD</label>
         <input
           name='password'
           type='password'

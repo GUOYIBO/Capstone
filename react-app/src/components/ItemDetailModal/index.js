@@ -4,16 +4,21 @@ import {urlDisplay} from "../../utils/helper"
 
 import ItemDetail from './ItemDetail';
 const ItemDetailModal = (entry) =>{
+  console.log("item entry", entry)
     const [showModal, setShowModal] = useState(false);
 
     return (
         <>
-          <img className="add-purchase-list-button"  src={urlDisplay("bread.png")} onClick={() => setShowModal(true)} />
+          <div className='item-img'>
+          
+          <img src={urlDisplay(entry.entry.item.image_url)} onClick={() => setShowModal(true)}/>
+        
           {showModal && (
             <Modal onClose={() => setShowModal(false)}>
               <ItemDetail entry={entry} setShowModal={setShowModal}/>
             </Modal>
           )}
+          </div>
         </>
       );
 }

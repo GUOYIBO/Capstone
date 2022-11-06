@@ -2,6 +2,7 @@ const ADD_A_CATEGORY = 'category/ADD_A_CATEGORY'
 const DELETE_A_CATEGORY = 'category/DELETE_A_CATEGORY'
 const UPDATE_A_CATEGORY = 'category/UPDATE_A_CATEGORY'
 const GET_ALL_CATEGORIES ='category/GET_ALL_CATEGORIES'
+const CLEAR = 
 
 
 const addCategory = (payload) => {
@@ -153,6 +154,8 @@ const categoryReducer = (state=initialState, action) =>{
         case UPDATE_A_CATEGORY:
             newState[action.payload.id] = action.payload
             return newState;
+        case CLEAR:
+            return {}
 
         case GET_ALL_CATEGORIES:
             console.log ('action.payload----', action.payload)
