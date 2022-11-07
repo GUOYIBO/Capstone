@@ -19,6 +19,7 @@ const AddItemForm =({setShowModal}) =>{
     const [qtyState, setQtyState] = useState({});
     const [purchaseDateState, setPurchaseDateState] = useState({})
     const [expDateState, setExpDateState] = useState({})
+    const [errors, setErrors] = useState([])
 
 
     useEffect(() =>{
@@ -26,6 +27,33 @@ const AddItemForm =({setShowModal}) =>{
             await dispatch(getAllCategoryThunk());
         })();
     },[dispatch])
+
+
+    useEffect(()=>{
+        let validationErrors = [];
+        if (Object.keys(purchaseDateState).length>0){
+            Object.keys(purchaseDateState).map(entry =>{
+                if (new Date(purchaseDateState[entry]) > new Date(new Date().toISOString().substring(0,10))){
+                    validationErrors.push("Item " + entry + " purchase date can not be greater than today ")
+                }
+                if (expDateState[entry] && new Date(purchaseDateState[entry])> new Date(expDateState[entry])){
+                    validationErrors.push("Item " + entry+ " purchase date can not be greater than expiration date ")
+                }
+            })
+        }
+
+        if (Object.keys(expDateState).length >0){
+            Object.keys(expDateState).map(entry =>{
+                if (new Date(expDateState[entry]) < new Date(new Date().toISOString().substring(0,10))){
+                    validationErrors.push("Item " +entry +" expiration date can not be in the past ")
+                }
+                if (purchaseDateState[entry] && new Date(purchaseDateState[entry]) > new Date(expDateState[entry])){
+                    validationErrors.push ("Item " +entry + " purchase date can not be greater than expiration date ")
+                }
+            })
+        }
+        setErrors(validationErrors)
+    },[purchaseDateState, expDateState])
 
     if (!categories || Object.values(categories).length === 0){
         return <>Loading...</>
@@ -36,6 +64,7 @@ const AddItemForm =({setShowModal}) =>{
     console.log('check quantity', qtyState)
     console.log('check purchase Date', purchaseDateState)
     console.log('check expiration Date', expDateState)
+    console.log("errors ", errors)
     const current = new Date()
     const defaultPurchaseDate = current.toISOString().substring(0,10)
     const futureDate = current
@@ -46,8 +75,17 @@ const AddItemForm =({setShowModal}) =>{
 
     const handleOnCheckBoxChange = (id) =>{
         if (checkedState[id]){
-            console.log('handleOnCheckBoxChange', checkedState[id])
-            checkedState[id] = !checkedState[id]
+            console.log('handleOnCheckBoxChange', id, checkedState[id])
+            // checkedState[id] = !checkedState[id]
+            // setCheckedState(!checkedState[id])
+            setCheckedState(preState => {
+                console.log('setCheckedStatexxxxx preState', preState)
+                return { 
+                ...preState, 
+                [id] : !checkedState[id]
+                }
+            })
+
         }else{
             setCheckedState(preState => {
                 console.log('setCheckedState preState', preState)
@@ -90,6 +128,11 @@ const AddItemForm =({setShowModal}) =>{
     }
 
     const handleSubmit = async (e) =>{
+        e.preventDefault();
+        if (errors.length >0){
+            alert(errors)
+            return;
+        }
         const userItemData ={ 
             "item_ids": checkedState, 
             "quantities": qtyState,
@@ -181,6 +224,11 @@ const AddItemForm =({setShowModal}) =>{
                     )
                 })}
             </div>
+            <div className='add-err-r-messages'>
+                    {errors.map((error, idx) =>{
+                        <div key={idx}>{error}</div>
+                    })}
+                 </div>
             <div className="single-item-container">
                     <span className='item-type-name-title'>Name</span>
                     <span className="input-quantity-title">Qty</span>
@@ -204,6 +252,13 @@ const AddItemForm =({setShowModal}) =>{
                                     <option key="3" value="3">3</option>
                                     <option key="4" value="4">4</option>
                                     <option key="5" value="5">5</option>
+                                    <option key="6" value="6">6</option>
+                                    <option key="7" value="7">7</option>
+                                    <option key="8" value="8">8</option>
+                                    <option key="9" value="9">9</option>
+                                    <option key="10" value="10">10</option>
+                                    <option key="11" value="11">11</option>
+                                    <option key="12" value="12">12</option>
                                 </select>
                             </div>
                             <div className="input-purchase-date">

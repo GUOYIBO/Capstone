@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateACategoryThunk } from '../../store/category';
 import { useHistory } from 'react-router-dom';
+import { validExtensions } from '../../utils/helper';
 
 
 const EditCategoryForm =({ category, setShowModal }) =>{
@@ -18,11 +19,30 @@ const EditCategoryForm =({ category, setShowModal }) =>{
         if(!editedCatgoryName.trim().length){
             errors = true
             alert(`Category name can not be empty.`)
+            return
+        }
+
+        if(!editedCatgoryUrl.trim().length){
+            errors = true
+            alert(`Category image url can not be empty.`)
+            return
         }
 
         if(editedCatgoryName.length > 20){
             errors = true;
             alert(`Your input is too long, 20 characters max.`)
+            return
+        }
+
+        if (editedCatgoryUrl.length >0){
+            const urlArr = editedCatgoryUrl.split('.');
+            const ext = urlArr[urlArr.length-1];
+            if (!validExtensions.includes(ext.toLocaleLowerCase())){
+                errors = true
+                alert(`Category image format is invalid. Png, jpg, jpeg, svg allowed. `)
+                return
+            }
+
         }
 
         if(errors) return;
@@ -57,6 +77,8 @@ const EditCategoryForm =({ category, setShowModal }) =>{
                         placeholder='new-category'
                         type='text'
                         value={editedCatgoryName}
+                        maxLength="20"
+                        minLength="5"
                         onChange={e=> setNewCategoryName(e.target.value)}
                     />
                     </div>

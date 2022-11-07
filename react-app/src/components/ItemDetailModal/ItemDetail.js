@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { updateItemThunk} from '../../store/item'
 import './ItemDetail.css'
+import { useEffect } from "react"
 
 const ItemDetail = ({entry, setShowModal}) =>{
 
@@ -10,7 +11,30 @@ const ItemDetail = ({entry, setShowModal}) =>{
     const [qty, setQty] = useState(entry.entry.quantity)
     const [purchaseDate, setPurchaseDate] = useState(entry.entry.purchase_date.substring(0,10))
     const [expDate, setExpDate] = useState(entry.entry.expiration_date.substring(0,10))
+    const [errors, setErrors] = useState([])
+    console.log ('entry item', entry)
 
+    useEffect(()=>{
+        let validationErrors = [];
+        if (purchaseDate.length>0 && expDate.length >0){
+            console.log('aaaa' )
+            if (new Date(purchaseDate) > new Date(new Date().toISOString().substring(0,10))){
+                validationErrors.push("Item purchase date can not be greater than today ")
+            }
+            if (new Date(purchaseDate)> new Date(expDate)){
+                validationErrors.push("Item purchase date can not be greater than expiration date ")    
+            }
+            if (new Date(expDate) < new Date(new Date().toISOString().substring(0,10))){
+                validationErrors.push("Item expiration date can not be in the past ")
+            }
+            if (new Date(purchaseDate) > new Date(expDate)){
+                validationErrors.push ("Item purchase date can not be greater than expiration date ")
+            }
+        }
+        setErrors(validationErrors)
+    },[purchaseDate, expDate])
+
+    console.log("errors" , errors)
     const incQty = (e) =>{
         e.preventDefault()
         if(qty<12){
@@ -29,17 +53,21 @@ const ItemDetail = ({entry, setShowModal}) =>{
 
     const changePurchaseDate = (value) =>{
         const newDate = new Date(value).toISOString().substring(0,10)
-        console.log('set p date', newDate)
+        
         setPurchaseDate(value)
     }
 
     const chageExpDate = (value) =>{
         const newDate = new Date(value).toISOString().substring(0,10)
-        console.log('set p date', newDate)
+        
         setExpDate(value)
     }
     const handleSubmit = async (e) =>{
         e.preventDefault()
+        if (errors.length > 0){
+            alert(errors);
+            return
+        }
         console.log("qty", qty)
         console.log("purchaseDate", purchaseDate)
         console.log("expDate", expDate)
@@ -78,14 +106,14 @@ const ItemDetail = ({entry, setShowModal}) =>{
                     <div className="edit-date">
                 <div className="form-subtitle">Purchase Date</div> </div>
                     <input type="date" id="purchase" name="purchase-date" value={purchaseDate} 
-                    onChange={(e) =>changePurchaseDate(e.target.value)} min="2022-11-01" max="2022-12-31"/>
+                    onChange={(e) =>changePurchaseDate(e.target.value)} min="2022-11-01" max="2025-12-31"/>
                
                 </div>
                 <div className="edit-quantity-container">
                 <div className="edit-date">
                     <div className="form-subtitle">Expiration Date</div></div>
                     <input type="date" id="exp" name="expiration-date" value={expDate} 
-                    onChange={(e) =>chageExpDate(e.target.value)} min="2022-11-01" max="2022-12-31"/>
+                    onChange={(e) =>chageExpDate(e.target.value)} min="2022-11-01" max="2025-12-31"/>
                </div>
                 <div id='create-botton' className='form-button'>
                     <button id='create-dish-btn' onClick={handleSubmit}>

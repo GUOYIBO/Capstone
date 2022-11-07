@@ -39,6 +39,8 @@ div {
     align-items: center;
     vertical-align: middle;
     text-align: center;
+    justify-content: center;
+    margin: auto;
 }
 
 .category-img img {
@@ -47,7 +49,9 @@ div {
    max-width: 90%;
    /* border-radius: 100%; */
    object-fit: fill;
-   vertical-align: bottom;
+   vertical-align: middle;
+   justify-content: center;
+   bottom: 0;
    /* bottom: 0; */
 }
 

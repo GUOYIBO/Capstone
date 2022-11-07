@@ -17,12 +17,18 @@ const AddPurchaseListForm =({ setShowModal }) =>{
         let errors = false;
         if(!newPurchaseListyName.trim().length){
             errors = true
-            alert(`Purchase-list name can not be empty.`)
+            alert(`Purchase list name can not be empty.`)
         }
 
         if(newPurchaseListyName.length > 20){
             errors = true;
             alert(`Your input is too long, 20 characters max.`)
+        }
+
+        
+        if(!newPurchaseListContent.trim().length){
+            errors = true
+            alert(`Purchase list description can not be empty.`)
         }
 
         if(errors) return;
@@ -56,6 +62,7 @@ const AddPurchaseListForm =({ setShowModal }) =>{
                         placeholder='name'
                         type='text'
                         value={newPurchaseListyName}
+                        maxLength="20"
                         onChange={e=> setNewPurchaseListName(e.target.value)}
                     />
                     </div>
@@ -69,6 +76,7 @@ const AddPurchaseListForm =({ setShowModal }) =>{
                         id='1'
                         placeholder='description...'
                         type='textarea'
+                        maxLength="400"
                         value={newPurchaseListContent}
                         onChange={e=> setNewPurchaseListContent(e.target.value)}/>
                     </div>

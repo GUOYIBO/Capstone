@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { createACategoryThunk } from '../../store/category';
 import { useHistory } from 'react-router-dom';
 import '../EditFavDishModal/EditFavDishForm'
+import { validExtensions } from '../../utils/helper';
 
 
 const AddCategoryForm =({ setShowModal }) =>{
@@ -11,7 +12,7 @@ const AddCategoryForm =({ setShowModal }) =>{
     const [newCatgoryUrl, setNewCategoryUrl] = useState('');
     const dispatch = useDispatch()
     const history = useHistory()
-    
+   
     const handleCreate = async e => {
         e.preventDefault()
 
@@ -19,11 +20,31 @@ const AddCategoryForm =({ setShowModal }) =>{
         if(!newCatgoryName.trim().length){
             errors = true
             alert(`Category name can not be empty.`)
+            return
         }
 
         if(newCatgoryName.length > 20){
             errors = true;
             alert(`Your input is too long, 20 characters max.`)
+            return
+        }
+
+        if(!newCatgoryUrl.trim().length){
+            errors = true
+            alert(`Category image url can not be empty.`)
+            return
+        }
+
+        if (newCatgoryUrl.length >0){
+            const urlArr = newCatgoryUrl.split('.');
+            const ext = urlArr[urlArr.length-1];
+            if (!validExtensions.includes(ext.toLocaleLowerCase())){
+                errors = true
+                alert(`Category image format is invalid. Png, jpg, jpeg, svg allowed. `)
+                return
+            }
+           
+
         }
 
         if(errors) return;
@@ -57,6 +78,8 @@ const AddCategoryForm =({ setShowModal }) =>{
                         placeholder='new category'
                         type='text'
                         value={newCatgoryName}
+                        maxLength="20"
+                        minLength="5"
                         onChange={e=> setNewCategoryName(e.target.value)}
                     />
                     </div>

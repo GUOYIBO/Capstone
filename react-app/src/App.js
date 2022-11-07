@@ -28,7 +28,7 @@ function App() {
     })();
   }, [dispatch]);
 
-  console.log('test ------')
+  
   if (!loaded) {
     console.log('not loaded, return null')
     return null;

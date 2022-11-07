@@ -18,6 +18,7 @@ const AddItems = () =>{
     const history = useHistory()
 
     const [currentCategotyIdx, setCurrentCategotyIdx]= useState(0)
+    const [errors, setErrors] = useState([])
 
     // const itemCheckedObj = {}
     // const qtyObj = {}
@@ -29,7 +30,7 @@ const AddItems = () =>{
     const [purchaseDateState, setPurchaseDateState] = useState({})
     const [expDateState, setExpDateState] = useState({})
 
-
+    console.log("errors1 ", errors)
 
 
     useEffect(() =>{
@@ -38,22 +39,48 @@ const AddItems = () =>{
         })();
     },[dispatch])
 
+
+    useEffect(()=>{
+        let validationErrors = [];
+        if (Object.keys(purchaseDateState).length>0){
+            Object.keys(purchaseDateState).map(entry =>{
+                if (new Date(purchaseDateState[entry]) > new Date(new Date().toISOString.substring(0,10))){
+                    validationErrors.push(entry + " purchase date can not be earlier than today")
+                }
+                if (expDateState[entry] && new Date(purchaseDateState[entry])> new Date(expDateState[entry])){
+                    validationErrors.push(entry+ " purchase date can not be earlier than expiration date")
+                }
+            })
+        }
+
+        if (Object.keys(expDateState).length >0){
+            Object.keys(expDateState).map(entry =>{
+                if (new Date(expDateState(entry)) < new Date(new Date().toISOString.substring(0,10))){
+                    validationErrors.push(entry +" expiration date can not be earlier than today")
+                }
+                if (purchaseDateState[entry] && new Date(purchaseDateState[entry]) > new Date(expDateState[entry])){
+                    validationErrors.push (entry + "purchase date can not be earlier than expiration date")
+                }
+            })
+        }
+        setErrors(validationErrors)
+    },[purchaseDateState, expDateState])
+
     if (!categories || Object.values(categories).length === 0){
         return <>Loading..2.</>
     }
     const length = Object.values(categories).length;
-    console.log("=======category", categories)
     const currentCategory = Object.values(categories)[currentCategotyIdx]
     console.log('check itemcheckbox', checkedState)
     console.log('check quantity', qtyState)
     console.log('check purchase Date', purchaseDateState)
     console.log('check expiration Date', expDateState)
+    console.log("errors ", errors)
     const current = new Date()
     const defaultPurchaseDate = current.toISOString().substring(0,10)
     const futureDate = current
     futureDate.setDate(current.getDate()+5)
     const defaultExpDate = futureDate.toISOString().substring(0,10)
-   
 
    
     const handleOnCheckBoxChange = (id) =>{
@@ -108,6 +135,37 @@ const AddItems = () =>{
     }
 
     const handleSubmit = async (e) =>{
+        console.log('HIHIHIHIHIIH-----------')
+        e.preventDefault();
+        let validationErrors = [];
+        if (Object.keys(purchaseDateState).length>0){
+            console.log("keysssss",Object.keys(purchaseDateState))
+            Object.keys(purchaseDateState).map(entry =>{
+                console.log("new date1", new Date(purchaseDateState[entry] ))
+                if (new Date(purchaseDateState[entry]) > new Date(new Date().toISOString.substring(0,10))){
+                    validationErrors.push(entry + " purchase date can not be earlier than today")
+                }
+                if (expDateState[entry] && new Date(purchaseDateState[entry])> new Date(expDateState[entry])){
+                    validationErrors.push(entry+ " purchase date can not be earlier than expiration date")
+                }
+            })
+        }
+
+        if (Object.keys(expDateState).length >0){
+            Object.keys(expDateState).map(entry =>{
+                if (new Date(expDateState(entry)) < new Date(new Date().toISOString.substring(0,10))){
+                    validationErrors.push(entry +" expiration date can not be earlier than today")
+                }
+                if (purchaseDateState[entry] && new Date(purchaseDateState[entry]) > new Date(expDateState[entry])){
+                    validationErrors.push (entry + "purchase date can not be earlier than expiration date")
+                }
+            })
+        }
+       
+        if (validationErrors.length>0){
+            setErrors(validationErrors)
+            return
+        }
         const userItemData ={ 
             "item_ids": checkedState, 
             "quantities": qtyState,
@@ -173,6 +231,11 @@ const AddItems = () =>{
 
             </div>
             <div className="item-selection-container">
+                <div className='add-err-r-messages'>
+                    {errors.map((error, idx) =>{
+                        <div key={idx}>{error}</div>
+                    })}
+                 </div>
                 <div className="single-item-container">
                     <span className='item-type-name-title'>Name</span>
                     <span className="input-quantity-title">Qty</span>
@@ -194,17 +257,24 @@ const AddItems = () =>{
                                     <option key="3" value="3">3</option>
                                     <option key="4" value="4">4</option>
                                     <option key="5" value="5">5</option>
+                                    <option key="6" value="6">6</option>
+                                    <option key="7" value="7">7</option>
+                                    <option key="8" value="8">8</option>
+                                    <option key="9" value="9">9</option>
+                                    <option key="10" value="10">10</option>
+                                    <option key="11" value="11">11</option>
+                                    <option key="12" value="12">12</option>
                                 </select>
                             </div>
                             <div className="input-purchase-date">
                                 {/* <span>Purchase date </span> */}
                                 <input type="date" id="purchase" name="purchase-date" value= {purchaseDateState[entry.id]} defaultValue={defaultPurchaseDate} onChange={(e) =>changePurchaseDate(entry.id, e.target.value)} 
-                                        min="2022-01-01" max="2022-12-31"/>
+                                        min="2022-01-01" max="2025-12-31"/>
                             </div>
                             <div className="input-expiration-date">
                                 {/* <span>Expiration date </span> */}
                                 <input type="date" id="expiration" name="expiration-date" value= {expDateState[entry.id]} defaultValue={defaultExpDate} onChange={(e) =>changeExpirationDate(entry.id, e.target.value)}
-                                        min="2022-01-01" max="2022-12-31" />
+                                        min="2022-01-01" max="2025-12-31" />
                             </div>
 
                         </div>

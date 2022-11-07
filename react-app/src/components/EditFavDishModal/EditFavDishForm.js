@@ -3,7 +3,7 @@ import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import {updateADishThunk} from '../../store/favoriteDish'
 import { getAllCategoryThunk} from '../../store/category'
-
+import { validExtensions } from "../../utils/helper"
 import { useState } from "react"
 import './EditFavDishForm.css'
 
@@ -54,9 +54,43 @@ const EditFavDishFom = ({dish, setShowModal}) =>{
     const handleSubmit = async (e) =>{
         e.preventDefault();
         console.log ("ALL SELECTED", allSelected)
-        const dishData = {
-            "item_ids" : allSelected
+        let errors = false;
+        if(!dishName.trim().length){
+            errors = true
+            alert(`Favorite dish name can not be empty.`)
+            return
         }
+
+        if(dishName.length > 40){
+            errors = true;
+            alert(`Your input is too long, 40 characters max.`)
+            return
+        }
+
+        if(!dishImagUrl.trim().length){
+            errors = true
+            alert(`Favorite dish image url can not be empty.`)
+            return
+        }
+
+        if (dishImagUrl.length >0){
+            const urlArr = dishImagUrl.split('.');
+            const ext = urlArr[urlArr.length-1];
+            if (!validExtensions.includes(ext.toLocaleLowerCase())){
+                errors = true
+                alert(`Favorite dish image format is invalid. Png, jpg, jpeg, svg allowed.`)
+                return
+            }
+        }
+
+        if(errors) return;
+
+        const dishData = {
+            "item_ids" : allSelected,
+            "name" : dishName,
+            "image_url": dishImagUrl
+        }
+        console.log("before sending tp backend ", dishData)
         await dispatch(updateADishThunk(+dish.id, dishData)).then(() => setShowModal(false))
 
     }
@@ -95,7 +129,7 @@ const EditFavDishFom = ({dish, setShowModal}) =>{
             <div className='form-title'>Edit Dish</div>
             <div className='create-fav-dish-label'>
                 <div className="form-subtitle">
-                 <span id='create-dish-star' className='red-text'>* </span><span>Dish Name</span>
+                 <span id='create-dish-star' className='red-text'></span><span>Dish Name</span>
                 </div>
                 <div className='form-input'>
                     <input
@@ -103,6 +137,7 @@ const EditFavDishFom = ({dish, setShowModal}) =>{
                         placeholder="Please enter a dish name"
                         type='text'
                         value={dishName}
+                        maxLength="40"
                         onChange={e => setDishName(e.target.value)}
                     />
                     </div>

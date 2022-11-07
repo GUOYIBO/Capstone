@@ -34,16 +34,44 @@ def update_fav_dish(dish_id):
     data = json.loads(request.data)
     item_ids = data['item_ids']
 
-    print('********** length before ', len(fav_dish.dish_items))
-    fav_dish.dish_items[:] = []  
-    print('********** length after', len(fav_dish.dish_items))
-    for key in item_ids:
-        print("********** key", key, item_ids[key])
-        if (item_ids[key]):
-            item = Item.query.filter(Item.id==key).first()
-            fav_dish.dish_items.append(item)
-    db.session.commit()
+    item_ids = data['item_ids']
+    name= data['name']
+    image_url=data['image_url']
+
+    print('jjjjjjjjjjjjj', item_ids )
+    print('jjjjjjjjjjjjj', name )
+    print('jjjjjjjjjjjjj', image_url )
+    if name:
+        fav_dish.name=name
+    if image_url:
+        fav_dish.image_url=image_url
+    if item_ids is None or len(item_ids) == 0:
+        db.session.commit()
+    else:
+        if fav_dish.dish_items is not None and len(fav_dish.dish_items)>0 :
+            fav_dish.dish_items[:] = [] 
+        for key in item_ids:
+            if (item_ids[key]):
+                item = Item.query.filter(Item.id==key).first()
+                fav_dish.dish_items.append(item)
+            db.session.commit()
     return {'result': fav_dish.to_dict()}, 200
+
+    
+
+
+    # if fav_dish.dish_items:
+    #     print('********** length before ', len(fav_dish.dish_items))
+    #     fav_dish.dish_items[:] = []  
+    #     print('********** length after', len(fav_dish.dish_items))
+    # for key in item_ids:
+    #     print("********** key", key, item_ids[key])
+    # if item_ids:
+    #     if (item_ids[key]):
+    #         item = Item.query.filter(Item.id==key).first()
+    #         fav_dish.dish_items.append(item)
+    #     db.session.commit()
+    # return {'result': fav_dish.to_dict()}, 200
 
 
 
@@ -56,6 +84,9 @@ def create_fav_dish():
     name= data['name']
     image_url=data['image_url']
     fav_dish = FavoriteDish(name=name, image_url=image_url, des="",user_id=current_user.id)
+    db.session.add(fav_dish)
+    db.session.commit()
+    print('newly add fav_dish ',fav_dish)
     for item_id in item_ids:
         item = Item.query.filter(Item.id==item_id).first()
         fav_dish.dish_items.append(item)

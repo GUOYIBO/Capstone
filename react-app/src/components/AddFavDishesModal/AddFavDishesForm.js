@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
 import {getAllCategoryThunk} from "../../store/category"
 import { addADishThunk } from '../../store/favoriteDish'
+import { validExtensions } from "../../utils/helper"
 
 const AddFavDishesForm = ({setShowModal}) =>{
 
@@ -25,7 +26,7 @@ const AddFavDishesForm = ({setShowModal}) =>{
         return <>Loading...1</>
     }
 
-    console.log('setCheckedState ', allSelected)
+    
 
     const handleOnChange = () => {
 
@@ -35,10 +36,41 @@ const AddFavDishesForm = ({setShowModal}) =>{
     const handleSubmit = async (e) =>{
         e.preventDefault();
 
+        let errors = false;
+        if(!dishName.trim().length){
+            errors = true
+            alert(`Favorite dish name can not be empty.`)
+            return
+        }
+
+        if(dishName.length > 40){
+            errors = true;
+            alert(`Your input is too long, 40 characters max.`)
+            return
+        }
+
+        if(!dishImagUrl.trim().length){
+            errors = true
+            alert(`Favorite dish image url can not be empty.`)
+            return
+        }
+        if (dishImagUrl.length >0){
+            const urlArr = dishImagUrl.split('.');
+            const ext = urlArr[urlArr.length-1];
+            if (!validExtensions.includes(ext.toLocaleLowerCase())){
+                errors = true
+                alert(`Favorite dish image format is invalid. Png, jpg, jpeg, svg allowed.`)
+                return
+            }
+        }
+
+        if(errors) return;
+        
+
         const dishData ={ 
             "item_ids": allSelected, 
             "name": dishName,
-            "image_url": dishImagUrl.length===0? "https://assets.bonappetit.com/photos/621683be42e615d63ad4748b/4:5/w_2304,h_2880,c_limit/20220215%20Trinidad%20Pelau%20LEDE.jpg" : dishImagUrl
+            "image_url": dishImagUrl
         }
         await dispatch(addADishThunk(dishData)).then(()=> history.push('/myfavoritedishes')).then(()=>setShowModal(false));
 
@@ -86,7 +118,7 @@ const AddFavDishesForm = ({setShowModal}) =>{
             <form id='create-fav-dish-form' onSubmit={handleSubmit}>
                 
                 <div className="form-subtitle">
-                <span id='create-req-star' className='red-text'>*</span><span className='create-label-text'>Dish Name</span>
+                <span id='create-req-star' className='red-text'></span><span className='create-label-text'>Dish Name</span>
                 </div>
                 <div className='form-input'>
                     <input
@@ -95,6 +127,7 @@ const AddFavDishesForm = ({setShowModal}) =>{
                         placeholder="Please enter a dish name"
                         type='text'
                         value={dishName}
+                        maxLength="40"
                         onChange={e => setDishName(e.target.value)}
                     />
                 </div>

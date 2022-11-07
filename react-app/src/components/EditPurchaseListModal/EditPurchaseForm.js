@@ -23,6 +23,11 @@ const EditPurchaseForm = ({purchase, setShowModal}) =>{
             alert(`Your input is too long, 20 characters max.`)
         }
 
+        if(!editedPurchaseListContent.trim().length){
+            errors = true
+            alert(`Purchase list description can not be empty.`)
+        }
+
         if(errors) return;
 
         const editedPList ={
@@ -53,6 +58,7 @@ const EditPurchaseForm = ({purchase, setShowModal}) =>{
                         placeholder='purchase list name'
                         type='text'
                         value={editedPurchaseListName}
+                        maxLength="20"
                         onChange={e=> setPurchaseListyName(e.target.value)}
                     />
                     </div>
@@ -68,6 +74,7 @@ const EditPurchaseForm = ({purchase, setShowModal}) =>{
                         placeholder=''
                         type='textarea'
                         value={editedPurchaseListContent}
+                        maxLength="400"
                         onChange={e=> setPurchaseListContent(e.target.value)}
                     />
                     </div>

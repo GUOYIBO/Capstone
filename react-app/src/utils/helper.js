@@ -36,3 +36,11 @@ export const onErrorLoadHandler = (e) => {
     e.target.src = errorImage1;
     return;
 }
+
+
+export const validExtensions = [
+    'jpeg',
+    'jpg',
+    'png',
+    'svg'
+]
