@@ -1,7 +1,7 @@
 
 ## About The Project
 
-[My Pantryfridge](https://mypantryfridge.herokuapp.com/) is a web application  styling inspired by [UberEats](https://www.ubereats.com/).
+[My Pantryfridge](https://mypantryfridge.herokuapp.com/) is web application inspired by [UberEats](https://www.ubereats.com/) on styling. It is a management system allowing users to manage pantry and fridge items.
 
 
 ### Project Wiki
@@ -67,7 +67,25 @@
 6. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
 
 
-## Features
+# Features
 
+## Splash Page
 
+<img width="1939" alt="Screen Shot 2022-11-07 at 3 34 13 AM" src="https://user-images.githubusercontent.com/11731514/200320745-c837858f-15ce-4e09-9eaf-0700c7988a15.png">
 
+## Sign up
+<img width="1748" alt="Screen Shot 2022-11-07 at 5 22 50 AM" src="https://user-images.githubusercontent.com/11731514/200321331-9f05c22c-b681-4d91-ab9f-931d2b60b4d3.png">
+
+## Log In
+<img width="1698" alt="Screen Shot 2022-11-07 at 5 23 16 AM" src="https://user-images.githubusercontent.com/11731514/200321422-62e50f9d-3ad2-4406-9298-3ca1a3b445a5.png">
+
+## Create/Read/Update/Delete categories
+
+<img width="1926" alt="Screen Shot 2022-11-07 at 4 54 52 AM" src="https://user-images.githubusercontent.com/11731514/200321824-51aca673-8880-4078-a850-6a22a75de887.png">
+<img width="1929" alt="Screen Shot 2022-11-07 at 3 50 01 AM" src="https://user-images.githubusercontent.com/11731514/200321914-9ef71c2f-c043-4c22-8ef0-2c3bdbe22915.png">
+
+## Create/Read/Update/Delete user items
+<img width="1925" alt="Screen Shot 2022-11-07 at 4 55 30 AM" src="https://user-images.githubusercontent.com/11731514/200322141-bca66ec6-85ed-4285-9f3a-8ba5b9a2e5d3.png">
+<img width="1921" alt="Screen Shot 2022-11-07 at 4 55 44 AM" src="https://user-images.githubusercontent.com/11731514/200322222-d983d878-4c3d-4289-932d-8796a812ed60.png">
+
+There are two more features CRUD on favorite dishes and purchase list. Bonus features Searching and Deployment with AWS are being implemented.
