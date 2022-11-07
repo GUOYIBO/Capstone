@@ -111,9 +111,9 @@ def seed_users():
     for idx in range(0, len(items)):
         for i in items[idx]:
             item=Item(name=i[0], image_url=i[1], category_id=idx+1)
-            if i == 'Shrimp' or i=='Cucumber' or  i=='Carrot':
+            if i[0] == 'Shrimp' or i[0]=='Cucumber' or  i[0]=='Carrot':
                fav_dish_1.dish_items.append(item)
-            if i == 'Tofu':
+            if i[0] == 'Tofu':
                fav_dish_2.dish_items.append(item)
             # db.session.add(item)
             demo.user_items.extend([
