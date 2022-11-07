@@ -38,7 +38,7 @@ function App() {
   return (
     <BrowserRouter>
       {/* <NavBar /> */}
-      <Header/>
+      
       <Switch>
         <Route path='/login' exact>
           <LoginForm />
@@ -47,6 +47,7 @@ function App() {
           <SignUpForm />
         </Route>
         <Route path='/' exact>
+          <Header/>
           <Splash />
         </Route>
 
@@ -58,22 +59,27 @@ function App() {
         </ProtectedRoute>  */}
 
         <Route path='/main' exact>
+        <Header/>
           <Main />
         </Route>
 
         <ProtectedRoute path='/mycategories' exact>
+        <Header/>
           <MyCategory />
         </ProtectedRoute>
         
         <ProtectedRoute path='/myitems' exact>
+        <Header/>
           <MyItems />
         </ProtectedRoute>
 
         <ProtectedRoute path='/myfavoritedishes' exact >
+        <Header/>
           <MyFavoriteDish />
         </ProtectedRoute>
 
         <ProtectedRoute path='/mypurchaselists' exact>
+        <Header/>
            <MyPurchaseList />
         </ProtectedRoute>
         {/* <ProtectedRoute path='/additems' exact >

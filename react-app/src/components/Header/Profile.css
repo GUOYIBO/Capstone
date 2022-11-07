@@ -1,7 +1,7 @@
 .drop-down{
     position: relative;
     display: flex;
-    padding-left: 10px;
+    padding-left: 0px;
     font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
     font-weight: 300;
     font-size: 14px;
@@ -115,37 +115,34 @@
 }
 
 
-.nav-button #logotitle{
+#logotitle{
     display: flex;
     flex-direction: row;
    padding-bottom: 20px;
 }
-.nav-button .logotitle1{
-    font-size: 20px;
-
-    padding-right: 10px;
-    text-align: top;
-    vertical-align: top;
+.logotitle1{
+    font-size: 22px;
+    padding-right: 5px;
+    text-align: center;
+    vertical-align: center;
 }
-.nav-button .logotitle2{
-    font-size: 20px;
+.logotitle2{
+    font-size: 22px;
     padding-top: 0px;
     font-weight: 600;
     padding-bottom: 0;
     text-align: top;
     vertical-align: top;
 }
-.logotitle{
-    display: flex;
-}
-.logtitle1{
+
+/* .logtitle1{
     font-size: 40px;
 
 }
 .logtitle2{
     font-size: 28px;
     font-weight: 600;
-}
+} */
 /* .logotitle-container button {
     width: 100%;
     border: none;

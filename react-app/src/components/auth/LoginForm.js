@@ -6,6 +6,10 @@ import { getAllFavoriteDishesThunk} from '../../store/favoriteDish'
 import { getAllCategoryThunk} from '../../store/category'
 import { getAllPurchaseListsThunk} from '../../store/purchaseList'
 import { getAllItemsThunk } from '../../store/item'
+import './LoginForm.css'
+import '../../index.css'
+import spalsh1 from '../../image/splash1.jpg';
+import { onErrorLoadHandler } from '../../utils/helper';
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -48,38 +52,75 @@ const LoginForm = () => {
   }
 
   return (
+    <div>
+      <div className="logout-navContainer">
+            <div id="logotitle">
+          <div className="logotitle1">My</div>
+          <div className="logotitle2">Pantry</div></div> 
+        </div> 
+        <div className='splash-main-container'>
+        
+        
+    <div className='login-container'>
+    <div className='login-box'>
     <form onSubmit={onLogin}>
+    <div className="form-content-container">
+      <div className='form-title'>Login</div>
       <div>
         {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
+          <div key={ind} className="error-msg">{error}</div>
         ))}
       </div>
-      <div>
-        <label htmlFor='email'>EMAIL</label>
+      <div className='login-input'>
+        <div className='form-subtitle'>
+        <span htmlFor='email' >Email</span></div>
+        <div className='form-input'>
         <input
           name='email'
           type='text'
           placeholder='Email'
+          className='login-input-field'
           value={email}
           onChange={updateEmail}
+          required
         />
+        </div>
       </div>
-      <div>
-        <label htmlFor='password'>PASSWORD</label>
+      <div className='login-input'>
+        <div className='form-subtitle'>
+        <span htmlFor='password' className='form-subtitle'>Password</span>
+        </div>
+        <div className='form-input'>
         <input
           name='password'
           type='password'
           placeholder='Password'
+          className='login-input-field'
           value={password}
           onChange={updatePassword}
+          required
         />
-        <button type='submit'>Login</button>
-        <button type='submit' id="demo-user" onClick={demoUserLogin}>Log In As Demo User</button>
-        <div id="signup-link">
-            <Link to={"/sign-up"} id="linktosignup">Creat an acount</Link>
          </div>
+    </div>
+        <div className="form-button">
+           <button type='submit'>Login</button>
+        </div>
+        <div className="form-button">
+           <button type='submit' id="demo-user" onClick={demoUserLogin}>Login As Demo User</button>
+        </div>
+        <div id="signup-link">
+            <Link to={"/sign-up"} id="linktosignup">
+              <button>Create an acount</button></Link>
+        </div>
       </div>
     </form>
+    </div>
+    </div>
+    <div className="splash-background">
+                <img onError={onErrorLoadHandler} src={spalsh1} />
+            </div>
+    </div>
+    </div>
   );
 };
 

@@ -1,0 +1,8 @@
+.item-img-container #purchase-list-detail {
+    width: 100%;
+    max-height: 100%;
+    padding: 12px;
+    color: white;
+    inline-size:300px;
+    overflow-wrap: break-word;
+ }

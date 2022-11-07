@@ -6,7 +6,7 @@ import img1 from '../../image/profileimage.png'
 import {FaArrowAltCircleLeft, FaArrowAltCircleRight} from 'react-icons/fa'
 import { addUserItemsThunk } from '../../store/item'
 import { useHistory } from "react-router-dom";
-import {urlDisplay} from "../../utils/helper"
+import {urlDisplay, onErrorLoadHandler} from "../../utils/helper"
 
 const AddItemForm =({setShowModal}) =>{
     const categories = useSelector(state => state.categoryReducer)
@@ -175,7 +175,7 @@ const AddItemForm =({setShowModal}) =>{
                     return (
                         <div key={category.id} className="image-div-container">
                             <div className={index === currentCategotyIdx ? 'slide-active' : 'slide'}>
-                                {index === currentCategotyIdx  &&  <img className='image' src={urlDisplay(category.image_url)} alt='img1' />}
+                                {index === currentCategotyIdx  &&  <img onError={onErrorLoadHandler} className='image' src={urlDisplay(category.image_url)} alt='img1' />}
                             </div>
                         </div>
                     )

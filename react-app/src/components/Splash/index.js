@@ -1,25 +1,36 @@
 import "./Splash.css"
 import spalsh1 from '../../image/splash1.jpg';
-import spalsh2 from '../../image/splash2.jpg';
+import { FaLinkedin, FaGithub } from "react-icons/fa";
+import { onErrorLoadHandler } from "../../utils/helper";
+
+
 const Splash = () =>{
-    return (
-        // <div className="splash-main-container" style={{
-        //     backgroundImage: `url(${spalsh1})`, backgroundSize: 'auto' 
-        //   }}>
-       
+    return (  
         <div className="splash-main-container">
-             {/* <div className="slideshow-container"> */}
-                <div className="splash-background fade">
-                 <img src={spalsh1} />
-                </div>
-                <div className="splash-background fade">
-                 <img src={spalsh2} />
-                </div>
-            {/* </div> */}
             <div className="splash-welcome">
-            Welcome to My Pantry !
+                     Welcome to My Pantry !
+            </div>
+            
+            <div className="splash-background">
+                <img onError={onErrorLoadHandler} src={spalsh1} />
             </div>
            
+            <div className='splash-footer'>
+                <div className='footer-left'>
+                    {"By Yibo Guo"}
+                </div>
+                    
+                    <a href='https://github.com/GUOYIBO/'>
+                        <div className="git-icon">
+                            <FaGithub />
+                        </div>
+                    </a>
+                    <a href='https://linkedin.com/in/yibo-g-502684191'>
+                        <div className='git-icon'>
+                            <FaLinkedin/>
+                        </div>
+                    </a>
+            </div>
         </div>
     )
 }

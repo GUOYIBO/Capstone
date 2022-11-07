@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
-import {urlDisplay} from "../../utils/helper"
+import {urlDisplay, onErrorLoadHandler} from "../../utils/helper"
 
 import ItemDetail from './ItemDetail';
 const ItemDetailModal = (entry) =>{
-  console.log("item entry", entry)
+  //console.log("item entry", entry)
     const [showModal, setShowModal] = useState(false);
 
     return (
         <>
           <div className='item-img'>
           
-          <img src={urlDisplay(entry.entry.item.image_url)} onClick={() => setShowModal(true)}/>
+          <img onError={onErrorLoadHandler} src={urlDisplay(entry.entry.item.image_url)} onClick={() => setShowModal(true)}/>
         
           {showModal && (
             <Modal onClose={() => setShowModal(false)}>

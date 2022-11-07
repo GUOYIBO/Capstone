@@ -1,3 +1,11 @@
+button {
+    background-color: black;
+    border-radius: 50px;
+    font-size: 16px;
+    padding: 4px 16px 4px 16px;
+    color: white;
+    border-width: 0px;
+}
 
 
 .logobutton{
@@ -10,7 +18,7 @@
     border-style: none;
     align-items: center;
     padding-left: 0px;
-    margin-top:5px;
+    margin-top:8px;
 }
 
 .logobutton svg {
@@ -30,6 +38,22 @@
     z-index: 99;
   }
 
+  .logout-navContainer{
+    height: 96px;
+    padding-left: 40px;
+    padding-right: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-top: 0px;
+    position: relative;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 99;
+  }
+/* .logout-navContainer .logotitle-container{
+    height: 48px;
+} */
   
   .top-right-container {
       align-items: center;
@@ -44,7 +68,7 @@
     }
     .nav-button button {
       border-radius: 12px;
-      background-color: rgb(255, 56,92);
+      background-color: black;
       color: white;
       font-size: 16px;
       margin-top: 5px;
@@ -74,4 +98,15 @@
         /* height: 100%; */
         /* height: 100%;
         width: 100%; */
+    }
+    .loginsingup-container{
+        height: 96px;
+        padding-left: 40px;
+        padding-right: 40px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        position: relative;
+        justify-content: space-between;
+        z-index: 99;
     }

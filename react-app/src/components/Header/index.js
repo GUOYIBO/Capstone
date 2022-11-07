@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom"
 import logo from "../../image/logo.png"
 import { MdOutlineEditNote } from "react-icons/md"
 import {FaEdit} from "react-icons/fa"
+import { urlDisplay, onErrorLoadHandler } from "../../utils/helper"
 
 const Header = () =>{
     const sessionUser = useSelector(state => state.session.user);
@@ -15,38 +16,31 @@ const Header = () =>{
       <Profile user={sessionUser} />
     );
   } else {
+    
     sessionLinks = (
-      <>
-        <NavLink className="nav-button" to='/login'>
+       <div className="logout-navContainer">
+        {/* <div className="logotitle-container"> */}
+            {/* <div id="logotitle">
+              <img onError={onErrorLoadHandler} src={urlDisplay("logotitle.png")}/>
+            </div> */}
+            <div id="logotitle">
+          <div className="logotitle1">My</div>
+          <div className="logotitle2">Pantry</div></div> 
+        <div className="loginsingup-container">
+             <NavLink className="top-right-container" to='/login'>
             <button >Log In</button>
-        </NavLink>
-        <NavLink className="nav-button" to='/sign-up'>
+             </NavLink>
+             <NavLink className="top-right-container" to='/sign-up'>
             <button >Sign Up</button>
-        </NavLink>
-      </>
+            </NavLink>
+        </div>
+    </div>
     );
   }
 
   return (
-    <div className="NavContainer">
-      {/* <div className='logo-container'> */}
-      { sessionLinks}
-      {/* </div> */}
-      <div className="top-right-container">
-      <NavLink to='/mypurchaselists'>
-      {/* <button><FaShoppingCart className="shopping-icon"></FaShoppingCart>Purchase List</button></NavLink> */}
-      <button>
-        {/* <MdOutlineEditNote className="shopping-icon">
-        </MdOutlineEditNote> */}
-        <FaEdit className="shopping-icon"></FaEdit>
-        Purchase List
-        </button>
-      </NavLink>
-      {/* <NavLink className="home-nav-link" exact to="/main"></NavLink> */}
-
-      </div>
-
-    </div>
+      <>
+      { sessionLinks}</>
   );
 }
 

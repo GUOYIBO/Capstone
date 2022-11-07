@@ -6,7 +6,7 @@ import { urlDisplay } from "../../utils/helper";
 import './Profile.css'
 import {FaHeart, FaHamburger, FaFolderOpen} from "react-icons/fa"
 import { logout } from '../../store/session';
-
+import {FaEdit} from "react-icons/fa"
 
 
 function Profile({ user }) {
@@ -40,6 +40,7 @@ function Profile({ user }) {
   };
 
   return (
+    <div className="NavContainer">
     <div className="drop-down">
       {/* <div className="logo-container"> */}
       <button className="logobutton" onClick={openMenu}>
@@ -60,7 +61,7 @@ function Profile({ user }) {
             </div> */}
           </button>
           {/* </div> */}
-              {/* <img src={urlDisplay("logotitle.png")}/> */}
+              {/* <img onError={onErrorLoadHandler} src={urlDisplay("logotitle.png")}/> */}
               </NavLink>
         </div>
       {/* </div> */}
@@ -104,6 +105,20 @@ function Profile({ user }) {
       )}
      
     </div>
+                <div className="top-right-container">
+                <NavLink to='/mypurchaselists'>
+                {/* <button><FaShoppingCart className="shopping-icon"></FaShoppingCart>Purchase List</button></NavLink> */}
+                <button>
+                  {/* <MdOutlineEditNote className="shopping-icon">
+                  </MdOutlineEditNote> */}
+                  <FaEdit className="shopping-icon"></FaEdit>
+                  Purchase List
+                  </button>
+                </NavLink>
+                {/* <NavLink className="home-nav-link" exact to="/main"></NavLink> */}
+          
+                </div>
+                </div>
   );
 }
 

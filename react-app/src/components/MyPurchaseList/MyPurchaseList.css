@@ -1,0 +1,16 @@
+.item-description{
+   height: 100%;
+   width: 300px;
+   cursor: pointer;
+   background-color:  rgb(83, 130, 217);
+   padding: 12px;
+   color: white;
+   /* position:relative; */
+}
+ .item-description:hover {
+    opacity: 0.7
+ }
+ 
+ #mypurchasedelete{
+   width:90%;
+ }

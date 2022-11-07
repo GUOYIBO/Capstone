@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { signUp } from '../../store/session';
 import { useEffect } from 'react';
+import spalsh1 from '../../image/splash1.jpg';
+import { onErrorLoadHandler } from '../../utils/helper'
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
@@ -126,41 +129,67 @@ const SignUpForm = () => {
   }
 
   return (
+    <div>
+    <div className="logout-navContainer">
+          <div id="logotitle">
+        <div className="logotitle1">My</div>
+        <div className="logotitle2">Pantry</div></div> 
+      </div> 
+      <div className='splash-main-container'>
+    <div className='login-container'>
+    <div className='login-box'>
     <form onSubmit={onSignUp}>
-      <div>
+      <div className="form-content-container">
+      <div className='form-title'>Create an account</div>
         {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
+          <div key={ind} className="error-msg">{error}</div>
         ))}
-      </div>
-      <div>
-        <label>User Name</label>
+    
+      <div className='login-input'>
+      <div className='form-subtitle'>
+        <span>User Name</span>
+        </div>
+        <div className='form-input'>
         <input
           type='text'
           name='username'
           onChange={updateUsername}
           value={username}
         ></input>
+        </div>
       </div>
-      <div>
-        <label>Email</label>
+      <div className='login-input'>
+      <div className='form-subtitle'>
+        <span>Email</span>
+        </div>
+        <div className='form-input'>
         <input
           type='text'
           name='email'
           onChange={updateEmail}
           value={email}
         ></input>
+        </div>
       </div>
-      <div>
-        <label>Password</label>
+      <div className='login-input'>
+      <div className='form-subtitle'>
+        <span>Password</span>
+        </div>
+        <div className='form-input'>
         <input
           type='password'
           name='password'
           onChange={updatePassword}
           value={password}
         ></input>
+        </div>
+        
       </div>
-      <div>
+      <div className='login-input'>
+      <div className='form-subtitle'>
         <label>Repeat Password</label>
+        </div>
+        <div className='form-input'>
         <input
           type='password'
           name='repeat_password'
@@ -168,9 +197,23 @@ const SignUpForm = () => {
           value={repeatPassword}
           //required={true}
         ></input>
+        </div>
       </div>
-      <button type='submit'>Sign Up</button>
+      <div className="form-button">
+      <button type='submit'>Sign Up</button></div>
+      <div id='signup-link'>
+      <Link to={"/login"} id="linktologin">
+      <button>Already have an account?</button></Link>
+      </div>
+      </div>
     </form>
+    </div>
+    </div>
+    <div className="splash-background">
+                <img onError={onErrorLoadHandler} src={spalsh1} />
+            </div>
+    </div>
+    </div>
   );
 };
 

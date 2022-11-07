@@ -11,17 +11,14 @@ import { Modal } from "../../context/Modal"
 import { EditItemForm } from '../../'
 import ItemDetailModal from "../../components/ItemDetailModal"
 import { FaImages } from "react-icons/fa"
-import {urlDisplay} from "../../utils/helper"
+import {urlDisplay, onErrorLoadHandler } from "../../utils/helper"
+
 
 const Main = () => {
-
-   
 
     const sessionUser = useSelector(state => state.session.user)
     const items = useSelector(state => state.itemReducer)
     const categories = useSelector(state => state.categoryReducer)
-    // const favoriteDishes = useSelector(state => state.categoryReducer);
-    // const purchaseList = useSelector(state => state.purchaseList)
 
     const current = new Date()
     const defaultPurchaseDate = current.toISOString().substring(0,10)
@@ -30,9 +27,55 @@ const Main = () => {
     const [purDateFilter, setPurDateFilter] = useState('') // set filter condition
     const [expInDaysFilter, setExpInDaysFilter] = useState([])
     const [purchaseDate, setPurchaseDate] = useState(defaultPurchaseDate) //set display
+   
 
-    // console.log("category ####", categories)
-    // console.log("items ####", items)
+    useEffect(() => {
+        const el = document.querySelector('#button-3');
+        if ( el && !expInDaysFilter.includes(parseInt(el.innerText))){
+            el.classList.remove('active')
+        }
+        const handlclick= event=>{
+            el.classList.toggle('active');
+        }
+          el.addEventListener('click', handlclick);
+          return ()=>{
+            el.removeEventListener('click', handlclick)
+          }
+      }, [expInDaysFilter]);
+
+      useEffect(() => {
+        const el = document.querySelector('#button-5');
+        if ( el && !expInDaysFilter.includes(parseInt(el.innerText))){
+            el.classList.remove('active')
+        }
+        // const el = document.querySelector('#button-5');
+        // if (isReset){
+        //     el.classList.remove('active')
+        // }
+        const handlclick= event=>{
+            el.classList.toggle('active');
+        }
+          el.addEventListener('click', handlclick);
+          return ()=>{
+            el.removeEventListener('click', handlclick)
+          }
+      }, [expInDaysFilter]);
+
+      useEffect(() => {
+        const el = document.querySelector('#button-7');
+        if ( el && !expInDaysFilter.includes(parseInt(el.innerText))){
+    
+            el.classList.remove('active')
+        }
+        const handlclick= event=>{
+            el.classList.toggle('active');
+        }
+          el.addEventListener('click', handlclick);
+          return ()=>{
+            el.removeEventListener('click', handlclick)
+          }
+      }, [expInDaysFilter]);
+
 
     useEffect(()=>{
         (async()=> {
@@ -50,8 +93,11 @@ const Main = () => {
     }
 
     const handleFilter = (categoryId) =>{
-        console.log(categoryId)
         setCategoryFilter(categoryId)
+        //reset other filters
+        setPurDateFilter('')
+        setPurchaseDate(defaultPurchaseDate) 
+        setExpInDaysFilter([])
     }
     const handleReset = () =>{
         console.log('RESET!!!')
@@ -60,13 +106,39 @@ const Main = () => {
         setPurchaseDate(defaultPurchaseDate) 
         setExpInDaysFilter([])
     }
+
+
+    const handleBtnClick = (value) =>{
+        console.log("e target value", parseInt(value))
+
+        if (expInDaysFilter.includes(parseInt(value))){
+            setExpInDaysFilter(expInDaysFilter.filter(item =>item !=parseInt(value)))
+            console.log("pre 1 ", expInDaysFilter )
+        }else{
+            setExpInDaysFilter(pre =>{
+                return [...pre, parseInt(value)]
+            })
+        }
+        //reset other filters
+        setCategoryFilter(0)
+        setPurDateFilter('')
+        setPurchaseDate(defaultPurchaseDate) 
+    }
     
 
     const changePurchaseDate = (value) =>{
-        
         const newDate = new Date(value).toISOString().substring(0,10)
         setPurDateFilter(newDate)
         setPurchaseDate(newDate)
+         //reset other filters
+         setCategoryFilter(0)
+         setExpInDaysFilter([])
+    }
+
+    const getExpirationDate = (dateStr) =>{
+        //console.log ('date str', dateStr)
+        const expInDays = (new Date(dateStr.substring(0,10))-new Date(new Date().toISOString().substring(0,10))) /(1000*60*60*24)
+        return expInDays
     }
 
     const categoryArr = Object.values(categories).map((cat, index) =>{
@@ -74,7 +146,7 @@ const Main = () => {
             <div key={index} className="single-category">
                 <div  className="category-detail">
                     <div className="category-img">
-                        <img  src={urlDisplay(cat.image_url)} onClick={()=>handleFilter(cat.id)}></img>
+                        <img  onError={onErrorLoadHandler} src={urlDisplay(cat.image_url)} onClick={()=>handleFilter(cat.id)}></img>
                     </div>
                     <div className="category-image-divider"></div>
                     <div  className="category-name">{cat.name}</div>
@@ -87,13 +159,21 @@ const Main = () => {
     let filteredDateArray = []
     console.log('categoryFilter', categoryFilter)
     console.log('purDateFilter', purDateFilter)
+    console.log('expInDaysFilter', expInDaysFilter)
     let arr = Object.values(items)
-    console.log('arr.length', arr)
+
     for (let i=0; i<arr.length; i++){
         let itemPurchaseDate = arr[i].purchase_date.substring(0,10)
-        console.log("arr purchase date", itemPurchaseDate)
+        let expDay = getExpirationDate(arr[i].expiration_date)
+       
         if (categoryFilter != 0 ){
             if (categoryFilter === arr[i].item.category_id) {
+                filteredDateArray.push(arr[i])
+                continue;
+            }
+        }
+        else if (expInDaysFilter.length >0){
+            if (expInDaysFilter.includes(expDay)){
                 filteredDateArray.push(arr[i])
                 continue;
             }
@@ -112,14 +192,14 @@ const Main = () => {
     }
     console.log('filteredArray', filteredDateArray)
     const itemsArr = filteredDateArray.map((entry) =>{
-         console.log('////item////', entry)
-        const expInDays = (new Date(entry.expiration_date.substring(0,10))-new Date(new Date().toISOString().substring(0,10))) /(1000*60*60*24)
+       // console.log('////item////', entry)
+        const expInDays = getExpirationDate(entry.expiration_date)
         return (
             <div className="item-detail" key={entry.id} >
                 <div className="item-img-container">
                     <div className="item-img">
                      < ItemDetailModal entry={entry} />
-                    {/* <img src={entry.item.image_url}></img> */}
+                    {/* <img onError={onErrorLoadHandler} src={entry.item.image_url}></img> */}
                     </div>
                    
                     <div className="quantiy-inline">
@@ -153,13 +233,13 @@ const Main = () => {
                             <div className="subtitle">Expires in days</div>
                             <div className="button-list">
                                 <div>
-                                    <button className="filter-button">3</button>
+                                    <button id="button-3" className="filter-button" onClick={(e)=> handleBtnClick(e.target.innerText)}>3</button>
                                 </div>
                                 <div>
-                                    <button className="filter-button">5 </button>
+                                    <button id="button-5" className="filter-button" onClick={(e)=> handleBtnClick(e.target.innerText)}>5 </button>
                                 </div>
                                 <div>
-                                    <button className="filter-button">7</button>
+                                    <button id="button-7" className="filter-button" onClick={(e)=> handleBtnClick(e.target.innerText)}>7</button>
                                 </div>
                             </div>
                             
@@ -167,7 +247,7 @@ const Main = () => {
                     <div>
                     <div className="subtitle">Purchase Date</div>
                     <input type="date" id="purchase" name="purchase-date" value={purchaseDate} 
-                    onChange={(e) =>changePurchaseDate(e.target.value)} min="2022-11-01" max="2022-12-31"/>
+                    onChange={(e) =>changePurchaseDate(e.target.value)} min="2022-11-01" max="2025-12-31"/>
                 </div>
             </div>
     

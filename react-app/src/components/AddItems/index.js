@@ -7,7 +7,7 @@ import {FaArrowAltCircleLeft, FaArrowAltCircleRight} from 'react-icons/fa'
 import { addUserItemsThunk } from '../../store/item'
 import './AddItems.css'
 import { useHistory } from "react-router-dom";
-import {urlDisplay} from "../../utils/helper"
+import {urlDisplay, onErrorLoadHandler} from "../../utils/helper"
 
 
 
@@ -163,7 +163,7 @@ const AddItems = () =>{
                     return (
                         <div key={category.id} className="image-div-container">
                             <div className={index === currentCategotyIdx ? 'slide-active' : 'slide'}>
-                                {index === currentCategotyIdx  &&  <img className='image' src={urlDisplay(category.image_url)} alt='img1' />}
+                                {index === currentCategotyIdx  &&  <img onError={onErrorLoadHandler} className='image' src={urlDisplay(category.image_url)} alt='img1' />}
                             </div>
                         </div>
                     )

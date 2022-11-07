@@ -34,8 +34,14 @@ const EditPurchaseForm = ({purchase, setShowModal}) =>{
     
 
     return (
-        
-        <div>
+        <div id='form-container' className='form-container'>
+        <div className='close-button-container'>
+                <button aria-label='Close' id="closeButton" className="closebutton" onClick={()=>setShowModal(false)}>
+                   <div className="close-icon">
+                    <svg width="24px" height="24px" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="m19.5831 6.24931-1.8333-1.83329-5.75 5.83328-5.75-5.83328-1.8333 1.83329 5.8333 5.74999-5.8333 5.75 1.8333 1.8333 5.75-5.8333 5.75 5.8333 1.8333-1.8333-5.8333-5.75z" fill="#000000"></path></svg></div>
+                </button>
+            </div>
+            <div className="form-content-container">
             <div className='form-title'>Edit Purchase List</div>
             <form onSubmit={handleUpdate}>
                 <lable>
@@ -54,7 +60,7 @@ const EditPurchaseForm = ({purchase, setShowModal}) =>{
 
                 <label className='edit-purchase-list-name'>
                     <div className='form-subtitle'>
-                    <span >Image Url</span>
+                    <span >Description</span>
                     </div>
                     <div id='purchase-list-content-input' className='form-input'>
                     <textarea
@@ -74,6 +80,7 @@ const EditPurchaseForm = ({purchase, setShowModal}) =>{
                 <button id='edit-purchase-list-btn' onClick={handleUpdate}>
                     Done 
                 </button>
+            </div>
             </div>
         </div>
     )

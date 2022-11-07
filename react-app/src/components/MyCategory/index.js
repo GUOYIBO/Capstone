@@ -44,25 +44,26 @@ const MyCategory = () =>{
       }
 
     return (
-        <div className="my-category-container">
-            <div className="-categoty-title">Manage Categories</div>
-            <div className="add-category-container">
+        <div className="items-container">
+            <div className="current-item-title">Manage Categories</div>
+            <div className="add-btn">
                 <AddCategoryFormModal />
             </div>
-            <div className="categories-list-container">
+            <div className="my-items-list">
                { !!Object.values(categories).length && Object.values(categories).map(category =>{
                     return (
                         
                             <div key={category.id} className="item-detail">
-                                <div className="my-category-img">
+                                <div className="item-img-container">
+                                   <div id="category-item" className="item-img">
                                      <EditCategoryFormModal category={category}/>
                                      <div className="delete-inline">
-                                        <div className="delete-black-icon"> 
+                                        <div className="delete-white-icon"> 
                                           <FaTrashAlt onClick={()=>handleDelete(category.id)}/></div>
                                      </div>
                                 </div>
-                                <div className="my-category-name">{category.name}</div>
-                                
+                                    </div>
+                                    <div className='fav-dish-name'>{category.name}</div>
                                 <div className="edit-delete-category-container">
                                     {/* <EditCategoryFormModal category={category}/> */}
                                     {/* <button className="delete-button" onClick={()=>handleDelete(category.id)}>Delete</button> */}

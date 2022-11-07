@@ -1,0 +1,47 @@
+
+.login-container{
+    position: absolute;
+    /* background-color: rgb(238, 238, 238); */
+    /* background-image: url("../../image/splash1.jpg"); */
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-box{
+    background-color: white;
+    top: 50vh;
+    margin-left: 50vw;
+    width: 400px;
+    height: auto;
+    margin: 0;
+    position: absolute;
+    transform: translateY(-50%);
+    border-radius: 8px;
+}
+
+.login-box .form-content-container{
+    margin-top: 20px;
+}
+
+.login-input{
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+}
+.login-input .form-subtitle{
+    margin-top: 10px;
+    margin-right: 0px;
+    min-width: 120px;
+    padding-top: 10px;
+    margin-bottom: 20px;
+}
+
+.login-input input{
+    width: 229px;
+}
