@@ -32,18 +32,52 @@ categoryImages = [
     'sauce.png'
 ]
 
+# items = [
+#    ['Bread', 'Donuts'],
+#    ['Shrimp', 'Salmon', 'Lobster', 'Crab'],
+#    ['Beef', 'Chicken', 'Short Rib' ],
+#    ['Green Peas', 'Yellow Corn' ],
+#    ['Eggs', 'Tofu'],
+#    ['Whole Milk', 'Cream', 'Cheese'],
+#    ['Apple', 'Banana', 'Blueberry'],
+#    ['Onion', 'Daikon Radish', 'Carrot', 'Cucumber'],
+#    ['Orange Juice', 'Sparkling Water' ],
+#    ['Nuts', 'Chips', 'Cracker'],
+#    ['Tiramisu'],
+#    ['Tomato Sauce']
+# ]
+
+
 items = [
-    ['Bread', 'Donuts', 'Bagel', 'Scones', 'Burrito', 'Tiramisu Slice'],
-    ['Shrimp', 'Salmon Fillet', 'Sea Bass Fillet', 'Lobster', 'Crab'],
-    ['Beef', 'Chicken', 'Lamb', 'Turkey', 'Bacon', 'Sausage'],
-    ['Green Peas', 'Yellow Corn', 'Mixed Vegetables', 'Carrots&Peas', 'Wild Blueberries'],
-    ['Eggs', 'Egg White' ],
-    ['Whole Milk', 'Half&Half', 'Cream', 'Cheese'],
-    ['Apple', 'Banana', 'Blueberry', 'Chery', 'Mango', 'Orange', 'Pear', 'Strawberry', 'Watermelon'],
-    ['Potato', 'Tomato','Carrot', 'Onion', 'Cabbage', 'Cucumber', 'Broccoli'],
-    ['Orange Juice', 'Sparkling', 'Coke', 'Green Tea'],
-    ['Peanut', 'Chips', 'Rolls']
+   [('Bread','bread.png'), ('Donuts','donut.png')],
+   [('Shrimp','shrimp.png'), ('Salmon','salmon.png'), ('Lobster','lobster.png'), ('Crab','crab.png')],  
+   [('Beef', 'beef.jpg'), ('Chicken', 'chicken.png'), ('Short Rib', 'rib.png') ],  
+   [('Green Peas', 'peas.png'), ('Yellow Corn', 'corn.png') ],
+   [('Eggs & Tofu', 'egg.png'), ('Tofu', 'tofu.png')],  
+   [('Whole Milk','milk-item.png'), ('Cream','cream.png'), ('Cheese','cheese.png')],
+   [('Apple','apple.png'), ('Banana','banana.png'), ('Blueberry','blueberry.png')],
+   [('Onion','onions.png'), ('Daikon Radish', 'daikon.jpg'), ('Carrot', 'carrort.png'), ('Cucumber', 'cucumber.png')],
+   [('Orange Juice','juice.png'), ('Sparkling Water', 'sparkling.png') ],
+   [('Nuts','nuts.png'), ('Chips', 'chips.png'), ('Cracker', 'cracker.png')],
+   [('Tiramisu','tiramisu.png')],
+   [('Tomato Sauce','tomato-sauce.png')]
 ]
+
+# imageUrls = [
+#    ['bread.png', 'donut.png'],
+#    ['shrimp.png', 'salmon.png', 'lobster.png', 'crab.png'],
+#    ['beef.jpg', 'chicken.png', 'rib.png' ],
+#    ['peas.png', 'corn.png' ],
+#    ['egg.png', 'tofu.png'],
+#    ['milk-item.png', 'cream.png', 'cheese.png'],
+#    ['apple.png', 'banana.png', 'blueberry.png'],
+#    ['onions.png', 'daikon.jpg', 'carrort.png', 'cucumber.png'],
+#    ['juice.png', 'sparkling.png' ],
+#    ['nuts.png', 'chips.png', 'cracker.png'],
+#    ['tiramisu.png'],
+#    ['tomato-sauce.png']
+# ]
+
 
 # Adds a demo user, you can add other users here if you want
 def seed_users():
@@ -76,9 +110,11 @@ def seed_users():
     
     for idx in range(0, len(items)):
         for i in items[idx]:
-            item=Item(name=i, image_url='bread.png', category_id=idx+1)
-            if i == 'Chicken' or i=='Cucumber' or  i=='Carrot':
-                fav_dish_1.dish_items.append(item)
+            item=Item(name=i[0], image_url=i[1], category_id=idx+1)
+            if i == 'Shrimp' or i=='Cucumber' or  i=='Carrot':
+               fav_dish_1.dish_items.append(item)
+            if i == 'Tofu':
+               fav_dish_2.dish_items.append(item)
             # db.session.add(item)
             demo.user_items.extend([
                 UserItem(item=item, purchase_date=datetime.now(), quantity=random.randint(1,10),expiration_date=datetime.now()+timedelta(days=5))

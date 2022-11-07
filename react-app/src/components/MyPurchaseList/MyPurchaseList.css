@@ -1,6 +1,6 @@
 .item-description{
    height: 100%;
-   width: 300px;
+   width: 100%;
    cursor: pointer;
    background-color:  rgb(83, 130, 217);
    padding: 12px;
@@ -11,6 +11,6 @@
     opacity: 0.7
  }
  
- #mypurchasedelete{
+ /* #mypurchasedelete{
    width:90%;
- }
+ } */
