@@ -28,8 +28,16 @@ def get_all_items():
     return { "result" : [item.to_dict() for item in items]}, 200
 
 
-@item_routes.route('/index')
-def test():
+@item_routes.route('/test_delete/<int:item_type>', methods=['DELETE'])
+def test(item_type):
+    itemtype = Item.query.filter(Item.id == item_type).first()
+    print("itemtype .category ", itemtype.category)
+    if itemtype:
+        db.session.delete(itemtype)
+        db.session.commit()
+        return {"result ": "success"} ,200
+    else:
+        return {"result ": "not found"} ,404
    
     # project = Project(name='capstone')
     # employee = Employee(name='54321')
@@ -114,7 +122,7 @@ def add_user_items():
                 print ('p_date', p_date)
                 print ('exp_date', exp_date)
                 user.user_items.extend([
-                UserItem(item=item, purchase_date=p_date, quantity=qty, expiration_date=exp_date)])
+                UserItem(itemtype=item, purchase_date=p_date, quantity=qty, expiration_date=exp_date)])
     db.session.commit()
     # return { 'result': user.to_dict()}, 200
     items = UserItem.query.filter(UserItem.user_id == current_user.id).all()

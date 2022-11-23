@@ -167,7 +167,7 @@ const Main = () => {
         let expDay = getExpirationDate(arr[i].expiration_date)
        
         if (categoryFilter != 0 ){
-            if (categoryFilter === arr[i].item.category_id) {
+            if (categoryFilter === arr[i].itemtype.category_id) {
                 filteredDateArray.push(arr[i])
                 continue;
             }
@@ -192,7 +192,7 @@ const Main = () => {
     }
     console.log('filteredArray', filteredDateArray)
     const itemsArr = filteredDateArray.map((entry) =>{
-       // console.log('////item////', entry)
+        console.log('////item////', entry)
         const expInDays = getExpirationDate(entry.expiration_date)
         return (
             <div className="item-detail" key={entry.id} >
@@ -207,7 +207,7 @@ const Main = () => {
                     </div>
                 </div>
                 <div className="name-qty-container">
-                    <div className="item-name"> {entry.item.name} </div>
+                    <div className="item-name"> {entry.itemtype.name} </div>
                     <span> Expires in {expInDays} days</span>
                     {/* <div className="item-quantity"> QTY {entry.quantity} </div> */}
                 </div>

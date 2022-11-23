@@ -17,7 +17,8 @@ class Item(db.Model):
     secondary=dish_item,
     back_populates='dish_items'
     )
-
+    # item_users = db.relationship("UserItem", backref='item')    
+    type_items = db.relationship("UserItem", back_populates='itemtype',cascade='all,delete')
 
     def to_dict(self):
         return {

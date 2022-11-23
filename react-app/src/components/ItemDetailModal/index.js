@@ -11,7 +11,7 @@ const ItemDetailModal = (entry) =>{
         <>
           <div className='item-img'>
           
-          <img onError={onErrorLoadHandler} src={urlDisplay(entry.entry.item.image_url)} onClick={() => setShowModal(true)}/>
+          <img onError={onErrorLoadHandler} src={urlDisplay(entry.entry.itemtype.image_url)} onClick={() => setShowModal(true)}/>
         
           {showModal && (
             <Modal onClose={() => setShowModal(false)}>

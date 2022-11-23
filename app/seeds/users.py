@@ -117,7 +117,7 @@ def seed_users():
                fav_dish_2.dish_items.append(item)
             # db.session.add(item)
             demo.user_items.extend([
-                UserItem(item=item, purchase_date=datetime.now(), quantity=random.randint(1,10),expiration_date=datetime.now()+timedelta(days=5))
+                UserItem(itemtype=item, purchase_date=datetime.now(), quantity=random.randint(1,10),expiration_date=datetime.now()+timedelta(days=5))
             ])
     db.session.commit()
 

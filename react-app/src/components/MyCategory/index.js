@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { deleteACategoryThunk, getAllCategoryThunk } from '../../store/category'
 import AddCategoryFormModal from '../AddCategoryModal'
 import EditCategoryFormModal from '../EditCategoryFormMoal'
+import AddItemTypeModal from '../AddItemTypeModal'
 import './MyCategory.css'
 import {urlDisplay, importAll} from "../../utils/helper"
 import { Modal } from '../../context/Modal';
@@ -48,6 +49,9 @@ const MyCategory = () =>{
             <div className="current-item-title">Manage Categories</div>
             <div className="add-btn">
                 <AddCategoryFormModal />
+            </div>
+            <div className="add-btn">
+                <AddItemTypeModal />
             </div>
             <div className="my-items-list">
                { !!Object.values(categories).length && Object.values(categories).map(category =>{

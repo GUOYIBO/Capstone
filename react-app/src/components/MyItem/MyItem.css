@@ -3,3 +3,13 @@
     margin-right: 40px;
 }
 
+#search{
+    width: 500px;
+    height: 30px;
+    border-color: grey;
+}
+
+.search-container{
+    flex-direction: row;
+}
+

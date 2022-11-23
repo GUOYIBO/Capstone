@@ -57,7 +57,7 @@ const ItemDetail = ({entry, setShowModal}) =>{
         setPurchaseDate(value)
     }
 
-    const chageExpDate = (value) =>{
+    const changeExpDate = (value) =>{
         const newDate = new Date(value).toISOString().substring(0,10)
         
         setExpDate(value)
@@ -91,7 +91,7 @@ const ItemDetail = ({entry, setShowModal}) =>{
             </div>
             <div className="form-content-container">
             <div className='form-title'>Edit item</div>
-            <div className="form-subtitle">{entry.entry.item.name}</div>
+            <div className="form-subtitle">{entry.entry.itemtype.name}</div>
             <form>
 
                 <div className="edit-quantity-container">
@@ -113,7 +113,7 @@ const ItemDetail = ({entry, setShowModal}) =>{
                 <div className="edit-date">
                     <div className="form-subtitle">Expiration Date</div></div>
                     <input type="date" id="exp" name="expiration-date" value={expDate} 
-                    onChange={(e) =>chageExpDate(e.target.value)} min="2022-11-01" max="2025-12-31"/>
+                    onChange={(e) =>changeExpDate(e.target.value)} min="2022-11-01" max="2025-12-31"/>
                </div>
                 <div id='create-botton' className='form-button'>
                     <button id='create-dish-btn' onClick={handleSubmit}>

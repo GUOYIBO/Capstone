@@ -6,22 +6,21 @@ from .favorite_dish import FavoriteDish
 from .purchase_list import PurchaseList
 
 
-
 class UserItem(db.Model):
     __tablename__ = 'user_item'
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    id = db.Column(db.Integer,  autoincrement=True, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id') )
     item_id = db.Column(db.Integer, db.ForeignKey('items.id'))
     quantity = db.Column(db.Integer)
     purchase_date = db.Column(db.DateTime)
     expiration_date = db.Column(db.DateTime)
 
     user = db.relationship("User", backref="user_items")
-    item = db.relationship("Item", backref="item_users")
+    itemtype = db.relationship("Item", back_populates="type_items")
 
     def to_dict(self):
         print ('---', self.user)
-        print ('===', self.item)
+        print ('===', self.itemtype)
 
         return {
             "id": self.id,
@@ -31,7 +30,7 @@ class UserItem(db.Model):
             "purchase_date"  : str(self.purchase_date),
             "expiration_date" : str(self.expiration_date),
             "user"  : self.user.to_dict(),
-            "item" : self.item.to_dict()
+            "itemtype" : self.itemtype.to_dict()
         }
 
 

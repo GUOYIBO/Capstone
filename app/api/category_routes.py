@@ -1,8 +1,8 @@
 from flask import Blueprint, request
 from app.models import Category, Item, User, db
 from flask_login import login_required, current_user
-from app.forms import CategoryForm
-
+from app.forms import CategoryForm, ItemTypeForm
+from app.api.aws_utils import generate_filename, upload_file
 
 category_routes = Blueprint('categories', __name__)
 
@@ -17,6 +17,34 @@ def validation_errors_to_error_messages(validation_errors):
     return errorMessages
 
 
+@category_routes.route('/<int:category_id>/itemtypes', methods=['POST'])
+@login_required
+def create_new_itemtype(category_id):
+    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    print("get file from req1", request.files)
+
+    file = request.files['file']
+
+    print("get file name from req-----", file.filename)
+    file.filename = generate_filename(file.filename)
+    print('new name: ', file.filename)
+    file_url = upload_file(file)["url"]
+    print("generated url", file_url)
+    form = ItemTypeForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        itemtype = Item()
+        form.populate_obj(itemtype)
+        itemtype.category_id = category_id
+        itemtype.image_url = file_url
+        db.session.add(itemtype)
+        db.session.commit()
+        return {"result": itemtype.to_dict()},201
+    else:
+        return { "errors": validation_errors_to_error_messages(form.errors)}, 400
+
+
+
 @category_routes.route('/current')
 @login_required
 def get_categories():
@@ -26,6 +54,8 @@ def get_categories():
     categories = Category.query.filter(Category.user_id == user_id).all()
     print ('user category #########  ', categories)
     return { "result": [category.to_dict() for category in categories]}
+
+
 
 # create/edit a category
 @category_routes.route('/', methods=['POST'])

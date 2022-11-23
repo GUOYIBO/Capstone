@@ -1,8 +1,8 @@
 const GET_ALL_ITEMS = '/items/getAll'
-const DELETE_ITEM = 'items/deleteItem'
-const UPDATE_ITEM = 'items/updateItem'
-const ADD_ITEM = 'items/addItem'
-const CLEAR = 'items/CLEAR_STORE'
+const DELETE_ITEM = '/items/deleteItem'
+const UPDATE_ITEM = '/items/updateItem'
+const ADD_ITEM = '/items/addItem'
+const CLEAR = '/items/CLEAR_STORE'
 
 
 export const clearAllItems = () =>{
@@ -50,7 +50,7 @@ export const getAllItemsThunk = () => async (dispatch) =>{
             dispatch(loadAllItems(data.result))
         }
     }catch (err){
-        console.log("Loading all favorite dishes error", err)
+        console.log("Loading all items error", err)
         throw err;
     }
 }

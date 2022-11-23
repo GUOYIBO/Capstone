@@ -9,6 +9,7 @@ import { FaTrashAlt } from "react-icons/fa";
 const MyItems = () =>{
 
 
+    const [searchKeyWord, setSearchKeyWord] = useState('')
     const dispatch = useDispatch();
     const items = useSelector(state => state.itemReducer);
     const history = useHistory()
@@ -30,10 +31,16 @@ const MyItems = () =>{
         if (window.confirm('Are you sure you want to delete this item?')){
             await dispatch(deleteItemThunk(+id)).then(()=>history.push('/myitems'))
         }
-      }
+    }
     
-    const itemsArr = Object.values(items).map((entry) =>{
-        //console.log('------item----- from myitems', entry)
+    const itemsArr = Object.values(items).filter(val =>{
+        if (searchKeyWord.trim().length===0){
+            return val
+        }else if (val.itemtype.name.toLowerCase().includes(searchKeyWord.toLowerCase())){
+            return val
+        }
+    }).map((entry) =>{
+        console.log('------item----- from myitems', entry)
         return (
             <div className="item-detail" key={entry.id} >
                 <div className="item-img-container">
@@ -49,7 +56,7 @@ const MyItems = () =>{
                     </div>
                 </div>
                 <div className="name-qty-container">
-                    <div className="item-name"> {entry.item.name} </div>
+                    <div className="item-name"> {entry.itemtype.name} </div>
                     {/* <div className="item-quantity"> QTY {entry.quantity} </div> */}
                 </div>
             </div>
@@ -58,6 +65,11 @@ const MyItems = () =>{
 
     return (
         <div className="items-container"> 
+        
+                <div id="search-input" className="search-container">
+                    <input id="search" autoCapitalize="" autoComplete="" placeholder="Search by name..." 
+                    onChange={(e)=>setSearchKeyWord(e.target.value)}></input>
+                </div>
                 <div className="current-item-title">Manage Items</div>
                 <AddItemsModal />
                 
