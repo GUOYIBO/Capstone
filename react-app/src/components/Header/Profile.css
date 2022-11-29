@@ -80,7 +80,9 @@
     padding-top: 8px;
 }
 
-
+.nav-menu-text{
+    padding-top: 3px;
+}
 
 .profile {
     border-radius: 21px;
@@ -189,4 +191,11 @@ button:hover{
 }
 .nav-button:hover{
     background-color: transparent;
+}
+
+.nav-link-text{
+    padding: 5px 5px 8px 5px;
+}
+#profile-list-item{
+    display: flex;
 }

@@ -20,7 +20,6 @@ def validation_errors_to_error_messages(validation_errors):
 @category_routes.route('/<int:category_id>/itemtypes', methods=['POST'])
 @login_required
 def create_new_itemtype(category_id):
-    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
     print("get file from req1", request.files)
 
     file = request.files['file']
@@ -48,9 +47,7 @@ def create_new_itemtype(category_id):
 @category_routes.route('/current')
 @login_required
 def get_categories():
-    print("-///////////////")
     user_id = current_user.id
-    print("----------", user_id)
     categories = Category.query.filter(Category.user_id == user_id).all()
     print ('user category #########  ', categories)
     return { "result": [category.to_dict() for category in categories]}
@@ -76,12 +73,12 @@ def create_category():
     else:
         return { "errors": validation_errors_to_error_messages(form.errors)}, 400
 
-
+# edit a category
 @category_routes.route('/<int:category_id>', methods=['POST'])
 @login_required
 def update_category(category_id):
    
-    user_id = current_user.id
+    # user_id = current_user.id
     category = Category.query.filter(Category.id==category_id).first()
     print('modify category ', category)
     if category:

@@ -50,10 +50,10 @@ const MyFavoriteDish = () =>{
                         <div key={dish.id} className="item-detail">
                                  <div className="my-item-img-container">
                                    <EditFavDishModal dish={dish}/>
-                                    {/* <img onError={onErrorLoadHandler} src={urlDisplay(dish.image_url)} /> */}
+                                    {/* <img onError={onErrorLoadHandler}src={urlDisplay(dish.image_url)} /> */}
                                  {/* </div> */}
                                  <div className="delete-inline">
-                                    <div className="delete-white-icon"> 
+                                    <div className="delete-blue-icon"> 
                                     <FaTrashAlt onClick={()=>handleDelete(dish.id)}/></div>
                                  </div>
                                 </div>

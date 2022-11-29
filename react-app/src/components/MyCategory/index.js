@@ -33,26 +33,34 @@ const MyCategory = () =>{
         return <>Loading...4</>;
     }
     if (!categories){
-        return <>Loading..5.</>;
+        return <>Loading...5</>;
     }
 
    
 
     const handleDelete = async (categoryId) => {
+        const category = categories[categoryId]
+        let itemTypeIds = []
+        const items = category.items
+        for (let item of items){
+            itemTypeIds.push(item.id)
+        }
+            
         if (window.confirm('Are you sure you want to delete this category?')){
-            await dispatch(deleteACategoryThunk(+categoryId)).then(()=>history.push('/mycategories'))
+            
+            await dispatch(deleteACategoryThunk(+categoryId, itemTypeIds)).then(()=>history.push('/mycategories'))
         }
       }
 
     return (
         <div className="items-container">
             <div className="current-item-title">Manage Categories</div>
-            <div className="add-btn">
-                <AddCategoryFormModal />
-            </div>
-            <div className="add-btn">
-                <AddItemTypeModal />
-            </div>
+                <div className="add-btn">
+                    <AddCategoryFormModal />
+                </div>
+                {/* <div className="add-btn">
+                    <AddItemTypeModal />
+                </div> */}
             <div className="my-items-list">
                { !!Object.values(categories).length && Object.values(categories).map(category =>{
                     return (

@@ -47,3 +47,4 @@ def delete_file_from_s3(url):
         delete = client_s3.delete_object(Bucket=BUCKET_NAME, Key=item_key)
     except Exception as e:
         return {"errors": str(e)}
+    return {"result": "successfully"}

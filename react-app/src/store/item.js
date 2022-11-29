@@ -2,7 +2,9 @@ const GET_ALL_ITEMS = '/items/getAll'
 const DELETE_ITEM = '/items/deleteItem'
 const UPDATE_ITEM = '/items/updateItem'
 const ADD_ITEM = '/items/addItem'
+const DELETE_ITEM_TYPE = '/items/deleteItemType'
 const CLEAR = '/items/CLEAR_STORE'
+
 
 
 export const clearAllItems = () =>{
@@ -38,6 +40,13 @@ const deleteItem = (itemId) =>{
     return {
         type: DELETE_ITEM,
         itemId
+    }
+}
+
+export const deleteAllItemsByType = (itemTypeId) =>{
+    return {
+        type: DELETE_ITEM_TYPE,
+        itemTypeId
     }
 }
 export const getAllItemsThunk = () => async (dispatch) =>{
@@ -118,7 +127,9 @@ export const updateItemThunk = (userItemId, itemData) => async (dispatch) =>{
 
 const initialState = {};
 const itemReducer = (state=initialState, action) =>{
+    console.log("original state....", state)
     let newState = {...state};
+    console.log("new state....", newState)
     switch(action.type){
         case GET_ALL_ITEMS:
             console.log("get all items", action)
@@ -127,9 +138,13 @@ const itemReducer = (state=initialState, action) =>{
             });
             return newState
         case DELETE_ITEM:
+            console.log("newState before deleting an item", newState)
+            console.log("state", state)
             if (newState[action.itemId]){
+                console.log("yes or no")
                 delete newState[action.itemId]
             }
+            console.log("newState after deleting an item", newState)
             return newState
         case ADD_ITEM:
             console.log("add an items", action)
@@ -137,10 +152,21 @@ const itemReducer = (state=initialState, action) =>{
                 newState[element.id] = element;
             });
             return newState
+        
+        //TODO more testing
+        case DELETE_ITEM_TYPE:
+            Object.values(newState).forEach(ele =>{
+                if (ele.item_id === action.itemTypeId){
+                    delete newState[ele.id]
+                }
+            })
+            return newState;
         case UPDATE_ITEM:
+           
             if (newState[action.payload.id]){
                 newState[action.payload.id] = action.payload
             }
+            
             return newState
 
         case CLEAR:

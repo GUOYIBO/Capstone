@@ -6,10 +6,37 @@
 #search{
     width: 500px;
     height: 30px;
-    border-color: grey;
+    background-color: rgb(238, 238, 238);
+    border-style: none;
+    outline:none;
+    padding-left: 10px;
+    font-size: 16px;
 }
 
 .search-container{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    /* position: relative; */
+    justify-content: center;
+}
+.search-bar{
+    background-color: rgb(238, 238, 238);
+    padding: 8px 16px 8px 16px;
+    display: flex;
     flex-direction: row;
 }
+.search-icon{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
 
+#search:focus {
+    /* border: 1.5px solid #009688; */
+    /* width: 500px;
+
+   
+    height: 30px; */
+    border-bottom: 0.5px solid rgb(83, 130, 217);
+  }

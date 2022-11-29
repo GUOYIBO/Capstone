@@ -192,7 +192,7 @@ const Main = () => {
     }
     console.log('filteredArray', filteredDateArray)
     const itemsArr = filteredDateArray.map((entry) =>{
-        console.log('////item////', entry)
+        //console.log('////item////', entry)
         const expInDays = getExpirationDate(entry.expiration_date)
         return (
             <div className="item-detail" key={entry.id} >

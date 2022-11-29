@@ -20,8 +20,20 @@ const AddItemTypeForm = ({setShowModal}) =>{
         })();
     },[dispatch])
 
-    if (!categories || Object.values(categories).length === 0){
-        return <>Loading...</>
+    if (!categories) {
+        return <>Loading...11</>
+    }
+
+    if (Object.values(categories).length === 0){
+
+       return (
+            <div className="please-create-category">
+                <div> Please create a category first! </div>
+                <div> 
+                    <button onClick={()=> setShowModal(false)}> Confirm</button>
+                </div>
+            </div>
+       )
     }
 
     const length = Object.values(categories).length;

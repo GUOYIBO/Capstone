@@ -1,6 +1,7 @@
 import {  clearAllCategories  } from './category'
 import {  clearAllFavoriteDishes  } from './favoriteDish'
 import {  clearAllItems } from './item'
+import { clearAllItemTypes } from './itemType';
 import {  clearAllPurchaseList  } from './purchaseList'
 // constants
 const SET_USER = 'session/SET_USER';
@@ -75,6 +76,7 @@ export const logout = () => async (dispatch) => {
     dispatch(clearAllCategories());
     dispatch(clearAllFavoriteDishes());
     dispatch(clearAllItems());
+    dispatch(clearAllItemTypes())
     dispatch(clearAllPurchaseList());
   }
 };

@@ -143,7 +143,9 @@ const favoriteDishReducer = (state=initialState, action) =>{
             return newState;
         case DELETE_A_DISH:
             console.log("delete fav newstate1", newState)
-            delete newState[action.dishId]
+            if (newState[action.dishId]){
+                delete newState[action.dishId]
+            }
             console.log("delete fav newstate2", newState)
             return newState;
         case UPDATE_A_DISH:

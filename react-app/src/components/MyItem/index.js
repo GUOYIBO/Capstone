@@ -5,7 +5,7 @@ import { deleteItemThunk, getAllItemsThunk } from "../../store/item";
 import ItemDetailModal from "../ItemDetailModal";
 import './MyItem.css'
 import AddItemsModal from "../AddItemsModal";
-import { FaTrashAlt } from "react-icons/fa";
+import { FaTrashAlt, FaSearch} from "react-icons/fa";
 const MyItems = () =>{
 
 
@@ -15,9 +15,8 @@ const MyItems = () =>{
     const history = useHistory()
     useEffect(()=>{
         (async()=> {
-        
             await dispatch(getAllItemsThunk());
-          })();
+        })();
 
     },[dispatch])
     
@@ -50,7 +49,7 @@ const MyItems = () =>{
                    
                     <div className="quantiy-inline">
                        <div className="quantiy"> {entry.quantity }</div>
-                       <div className="delete-white-icon"> 
+                       <div className="delete-blue-icon"> 
                             <FaTrashAlt onClick={()=>handleDelete(entry.id)}/>
                         </div>
                     </div>
@@ -66,9 +65,12 @@ const MyItems = () =>{
     return (
         <div className="items-container"> 
         
-                <div id="search-input" className="search-container">
+                <div className="search-container">
+                    <div className="search-bar">
+                    <div className="search-icon"><FaSearch/></div>
                     <input id="search" autoCapitalize="" autoComplete="" placeholder="Search by name..." 
                     onChange={(e)=>setSearchKeyWord(e.target.value)}></input>
+                    </div>
                 </div>
                 <div className="current-item-title">Manage Items</div>
                 <AddItemsModal />

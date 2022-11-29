@@ -11,7 +11,7 @@ function AddItemTypeModal() {
   }
   return (
     <div className='create-item-type'>
-      <button className ="create-item-type-btn" onClick={() => setShowModal(true)}>Create New Item Type</button>
+      <button className ="create-item-type-btn" onClick={() => setShowModal(true)}>Add New Item Type</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <AddItemTypeForm  setShowModal={setShowModal}/>

@@ -4,9 +4,12 @@ import { useHistory } from "react-router";
 import { NavLink } from "react-router-dom";
 import { urlDisplay } from "../../utils/helper";
 import './Profile.css'
-import {FaHeart, FaHamburger, FaFolderOpen} from "react-icons/fa"
+import {FaHeart, FaHamburger, FaListAlt, FaFolderOpen} from "react-icons/fa"
+import {MdRecommend} from "react-icons/md"
+
 import { logout } from '../../store/session';
 import {FaEdit} from "react-icons/fa"
+import RecommendationModal from "../RecommendationModal"
 
 
 function Profile({ user }) {
@@ -79,12 +82,16 @@ function Profile({ user }) {
           <div className="drop-down-link-item">
            
             <NavLink exact to="/mycategories" activeClassName='active'>
-              <button className="nav-button">
+              <button className="nav-button" >
               <FaFolderOpen className="fa-icon-link"></FaFolderOpen>
                 My Categories
               </button></NavLink>
           </div>
-
+          <div className="drop-down-link-item">
+            <NavLink exact to="/myitemtypes"><button className="nav-button">
+            <FaListAlt className="fa-icon-link"></FaListAlt>
+            My Item Types</button></NavLink>
+          </div>
           <div className="drop-down-link-item">
             <NavLink exact to="/myitems"><button className="nav-button">
             <FaHamburger className="fa-icon-link"></FaHamburger>
@@ -105,19 +112,25 @@ function Profile({ user }) {
       )}
      
     </div>
-                <div className="top-right-container">
+                {/* <div className="top-right-container">
                 <NavLink to='/mypurchaselists'>
-                {/* <button><FaShoppingCart className="shopping-icon"></FaShoppingCart>Purchase List</button></NavLink> */}
+                
                 <button>
-                  {/* <MdOutlineEditNote className="shopping-icon">
-                  </MdOutlineEditNote> */}
+                
                   <FaEdit className="shopping-icon"></FaEdit>
                   Purchase List
                   </button>
                 </NavLink>
-                {/* <NavLink className="home-nav-link" exact to="/main"></NavLink> */}
-          
-                </div>
+              
+                </div> */}
+
+                        <div className="top-right-container">
+                          <RecommendationModal>
+                              <MdRecommend className="shopping-icon">
+                                  
+                                  </MdRecommend>
+                          </RecommendationModal>
+                        </div>
                 </div>
   );
 }

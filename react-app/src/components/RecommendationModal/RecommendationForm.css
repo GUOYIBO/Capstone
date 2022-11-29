@@ -1,0 +1,44 @@
+.today-reco-container{
+    height : 600px;
+    width : 500px;
+    overflow: scroll;
+    display: grid;
+    row-gap: 50px;
+    padding-top: 10px;
+    padding-right: 10px;
+    /* flex-direction: column; */
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.recommendation-icon{
+    padding: 5px 3px 5px 5px;
+}
+
+.recommend-button{
+    display: inline-flex;
+}
+.recommendation-btn-text{
+   padding: 3px 5px 5px 5px;
+}
+.today-reco-dish {
+    flex: 0 0 auto;
+    height : 200px;
+    /* width : 300px; */
+    /* display: flex;
+    position: relative;
+    flex-direction: column; */
+}
+
+.dish-img{
+    height : 200px;
+    object-fit: fill;
+}
+.dish-img img{
+    height : 100%;
+    width : 100%;
+   
+}
+
+.form-content-container#reco-form{
+    padding: 5px 0px 24px 15px;
+}

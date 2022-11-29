@@ -15,6 +15,7 @@ import MyPurchaseList from './components/MyPurchaseList';
 import MyCategory from './components/MyCategory';
 import MyFavoriteDish from './components/MyFavoriteDish';
 import AddItems from './components/AddItems'
+import MyItemTypes from './components/MyItemTypes';
 import Header from './components/Header';
 
 function App() {
@@ -68,6 +69,11 @@ function App() {
           <MyCategory />
         </ProtectedRoute>
         
+        <ProtectedRoute path='/myitemtypes' exact>
+        <Header/>
+          <MyItemTypes />
+        </ProtectedRoute>
+
         <ProtectedRoute path='/myitems' exact>
         <Header/>
           <MyItems />
@@ -82,6 +88,8 @@ function App() {
         <Header/>
            <MyPurchaseList />
         </ProtectedRoute>
+
+        
         {/* <ProtectedRoute path='/additems' exact >
            <AddItems />
         </ProtectedRoute> */}

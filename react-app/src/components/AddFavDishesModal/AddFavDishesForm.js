@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom"
 import {getAllCategoryThunk} from "../../store/category"
 import { addADishThunk } from '../../store/favoriteDish'
 import { validExtensions } from "../../utils/helper"
+import "./AddFavDishesForm.css"
 
 const AddFavDishesForm = ({setShowModal}) =>{
 
@@ -22,8 +23,20 @@ const AddFavDishesForm = ({setShowModal}) =>{
         })();
     },[dispatch])
 
-    if (!categories || Object.values(categories).length === 0){
+    if (!categories ){
         return <>Loading...1</>
+    }
+
+    if (Object.values(categories).length === 0){
+        return (
+            <div className="please-create-category">
+               <div> Please create a category and items first! </div>
+               <div> 
+                 <button onClick={()=> setShowModal(false)}> Confirm</button>
+               </div>
+
+            </div>
+        )
     }
 
     

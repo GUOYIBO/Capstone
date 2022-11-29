@@ -55,8 +55,19 @@ const AddItemForm =({setShowModal}) =>{
         setErrors(validationErrors)
     },[purchaseDateState, expDateState])
 
-    if (!categories || Object.values(categories).length === 0){
-        return <>Loading...</>
+    if (!categories){
+        return <>Loading...2</>
+    }
+
+    if (Object.values(categories).length === 0){
+        return (
+            <div className="please-create-category">
+                <div> Please create a category and items first! </div>
+                <div> 
+                    <button onClick={()=> setShowModal(false)}> Confirm</button>
+                </div>
+            </div>
+       )
     }
     const length = Object.values(categories).length;
     const currentCategory = Object.values(categories)[currentCategotyIdx]

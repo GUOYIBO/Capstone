@@ -285,7 +285,21 @@ button.filter-reset{
     background-color: transparent;
     align-items: flex-end;
 }
-
+.delete-blue-icon{
+    display: inline-block;
+    padding:  4px 12px;
+    font-weight: 350;
+    font-size: 18px;
+    color: rgb(83, 130, 217);
+    border-radius: 24px 24px 24px 24px;
+    background-color: transparent;
+    align-items: flex-end;
+}
+.delete-blue-icon:hover{
+    background-color: rgb(238, 238, 238);
+    cursor: pointer;
+    color: black;
+}
 .button-container{
     display: grid;
     grid-template-columns: repeat(2, 1fr);

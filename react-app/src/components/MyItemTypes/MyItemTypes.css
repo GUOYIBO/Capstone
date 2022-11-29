@@ -1,0 +1,13 @@
+.item-img#item-type img {
+    background-color:  rgb(83, 130, 217);
+    object-fit: fill;
+}
+.about-category{
+    margin-top: 10px;
+}
+.items-types-container{
+    margin-left: 40px;
+}
+.delete-blue-icon#delete-black{
+    color: black
+}

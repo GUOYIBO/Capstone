@@ -74,7 +74,7 @@ export const createACategoryThunk = (categoryData) => async (dispatch) =>{
  * delete a category
  *  
  */
-export const deleteACategoryThunk = (categoryId) => async (dispatch) =>{
+export const deleteACategoryThunk = (categoryId, itemTypeIds) => async (dispatch) =>{
     try{
         const response = await fetch(`/api/categories/${categoryId}`,{
             method: "DELETE"
@@ -82,6 +82,9 @@ export const deleteACategoryThunk = (categoryId) => async (dispatch) =>{
         if (response.ok){
             //const data = await response.json();
             dispatch(deleteCategory(categoryId))
+            if (itemTypeIds.length>0){
+                //TODO
+            }
         }
 
     }catch(err){
