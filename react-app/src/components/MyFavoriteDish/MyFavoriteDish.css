@@ -14,3 +14,12 @@
     width: 100%;
     height: 100%;
  } */
+
+ .dish-detail{
+    display: grid;
+    grid-template-rows: 4fr 1fr;
+ }
+
+ .delete-blue-icon#delete-red{
+    color: red
+}

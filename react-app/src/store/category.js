@@ -1,7 +1,13 @@
+import { bulkDeleteItems} from './item'
+import { bulkDeleteItemTypes } from './itemType'
+
 const ADD_A_CATEGORY = 'category/ADD_A_CATEGORY'
 const DELETE_A_CATEGORY = 'category/DELETE_A_CATEGORY'
 const UPDATE_A_CATEGORY = 'category/UPDATE_A_CATEGORY'
 const GET_ALL_CATEGORIES ='category/GET_ALL_CATEGORIES'
+const UPDATE_CATEGORY_AFTER_DELETING_ITEM_TYPE = 'category/UPDATE_CATEGORY_AFTER_DELETING_ITEM_TYPE'
+const UPDATE_CATEGORY_AFTER_ADDING_ITEM_TYPE = 'category/UPDATE_CATEGORY_AFTER_ADDING_ITEM_TYPE'
+const UPDATE_CATEGORY_AFTER_EDITING_ITEM_TYPE = 'category/UPDATE_CATEGORY_AFTER_EDITING_ITEM_TYPE'
 const CLEAR = 'category/CLEAR_STORE'
 
 export const clearAllCategories = () =>{
@@ -9,6 +15,31 @@ export const clearAllCategories = () =>{
         type: CLEAR
     }
 }
+
+export const updateCategotyWhenDeletingItemType = (categoryId, itemTypeId) =>{
+    return {
+        type: UPDATE_CATEGORY_AFTER_DELETING_ITEM_TYPE,
+        itemTypeId,
+        categoryId
+    }
+}
+
+export const updateCategotyWhenAddingItemType = (categoryId, itemTypeData) =>{
+    return {
+        type: UPDATE_CATEGORY_AFTER_ADDING_ITEM_TYPE,
+        categoryId,
+        itemTypeData
+    }
+}
+
+export const updateCategoryAfterEditingItemType = (itemTypeData) =>{
+    return {
+        type: UPDATE_CATEGORY_AFTER_EDITING_ITEM_TYPE,
+        itemTypeData
+    }
+}
+
+
 
 const addCategory = (payload) => {
     return {
@@ -45,15 +76,12 @@ const getAllCategories = (payload) =>{
  * create a category
  * 
  */
-export const createACategoryThunk = (categoryData) => async (dispatch) =>{
-    console.log("get data from req ", categoryData)
+export const createACategoryThunk = (formData) => async (dispatch) =>{
+    console.log("get data from req ", formData)
     try{
         const response = await fetch('/api/categories/', {
             method : 'POST',
-            headers: {
-                "Content-Type" : "application/json"
-            },
-            body: JSON.stringify(categoryData)
+            body: formData
         })
 
         if (response.ok){
@@ -83,7 +111,8 @@ export const deleteACategoryThunk = (categoryId, itemTypeIds) => async (dispatch
             //const data = await response.json();
             dispatch(deleteCategory(categoryId))
             if (itemTypeIds.length>0){
-                //TODO
+                dispatch(bulkDeleteItemTypes(itemTypeIds))
+                dispatch(bulkDeleteItems(itemTypeIds))
             }
         }
 
@@ -99,14 +128,11 @@ export const deleteACategoryThunk = (categoryId, itemTypeIds) => async (dispatch
  * update a category
  *  
  */
-export const updateACategoryThunk = (categoryData, categoryId) => async (dispatch) =>{
+export const updateACategoryThunk = (formData, categoryId) => async (dispatch) =>{
     try{
         const response = await fetch(`/api/categories/${categoryId}`, {
-            method: 'POST',
-            headers: {
-                "Content-Type" : "application/json"
-            },
-            body: JSON.stringify(categoryData)
+            method: 'PUT',
+            body: formData
         })
         if (response.ok){
             const data = await response.json();
@@ -170,6 +196,62 @@ const categoryReducer = (state=initialState, action) =>{
             });
             console.log('=========', newState)
             return newState;
+        case UPDATE_CATEGORY_AFTER_DELETING_ITEM_TYPE:
+            let newItems = []
+            let category = state[action.categoryId]
+            console.log('updated category',  category)
+            if (state[action.categoryId]){
+                state[action.categoryId].items.forEach(item =>{
+                    if (item.id !== action.itemTypeId){
+                        newItems.push(item)
+                    }
+                })
+            }
+
+            let updatedCategory  = {... category, items: newItems}
+            console.log("updated cateforty ", updatedCategory);
+            let res = {...state}
+            res[action.categoryId] = updatedCategory
+            return res;
+
+        case UPDATE_CATEGORY_AFTER_ADDING_ITEM_TYPE:
+            let newItems1 = [];
+            let result = {...state}
+            if (state[action.categoryId]){
+                newItems1 = [...state[action.categoryId].items, action.itemTypeData]
+                let updatedCategory  = {... state[action.categoryId], items: newItems1}
+                result[action.categoryId] = updatedCategory
+            }
+            return result
+        case UPDATE_CATEGORY_AFTER_EDITING_ITEM_TYPE:
+            // let newItems2 = [];
+            // let newRes = {...state}
+            // let categoryId = action.itemTypeData.category_id
+            // if (state[categoryId]){
+            //     newItems2 = [...state[categoryId].items, action.itemTypeData]
+            //     let updatedCategory1  = {... state[categoryId], items: newItems2}
+            //     newRes[categoryId] = updatedCategory1
+            // }
+            // return newRes
+
+            let newItems2 = []
+            let categoryId = action.itemTypeData.category_id
+            let category2= state[categoryId]
+            if (state[categoryId]){
+                state[categoryId].items.forEach(item =>{
+                    if (item.id !== action.itemTypeData.id){
+                        newItems2.push(item)
+                    }else{
+                        newItems2.push(action.itemTypeData)
+                    }
+                })
+            }
+
+            let updatedCategory2  = {... category2, items: newItems2}
+            console.log("updated cateforty ", updatedCategory2);
+            let newRes = {...state}
+            newRes[categoryId] = updatedCategory2
+            return newRes;
 
         case CLEAR:
                 return {}

@@ -7,7 +7,8 @@
 }
 .items-types-container{
     margin-left: 40px;
+    margin-right: 40px;
 }
 .delete-blue-icon#delete-black{
-    color: black
+    color: rgb(5, 163, 87);
 }

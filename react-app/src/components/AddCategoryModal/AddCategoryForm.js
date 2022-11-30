@@ -9,9 +9,13 @@ import { validExtensions } from '../../utils/helper';
 
 const AddCategoryForm =({ setShowModal }) =>{
     const [newCatgoryName, setNewCategoryName] = useState('');
-    const [newCatgoryUrl, setNewCategoryUrl] = useState('');
+    const [newCatgoryFile, setNewCategoryFile] = useState(null);
+
     const dispatch = useDispatch()
     const history = useHistory()
+
+
+   
    
     const handleCreate = async e => {
         e.preventDefault()
@@ -19,7 +23,7 @@ const AddCategoryForm =({ setShowModal }) =>{
         let errors = false;
         if(!newCatgoryName.trim().length){
             errors = true
-            alert(`Category name can not be empty.`)
+            alert(`Category name is not valid.`)
             return
         }
 
@@ -29,14 +33,21 @@ const AddCategoryForm =({ setShowModal }) =>{
             return
         }
 
-        if(!newCatgoryUrl.trim().length){
-            errors = true
-            alert(`Category image url can not be empty.`)
-            return
+        // if(newCatgoryUrl.trim().length==0){
+        //     errors = true
+        //     alert(`Category image url can not be empty.`)
+        //     return
+        // }
+
+        console.log("newCatgoryUrl", typeof newCatgoryFile)
+
+        if (!newCatgoryFile || newCatgoryFile.name.length ===0){
+            alert("Image is not valid")
+            return;
         }
 
-        if (newCatgoryUrl.length >0){
-            const urlArr = newCatgoryUrl.split('.');
+        if (newCatgoryFile.length >0){
+            const urlArr = newCatgoryFile.name.split('.');
             const ext = urlArr[urlArr.length-1];
             if (!validExtensions.includes(ext.toLocaleLowerCase())){
                 errors = true
@@ -49,14 +60,17 @@ const AddCategoryForm =({ setShowModal }) =>{
 
         if(errors) return;
 
-        const newCategory ={
-            name: newCatgoryName,
-            image_url: newCatgoryUrl
-        }
-         dispatch(createACategoryThunk(newCategory))
+        const formData = new FormData()
+        formData.append("name", newCatgoryName);
+        formData.append("file", newCatgoryFile)
+         dispatch(createACategoryThunk(formData))
         .then(()=> history.push('/mycategories')).then(()=>setShowModal(false))
     }
 
+    const setFile = (e) => {
+        const file = e.target.files[0]
+        setNewCategoryFile(file)
+    }
 
     return (
         <div id='form-container' className='form-container'>
@@ -84,16 +98,16 @@ const AddCategoryForm =({ setShowModal }) =>{
                     />
                     </div>
                     <div className="form-subtitle">
-                        <span>Image Url</span>
+                        <span>Select Image</span>
                     </div>
                     <div id='category-url-input' className='form-input'>
                     <input
-                        id='1'
+                        id='browse-file'
                         className='create-fav-dish-input'
-                        placeholder='please type a valid url'
-                        type='text'
-                        value={newCatgoryUrl}
-                        onChange={e=> setNewCategoryUrl(e.target.value)}
+                        placeholder='pplease select an image'
+                        type='file'
+                        accept="image/*"
+                        onChange={setFile}
                     />
                     </div>
             </form>

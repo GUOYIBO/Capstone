@@ -1,54 +1,57 @@
-import './EditCategoryForm.css'
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { updateACategoryThunk } from '../../store/category';
-import { useHistory } from 'react-router-dom';
-import { validExtensions } from '../../utils/helper';
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { validExtensions } from "../../utils/helper";
+import {updateItemTypeThunk } from '../../store/itemType'
 import { urlDisplay, onErrorLoadHandler } from '../../utils/helper';
-import { useEffect } from 'react';
 
+const EditItemTypeForm = ({item, setShowModal}) =>{
 
-const EditCategoryForm =({ category, setShowModal }) =>{
-    const [editedCatgoryName, setNewCategoryName] = useState(category?.name);
-    const [categoryFile, setNewCategoryFile] = useState(null);
+    const [name, setName] = useState(item.name);
+    const [itemImageFile, setItemFile] = useState(null);
+    const [fileChanged, setFileChanged] = useState(false)
     const dispatch = useDispatch()
     const history = useHistory()
 
-
     const setFile = (e) => {
         const src = URL.createObjectURL(e.target.files[0])
-        document.getElementById('previewCatGoryImg').src = src
+        document.getElementById('previewImg').src = src
         const file = e.target.files[0]
-        setNewCategoryFile(file)
+        setItemFile(file)
     }
+
+
     useEffect(()=>{
-        document.getElementById('previewCatGoryImg').src = urlDisplay(category?.image_url)
+        document.getElementById('previewImg').src = urlDisplay(item?.image_url)
     },[])
-    
+
+
     const handleUpdate = async e => {
         e.preventDefault()
-
         let nameChange = false
         let fileChange = false
+        
 
         let errors = false;
-        if(!editedCatgoryName || editedCatgoryName.trim().length===0){
+        console.log("name-----", name)
+        if(!name || name.trim().length===0){
             errors = true
-            alert(`Category name is not valid.`)
+            alert(`Name is not valid`)
             return
         }
-        if (editedCatgoryName !== category.name){
-            nameChange = true;
+
+        if (name !==item.name){
+            nameChange = true
         }
 
-        if(editedCatgoryName.length > 20){
+        if(name.length > 20){
             errors = true;
             alert(`Your input is too long, 20 characters max.`)
             return
         }
-     
-        if(categoryFile){
-            fileChange = true
+
+        if (itemImageFile){
+            fileChange=true
         }
 
         if (!nameChange && !fileChange){
@@ -56,25 +59,36 @@ const EditCategoryForm =({ category, setShowModal }) =>{
             return
         }
 
-        if (categoryFile && categoryFile.size > 1024*1024*2){
+       console.log("itemImageFile",  itemImageFile)
+
+       if (itemImageFile && itemImageFile.size > 1024*1024*2){
             errors = true;
             alert(`Your input file is too large, Maximum size 2MB.`)
             return
 
        }
+      // console.log("itemImageFile.name", itemImageFile.name)
+        // if (itemImageFile.name&&itemImageFile.name.length >0){
+        //     const urlArr = itemImageFile.name.split('.');
+        //     const ext = urlArr[urlArr.length-1];
+        //     if (!validExtensions.includes(ext.toLocaleLowerCase())){
+        //         errors = true
+        //         alert(`Image format is invalid. Png, jpg, jpeg, svg allowed. `)
+        //         return
+        //     }
+
+        // }
 
         if(errors) return;
 
-        // const editedCategory ={
-        //     name: editedCatgoryName,
-        //     image_url: editedCatgoryUrl
-        // }
         const formData = new FormData()
-        formData.append("name", editedCatgoryName);
-        formData.append("file", categoryFile)
-         dispatch(updateACategoryThunk(formData, category.id))
-        .then(()=> history.push('/mycategories')).then(()=>setShowModal(false))
+        formData.append("name", name);
+        formData.append("file", itemImageFile)
+        console.log("formdata", formData)
+         dispatch(updateItemTypeThunk(formData, item.id))
+        .then(()=> history.push('/myitemtypes')).then(()=>setShowModal(false))
     }
+
 
 
     return (
@@ -86,21 +100,23 @@ const EditCategoryForm =({ category, setShowModal }) =>{
                 </button>
             </div>
             <div className="form-content-container">
-            <div className='form-title'>Edit Category</div>
+            <div className='form-title'>Edit Item Type</div>
             <form id='create-category-form' onSubmit={handleUpdate}>
                 <label className=''>
                     <div className='form-subtitle'>
-                    <span >Category Name</span>
+                    <span >Name</span>
                     </div>
                     <div id='category-name-input' className='form-input'>
                     <input
                         id='1'
-                        placeholder='new-category'
+                        placeholder='New Item Name'
+                        required
                         type='text'
-                        value={editedCatgoryName}
+                        value={name}
                         maxLength="20"
                         minLength="5"
-                        onChange={e=> setNewCategoryName(e.target.value)}
+                        onChange={e=> setName(e.target.value)}
+
                     />
                     </div>
                 </label>
@@ -118,7 +134,7 @@ const EditCategoryForm =({ category, setShowModal }) =>{
                                 style={{ display: 'none' }}
                                 onChange={setFile}
                             />
-                            <img id='previewCatGoryImg' className="preview-img"/>
+                            <img id='previewImg' className="preview-img"/>
                     </div>
                 </label>
             </form>
@@ -134,5 +150,4 @@ const EditCategoryForm =({ category, setShowModal }) =>{
     )
 
 }
-
-export default EditCategoryForm
+export default EditItemTypeForm

@@ -5,6 +5,7 @@ import categoryReducer from './category';
 import favoriteDishReducer from './favoriteDish';
 import purchaseListReducer from './purchaseList';
 import itemReducer from './item';
+import itemTypeReducer from './itemType';
 
 const rootReducer = combineReducers({
   session,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   favoriteDishReducer,
   purchaseListReducer,
   itemReducer,
+  itemTypeReducer
 });
 
 

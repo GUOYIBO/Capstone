@@ -84,23 +84,23 @@ function Profile({ user }) {
             <NavLink exact to="/mycategories" activeClassName='active'>
               <button className="nav-button" >
               <FaFolderOpen className="fa-icon-link"></FaFolderOpen>
-                My Categories
+                Categories
               </button></NavLink>
           </div>
           <div className="drop-down-link-item">
             <NavLink exact to="/myitemtypes"><button className="nav-button">
             <FaListAlt className="fa-icon-link"></FaListAlt>
-            My Item Types</button></NavLink>
+            Item Types</button></NavLink>
           </div>
           <div className="drop-down-link-item">
             <NavLink exact to="/myitems"><button className="nav-button">
             <FaHamburger className="fa-icon-link"></FaHamburger>
-            My Items</button></NavLink>
+            Inventory</button></NavLink>
           </div>
           <div className="drop-down-link-item">
             <NavLink exact to="/myfavoritedishes"><button className="nav-button">
              <FaHeart className="fa-icon-link"></FaHeart>
-            My Favirote Dishes</button></NavLink>
+            Favirote Dishes</button></NavLink>
           </div>
           <div className="logout-button">
             <button  onClick={handlelogout}>Log Out</button>

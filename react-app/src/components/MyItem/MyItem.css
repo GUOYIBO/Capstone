@@ -15,10 +15,11 @@
 
 .search-container{
     display: flex;
-    align-items: center;
     flex-direction: row;
     /* position: relative; */
     justify-content: center;
+    margin-left: 40px;
+    margin-right: 40px;
 }
 .search-bar{
     background-color: rgb(238, 238, 238);
@@ -40,3 +41,9 @@
     height: 30px; */
     border-bottom: 0.5px solid rgb(83, 130, 217);
   }
+
+  /* .item-type-container{
+    overflow-y: scroll;
+  } */
+
+  

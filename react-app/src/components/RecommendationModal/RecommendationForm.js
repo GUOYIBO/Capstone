@@ -53,6 +53,18 @@ const RecommendationForm = ({setShowModal}) =>{
             </div>
         )
     })
+
+    if (!res || res.length ===0){
+        return (
+            <div className="please-create-category">
+               <div className="alert-title"> There's no recommendation!</div>
+               <div className="alert-button"> 
+                 <button onClick={()=> setShowModal(false)}> Confirm</button>
+               </div>
+
+            </div>
+        )
+    }
     return (
         <div id='form-container' className='form-container'>  
         <div className='close-button-container'>

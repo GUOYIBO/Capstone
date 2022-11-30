@@ -8,7 +8,7 @@
     width: 100%;
     height: 48px;
     justify-content: center;
-    
+    /* z-index:100; */
 }
 .closebutton{
     left: 8px;
@@ -65,7 +65,21 @@
     margin-top:20px;
     margin-bottom: 16px;
 }
+.alert-title{
+    font-size:18px;
+    font-weight:550;
+    margin-top:20px;
+    margin-bottom: 16px; 
+    padding: 20px;
+}
 
+.alert-button{
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .form-input input{
     width: 100%;
@@ -146,4 +160,23 @@
 #signup-link button:hover{
     text-decoration: underline;
     cursor: pointer;
+}
+.preview-img{
+    width: 380px;
+}
+#category-url-input{
+    /* ; */
+    justify-content: center;
+    align-items: center;
+    margin-left: 20%;
+    margin-right: 20%;
+    cursor: pointer;
+}
+
+#category-url-input img{
+    width: 100%;
+    height: 100px;
+}
+#category-url-input:hover{
+    opacity: 0.7
 }

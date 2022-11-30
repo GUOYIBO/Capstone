@@ -5,13 +5,19 @@ import { getAllCategoryThunk } from "../../store/category";
 import { urlDisplay, onErrorLoadHandler } from '../../utils/helper';
 import { FaTrashAlt } from "react-icons/fa";
 import AddItemTypeModal from "../AddItemTypeModal"
+import EditItemTypeModal from "../EditItemTypeModal";
+import {deleteItemTypeThunk} from "../../store/itemType"
+
 import "./MyItemTypes.css"
+import { useHistory } from "react-router-dom";
 
 const MyItemTypes = () =>{
 
     const sessionUser = useSelector(state => state.session.user)
     const categories = useSelector(state => state.categoryReducer)
+    const itemTypes = useSelector(state => state.itemTypeReducer)
     const dispatch = useDispatch();
+    const history = useHistory();
 
     useEffect(()=>{
         (async()=> {
@@ -26,7 +32,12 @@ const MyItemTypes = () =>{
         return <>Loading...9</>;
     }
 
-    console.log("category....", categories)
+    const handleDelete = async (itemTypeId, categoryId) =>{
+        console.log('this id :', itemTypeId, categoryId)
+        if (window.confirm('Are you sure you want to delete this item type?')){
+            await dispatch(deleteItemTypeThunk(+itemTypeId, categoryId)).then(() => history.push('/myitemtypes'))
+        }
+    } 
 
     return (
         <div className="items-types-container">
@@ -48,17 +59,18 @@ const MyItemTypes = () =>{
                                 
                                 <div className="my-items-list">
                                     {
-                                        category.items.map(item =>{
+                                        category.items?.map(item =>{
                                             return  ( 
                                                 <div key={item.id} className="item-detail"> 
                                                  <div className="item-img-container">
                                                  <div id="item-type" className="item-img">
-                                                 <img onError={onErrorLoadHandler} src={urlDisplay(item.image_url)}/>
+                                                 {/* <img onError={onErrorLoadHandler} src={urlDisplay(item.image_url)}/> */}
+                                                 <EditItemTypeModal item={item} />
                                                  </div>
                                                  <div className="delete-inline">
                                                      <div id="delete-black" className="delete-blue-icon"> 
-                                                    <FaTrashAlt/>
-                                                    </div>
+                                                     <FaTrashAlt onClick={()=>handleDelete(item.id, category.id)}/></div>
+                                                    
                                                 </div>
                                                     </div>
                                                     <div>

@@ -49,7 +49,7 @@ const MyItems = () =>{
                    
                     <div className="quantiy-inline">
                        <div className="quantiy"> {entry.quantity }</div>
-                       <div className="delete-blue-icon"> 
+                       <div id='delete-green' className="delete-blue-icon"> 
                             <FaTrashAlt onClick={()=>handleDelete(entry.id)}/>
                         </div>
                     </div>
@@ -63,20 +63,24 @@ const MyItems = () =>{
     })
 
     return (
-        <div className="items-container"> 
-        
-                <div className="search-container">
+        <div className="item-type-container">
+            <div className="search-container">
                     <div className="search-bar">
                     <div className="search-icon"><FaSearch/></div>
                     <input id="search" autoCapitalize="" autoComplete="" placeholder="Search by name..." 
                     onChange={(e)=>setSearchKeyWord(e.target.value)}></input>
                     </div>
                 </div>
+       
+        <div className="items-container"> 
+        
+                
                 <div className="current-item-title">Manage Items</div>
                 <AddItemsModal />
                 
                 <div className="my-items-list">{itemsArr}</div>
             </div>
+        </div>
     )
 }
 

@@ -178,7 +178,7 @@ const AddItems = () =>{
 
     }
     const changePurchaseDate = (id,value) =>{
-        console.log('id, e', id, value);
+        //console.log('id, e', id, value);
         const newDate = new Date(value).toISOString().substring(0,10)
         setPurchaseDateState(preState => {
             return { 
@@ -189,7 +189,7 @@ const AddItems = () =>{
     }
 
     const changeExpirationDate = (id,value) =>{
-        console.log('id, e', id, value);
+        //console.log('id, e', id, value);
         const newDate = new Date(value).toISOString().substring(0,10)
         setExpDateState(preState => {
             return { 

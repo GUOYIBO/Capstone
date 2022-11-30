@@ -7,7 +7,7 @@ function EditFavDishModal ({dish}){
 
     return (
       <>
-      <div className="item-img">
+      <div className="item-img" id="dish-img">
         <img onError={onErrorLoadHandler} src={urlDisplay(dish.image_url)}  className="edit-fav-dish-button"  onClick={() => setShowModal(true)}></img>
         {showModal && (
           <Modal onClose={() => setShowModal(false)}>

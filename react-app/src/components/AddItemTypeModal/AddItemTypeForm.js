@@ -6,6 +6,9 @@ import {getAllCategoryThunk} from '../../store/category'
 import {FaArrowAltCircleLeft, FaArrowAltCircleRight} from 'react-icons/fa'
 import { onErrorLoadHandler, urlDisplay } from "../../utils/helper"
 import {createItemTypeThunk} from '../../store/itemType'
+import { validExtensions } from '../../utils/helper';
+
+
 const AddItemTypeForm = ({setShowModal}) =>{
     const categories = useSelector(state => state.categoryReducer)
     const dispatch = useDispatch()
@@ -28,8 +31,8 @@ const AddItemTypeForm = ({setShowModal}) =>{
 
        return (
             <div className="please-create-category">
-                <div> Please create a category first! </div>
-                <div> 
+                <div className="alert-title"> Please create a category first! </div>
+                <div className="alert-button"> 
                     <button onClick={()=> setShowModal(false)}> Confirm</button>
                 </div>
             </div>
@@ -52,10 +55,42 @@ const AddItemTypeForm = ({setShowModal}) =>{
     const setFile = (e) => {
         const file = e.target.files[0]
         setItemFile(file)
-      }
+    }
 
     const handleSubmit = async (e) =>{
         e.preventDefault();
+
+        if (itemTypeName.trim().length ===0){
+            alert("Name is not valid")
+            return;
+            //setErrors(['Name is not val'])
+
+        }
+
+        if(itemTypeName.length > 20){
+            //errors = true;
+            alert(`Your input is too long, 20 characters max.`)
+            return
+        }
+
+        if (!itemImageFile ||itemImageFile.name.length ===0){
+            alert("Image url is not valid")
+            return;
+        }
+        console.log("itemImageFile", typeof itemImageFile)
+
+        if (itemImageFile ){
+            const urlArr = itemImageFile.name.split('.');
+            const ext = urlArr[urlArr.length-1];
+            if (!validExtensions.includes(ext.toLocaleLowerCase())){
+                //errors = true
+                alert(`Category image format is invalid. Png, jpg, jpeg, svg allowed. `)
+                return
+            }
+           
+
+        }
+
         console.log('select file', itemImageFile)
         const formData = new FormData()
         formData.append("name", itemTypeName);
@@ -68,7 +103,6 @@ const AddItemTypeForm = ({setShowModal}) =>{
         // }
         await dispatch(createItemTypeThunk(currentCategory.id, formData)).then(()=>setShowModal(false))
 
-        
   
     }
 
@@ -125,6 +159,7 @@ const AddItemTypeForm = ({setShowModal}) =>{
                         className='create-fav-dish-input'
                         placeholder='please select an image'
                         type='file'
+                        accept="image/*"
                         onChange={setFile}
                     />
                     </div>

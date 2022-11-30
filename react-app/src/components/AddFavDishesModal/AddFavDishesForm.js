@@ -30,8 +30,8 @@ const AddFavDishesForm = ({setShowModal}) =>{
     if (Object.values(categories).length === 0){
         return (
             <div className="please-create-category">
-               <div> Please create a category and items first! </div>
-               <div> 
+               <div className="alert-title"> Please create a category and items first! </div>
+               <div className="alert-button"> 
                  <button onClick={()=> setShowModal(false)}> Confirm</button>
                </div>
 

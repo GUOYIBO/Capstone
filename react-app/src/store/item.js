@@ -2,8 +2,10 @@ const GET_ALL_ITEMS = '/items/getAll'
 const DELETE_ITEM = '/items/deleteItem'
 const UPDATE_ITEM = '/items/updateItem'
 const ADD_ITEM = '/items/addItem'
-const DELETE_ITEM_TYPE = '/items/deleteItemType'
+const DELETE_ITEM_BY_TYPE = '/items/deleteItemByType'
+const BULK_DELETE_ITEMS = '/items/bulkDeleteItems'
 const CLEAR = '/items/CLEAR_STORE'
+
 
 
 
@@ -12,6 +14,7 @@ export const clearAllItems = () =>{
         type: CLEAR
     }
 }
+
 
 const loadAllItems = (payload) =>{
     return {
@@ -45,10 +48,18 @@ const deleteItem = (itemId) =>{
 
 export const deleteAllItemsByType = (itemTypeId) =>{
     return {
-        type: DELETE_ITEM_TYPE,
+        type: DELETE_ITEM_BY_TYPE,
         itemTypeId
     }
 }
+
+export const bulkDeleteItems = (itemIds) =>{
+    return {
+        type: BULK_DELETE_ITEMS,
+        itemIds
+    }
+}
+
 export const getAllItemsThunk = () => async (dispatch) =>{
     console.log("begin fetching all items....")
     try {
@@ -154,13 +165,25 @@ const itemReducer = (state=initialState, action) =>{
             return newState
         
         //TODO more testing
-        case DELETE_ITEM_TYPE:
+        case DELETE_ITEM_BY_TYPE:
             Object.values(newState).forEach(ele =>{
                 if (ele.item_id === action.itemTypeId){
                     delete newState[ele.id]
                 }
             })
             return newState;
+
+        //TODO more testing
+        case BULK_DELETE_ITEMS:
+             action.itemIds.forEach(id =>{
+                Object.values(newState).forEach(ele =>{
+                    if (ele.item_id === id){
+                        delete newState[ele.id]
+                    }
+                })
+             })
+             return newState
+
         case UPDATE_ITEM:
            
             if (newState[action.payload.id]){
